@@ -173,7 +173,7 @@ public class SampleTests extends ProjectBaseTwo {
 	// giving xpath/attribute to select tag from all element list to perform operations
 	
 	public void alertcheck() {
-		
+		// give a alert to website and handle that alert.
 	}
 	
 	public void scrollTillLastElementCheck() {
