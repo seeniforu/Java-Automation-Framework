@@ -10,7 +10,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+
 
 public class ProjectBaseTwo extends ProjectBaseOne {
 	public List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;

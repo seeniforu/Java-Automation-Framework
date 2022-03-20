@@ -17,7 +17,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-import org.testng.annotations.Test;
+
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;

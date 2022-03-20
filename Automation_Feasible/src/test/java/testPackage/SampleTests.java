@@ -11,6 +11,13 @@ import org.testng.annotations.Test;
 import basePackage.MultiBrowser;
 import basePackage.ProjectBaseTwo;
 
+/*
+ * Important things to be noted 
+ * 
+ * Remember to giver driver path, It is not added because size issues.
+ */
+
+
 public class SampleTests extends ProjectBaseTwo {
 
 	public String b2, b1;
