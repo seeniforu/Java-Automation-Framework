@@ -190,5 +190,9 @@ public class SampleTests extends ProjectBaseTwo {
 	public void take_H_tag_text() {
 		// after page landing take all text of H1 to h6 and P tag, Store it in text file or log in extent report.
 	}
+	
+	public void loginPageCheck() {
+		// create a login method two args 1. xpath 2. what we need to send to that field
+	}
 
 }
