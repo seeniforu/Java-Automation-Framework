@@ -192,7 +192,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	public void loginPageCheck() {
-		// create a login method two args 1. xpath 2. what we need to send to that field
+		// create a method for sendkeys two args 1. xpath 2. what we need to send to that field
 	}
 
 }
