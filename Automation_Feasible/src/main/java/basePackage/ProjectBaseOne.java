@@ -84,10 +84,12 @@ public class ProjectBaseOne {
 	}
 
 	public void logFail(String msg) {
+		Screenshot("Fail Screenshot");
 		logger.log(Status.FAIL, msg);
 	}
 
 	public void logFatal(String msg) {
+		Screenshot("Fatal Screenshot");
 		logger.log(Status.FATAL, msg);
 	}
 
@@ -96,6 +98,7 @@ public class ProjectBaseOne {
 	}
 
 	public void logError(String msg) {
+		Screenshot("Error Screenshot");
 		logger.log(Status.ERROR, msg);
 	}
 

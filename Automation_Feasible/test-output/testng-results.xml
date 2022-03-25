@@ -2,16 +2,16 @@
 <testng-results ignored="6" total="7" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-03-20T07:37:17 IST" name="Default suite" finished-at="2022-03-20T07:37:31 IST" duration-ms="14092">
+  <suite started-at="2022-03-23T08:38:39 IST" name="Default suite" finished-at="2022-03-23T08:38:53 IST" duration-ms="14211">
     <groups>
     </groups>
-    <test started-at="2022-03-20T07:37:17 IST" name="Default test" finished-at="2022-03-20T07:37:31 IST" duration-ms="14092">
+    <test started-at="2022-03-23T08:38:39 IST" name="Default test" finished-at="2022-03-23T08:38:53 IST" duration-ms="14211">
       <class name="testPackage.SampleTests">
-        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:testPackage.SampleTests@323b36e0]" started-at="2022-03-20T07:37:17 IST" name="beforeMethod" finished-at="2022-03-20T07:37:17 IST" duration-ms="380" status="PASS">
+        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:testPackage.SampleTests@694abbdc]" started-at="2022-03-23T08:38:39 IST" name="beforeMethod" finished-at="2022-03-23T08:38:39 IST" duration-ms="249" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method signature="sortElementsCheck(java.lang.String)[pri:5, instance:testPackage.SampleTests@323b36e0]" started-at="2022-03-20T07:37:17 IST" name="sortElementsCheck" data-provider="browserDecider" finished-at="2022-03-20T07:37:30 IST" duration-ms="12903" status="PASS">
+        <test-method signature="sortElementsCheck(java.lang.String)[pri:5, instance:testPackage.SampleTests@694abbdc]" started-at="2022-03-23T08:38:39 IST" name="sortElementsCheck" data-provider="browserDecider" finished-at="2022-03-23T08:38:53 IST" duration-ms="13506" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -22,7 +22,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- sortElementsCheck -->
-        <test-method is-config="true" signature="afterMethod()[pri:0, instance:testPackage.SampleTests@323b36e0]" started-at="2022-03-20T07:37:30 IST" name="afterMethod" finished-at="2022-03-20T07:37:31 IST" duration-ms="704" status="PASS">
+        <test-method is-config="true" signature="afterMethod()[pri:0, instance:testPackage.SampleTests@694abbdc]" started-at="2022-03-23T08:38:53 IST" name="afterMethod" finished-at="2022-03-23T08:38:53 IST" duration-ms="392" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->

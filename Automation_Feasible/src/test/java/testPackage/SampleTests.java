@@ -140,6 +140,7 @@ public class SampleTests extends ProjectBaseTwo {
 		openURL();
 		doBasicThingsforNewPage();
 		sortElements("h2");
+		clickUsingClassName("_8esh");
 		quitBrowser(browser);
 		
 		//to sort elements according to tag name passed 

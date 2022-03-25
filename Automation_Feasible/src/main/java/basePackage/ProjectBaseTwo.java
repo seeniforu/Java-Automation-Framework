@@ -11,7 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
-
 public class ProjectBaseTwo extends ProjectBaseOne {
 	public List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;
 	public List<WebElement> h1Tag, h2Tag, h3Tag, h4Tag, h5Tag, h6Tag;
@@ -199,6 +198,23 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
+	public void doBasicThingsforNewPage() {
+		try {
+			getTitle();
+			countAllElements();
+			seperateElements();
+			logCountAllElements();
+			logDetailsOthers();
+			logDetailsHeadingTag();
+		} catch (Exception e) {
+			e.printStackTrace();
+			logError(e.getMessage());
+		}
+	}
+
+	/*
+	 * Below are created on my own methods without using existing methods
+	 */
 	public void goToNextPage(String nxtpage) {
 		for (int i = 0; i < anchorTag.size(); i++) {
 			String nextPageSearch = anchorTag.get(i).getAttribute("href");
@@ -207,14 +223,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				anchorTag.get(i).click();
 				break;
 			}
-		}
-	}
-
-	public void clickElementUsingXpath(String path, String AlternateXpath) {
-		try {
-			driver.findElement(By.xpath(path)).click();
-		} catch (Exception e) {
-			driver.findElement(By.xpath(AlternateXpath)).click();
 		}
 	}
 
@@ -236,7 +244,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		} else {
 //			 If there are more element in a webpage this will sort elements according to tag 
 //			 and find the element using class among the sorted list instead of searching class in all elements.
-			List <WebElement> useTemp = sortElements(tagname);
+			List<WebElement> useTemp = sortElements(tagname);
 			for (int i = 0; i < useTemp.size(); i++) {
 				if (useTemp.get(i).getAttribute("class").contains(ClassOfElement)) {
 					useTemp.get(i).click();
@@ -284,20 +292,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	}
 
-	public void doBasicThingsforNewPage() {
-		try {
-			getTitle();
-			countAllElements();
-			seperateElements();
-			logCountAllElements();
-			logDetailsOthers();
-			logDetailsHeadingTag();
-		} catch (Exception e) {
-			e.printStackTrace();
-			logError(e.getMessage());
-		}
-	}
-
 	public void seperateInput() {
 		for (WebElement webElement : inputTag) {
 			if (webElement.getAttribute("type").equalsIgnoreCase("text")
@@ -305,6 +299,72 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					|| webElement.getAttribute("type").equalsIgnoreCase("number")
 					|| webElement.getAttribute("type").equalsIgnoreCase("email")) {
 				webElement.sendKeys("Hello");
+			}
+		}
+	}
+
+	/*
+	 * Below here are default existing methods If one class or id is failing, It is
+	 * handled with alternate xpath. If that is also failing error message is
+	 * logged.
+	 */
+
+	public void clickElementUsingXpath(String path) {
+		try {
+			driver.findElement(By.xpath(path)).click();
+		} catch (Exception e) {
+			logError(e.getMessage());
+		}
+	}
+
+	public void clickElementUsingXpath(String path, String AlternateXpath) {
+		try {
+			driver.findElement(By.xpath(path)).click();
+		} catch (Exception e) {
+			try {
+				driver.findElement(By.xpath(AlternateXpath)).click();
+			} catch (Exception m) {
+				logError(m.getMessage());
+			}
+		}
+	}
+
+	public void clickUsingClassName(String clsname) {
+		try {
+			driver.findElement(By.className(clsname)).click();
+		} catch (Exception e) {
+			logError(e.getMessage());
+		}
+	}
+
+	public void clickUsingClassName(String clsname, String altxpath) {
+		try {
+			driver.findElement(By.className(clsname)).click();
+		} catch (Exception e) {
+			try {
+				driver.findElement(By.xpath(altxpath)).click();
+			} catch (Exception m) {
+				logError(m.getMessage());
+			}
+		}
+	}
+
+	public void clickUsingId(String id) {
+		try {
+			driver.findElement(By.id(id)).click();
+		} catch (Exception e) {
+			logError(e.getMessage());
+		}
+	}
+
+	public void clickUsingId(String id, String altxpath) {
+		try {
+			driver.findElement(By.id(id)).click();
+		} catch (Exception e) {
+			try {
+				driver.findElement(By.xpath(altxpath)).click();
+			} catch (Exception m) {
+				logError(m.getMessage());
 			}
 		}
 	}
