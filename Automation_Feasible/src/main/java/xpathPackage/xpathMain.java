@@ -1,5 +1,6 @@
 package xpathPackage;
 
 public class xpathMain {
-	int i=0;
+	 
+	public static final String CreateClass = "(//div[@class='_43r'])[1]";
 }

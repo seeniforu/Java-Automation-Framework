@@ -6,8 +6,9 @@
       <class name="testPackage.SampleTests">
         <methods>
           <include name="beforeMethod"/>
+          <include name="afterSuite"/>
           <include name="afterMethod"/>
-          <include name="alertCheck" invocation-numbers="0"/>
+          <include name="ensureURL" invocation-numbers="0"/>
         </methods>
       </class> <!-- testPackage.SampleTests -->
     </classes>

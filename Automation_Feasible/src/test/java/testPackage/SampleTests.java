@@ -2,6 +2,7 @@ package testPackage;
 
 import java.io.IOException;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -10,6 +11,7 @@ import org.testng.annotations.Test;
 
 import basePackage.MultiBrowser;
 import basePackage.ProjectBaseTwo;
+import xpathPackage.xpathMain;
 
 /*
  * Important things to be noted 
@@ -21,7 +23,13 @@ import basePackage.ProjectBaseTwo;
 public class SampleTests extends ProjectBaseTwo {
 
 	public String b2, b1;
-
+	
+	@AfterSuite
+	public void afterSuite() {
+		getResults();
+		openFile();
+	}
+	
 	@BeforeMethod
 	public void beforeMethod() {
 		try {
@@ -162,7 +170,7 @@ public class SampleTests extends ProjectBaseTwo {
 			clickUsingClass("a","_8esh");  // 154 and 155 do same operation
 //			goToNextPage("create/");
 //			doBasicThingsforNewPage();
-			clickElementUsingXpath("(//div[@class='_43r'])[1]","(//div[@class='_43rm'])[1]");  //If one xpath fails It'll try with alternate one.
+			clickElementUsingXpath(xpathMain.CreateClass,"(//div[@class='_43rm'])[1]");  //If one xpath fails It'll try with alternate one.
 //			Thread.sleep(2000);
 //			navigateBack();
 			//clickUsingClass("a","_42ft _4jy0 signup_btn _4jy4 _4jy2 selected _51sy");

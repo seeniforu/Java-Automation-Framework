@@ -1,5 +1,6 @@
 package basePackage;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,7 +18,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
-
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
@@ -52,8 +52,9 @@ public class ProjectBaseOne {
 				htmlReport.config().setTimeStampFormat("MMM dd - yyyy HH:mm:ss");
 
 				extentReport.setSystemInfo("Operating System and Version: ", System.getProperty("os.name"));
-				if(MultiBrowser.Multiple_Browser_YesOrNO != null && MultiBrowser.Multiple_Browser_YesOrNO.equalsIgnoreCase("yes")) {
-				extentReport.setSystemInfo("Browser : ", "MultiBrowser");
+				if (MultiBrowser.Multiple_Browser_YesOrNO != null
+						&& MultiBrowser.Multiple_Browser_YesOrNO.equalsIgnoreCase("yes")) {
+					extentReport.setSystemInfo("Browser : ", "MultiBrowser");
 				} else if (MultiBrowser.Multiple_Browser_YesOrNO.equalsIgnoreCase("no")) {
 					extentReport.setSystemInfo("Browser : ", prop.getProperty("browserName"));
 				}
@@ -84,12 +85,12 @@ public class ProjectBaseOne {
 	}
 
 	public void logFail(String msg) {
-		Screenshot("Fail Screenshot");
+		//Screenshot("Fail Screenshot");
 		logger.log(Status.FAIL, msg);
 	}
 
 	public void logFatal(String msg) {
-		Screenshot("Fatal Screenshot");
+		//Screenshot("Fatal Screenshot");
 		logger.log(Status.FATAL, msg);
 	}
 
@@ -98,12 +99,37 @@ public class ProjectBaseOne {
 	}
 
 	public void logError(String msg) {
-		Screenshot("Error Screenshot");
+		Screenshot("Error Screenshot", driver);
 		logger.log(Status.ERROR, msg);
 	}
 
 	public void logInfo(String info) {
 		logger.log(Status.INFO, info);
+	}
+
+	public void openFile() {
+		try {
+			// constructor of file class having file as argument
+			File file = new File(System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
+			if (!Desktop.isDesktopSupported())// check if Desktop is supported by Platform or not
+			{
+				System.out.println("not supported");
+				return;
+			}
+			Desktop desktop = Desktop.getDesktop();
+			if (file.exists()) // checks file exists or not
+				desktop.open(file); // opens the specified file
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void getResults() {
+		System.out.println("******************************************");
+		System.out.println("Below link to Results, Open in a Browser");
+		System.out.println("******************************************");
+		System.out.println("Results : - "+System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
+		System.out.println("******************************************");
 	}
 
 	// Loading Properties Files
@@ -159,7 +185,7 @@ public class ProjectBaseOne {
 	}
 
 	// This method for naming and creating screenshots
-	public void Screenshot(String Sname) {
+	public void Screenshot(String Sname, WebDriver driver) {
 		String screenShotName = Sname.replaceAll(" ", "_").replaceAll(":", "");
 		TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
 		File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
@@ -169,7 +195,7 @@ public class ProjectBaseOne {
 			logger.addScreenCaptureFromPath(
 					System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png");
 		} catch (Exception e) {
-			e.getMessage();
+			e.printStackTrace();
 		}
 	}
 
@@ -220,7 +246,7 @@ public class ProjectBaseOne {
 	public void navigateBack() {
 		driver.navigate().back();
 	}
-	
+
 	public void refreshPage() {
 		driver.navigate().refresh();
 	}
