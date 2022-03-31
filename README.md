@@ -13,7 +13,7 @@ Creating My own Framework for Automation.
 
 ## Features 
 
-- Any Website can Easily Automated with this Tool.
+- Tool is Independent of Website, Any Website can be Easily Automated with this Tool.
   - Just Give URL in Properties File. 
   - **Fill All the Mandatory Fields in ProjectSettings.properties** file to Modify **URL, Report Name, Broswer to Exceute and Driver Path**.
 - Everything is Logged using Extent report, So When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
