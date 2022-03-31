@@ -19,7 +19,7 @@ Creating My own Framework for Automation.
 - Everything is Logged using Extent report, So When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
 - It has Some of Existing Testcases Which is Common for all websites like, (All are Independent Testcases)
   - Case 1 - It'll Ensure the Given URL is Working or not, by Checking whether it returns Status code (200).
-  - Case 2 - It'll Launch the Given URL and now check for Elements of the page, Count All Elements, Classify According to Tags and Logged to Report.
+  - Case 2 - It'll Launch the Given URL and check for Elements of the page, Count All Elements, Classify According to Tags and Logged to Report.
   - Case 3 - It'll Launch the Given URL and Fetches all Anchor tag contains HREF and Checks Whether All Other Links In Page are Returning Status code (200). Success, Failure With URL Which is Returning Which Code Everything Logged in Report.
   - Case 4 - It'll Launch the Given URL (Once Completely Loaded) Count the No.of elements and Refreshes the Page. Once Refresh is done Again Count the No.of elements and Verify both Count is Equal or not to Know Stability of Page.
   - Case 5 - It'll Launch the Given URL, If Input Field was found in the Page It'll try to pass Some inputs to the Field (Can be Configured with Positive and Negative values) to do a Noraml Input Field Check.
@@ -35,7 +35,7 @@ Creating My own Framework for Automation.
 - It has **Multi-Browser Execution**. All you need to do is Give Driver Path in Project Settings File and 'Yes' in MultiBrowser.java File.
 - It has **Headless Mode** Feature, If enabled in Project Settings File, User cannot see Driver Execution but you'll get all results Once execution is completed. 
 
-## When, Where and Who can be Used
+## When, Where and Who can Use this Tool
 
 - A **Beginner User Friendly Tool** where **Any one** can Automate and **Any Websites** can be Automated.
 - This tool will be helpful for Quick Start. User can quickly write a flow to Test a website.
@@ -45,5 +45,5 @@ Creating My own Framework for Automation.
 
 ### Drawbacks 
 
-
+- If any Errors Notify me Using Issues. Thank you.
 
