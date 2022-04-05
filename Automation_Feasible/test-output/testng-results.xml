@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="6" total="7" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-03-30T07:36:53 IST" name="Default suite" finished-at="2022-03-30T07:37:03 IST" duration-ms="9632">
+  <suite started-at="2022-04-05T09:05:34 IST" name="Default suite" finished-at="2022-04-05T09:06:02 IST" duration-ms="27834">
     <groups>
     </groups>
-    <test started-at="2022-03-30T07:36:53 IST" name="Default test" finished-at="2022-03-30T07:37:03 IST" duration-ms="9632">
-      <class name="testPackage.SampleTests">
-        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:testPackage.SampleTests@359f7cdf]" started-at="2022-03-30T07:36:53 IST" name="beforeMethod" finished-at="2022-03-30T07:36:54 IST" duration-ms="312" status="PASS">
+    <test started-at="2022-04-05T09:05:34 IST" name="Default test" finished-at="2022-04-05T09:06:02 IST" duration-ms="27834">
+      <class name="FacebookTests.FacebookTest">
+        <test-method is-config="true" signature="beforeMethod()[pri:0, instance:FacebookTests.FacebookTest@34a3d150]" started-at="2022-04-05T09:05:34 IST" name="beforeMethod" finished-at="2022-04-05T09:05:35 IST" duration-ms="365" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeMethod -->
-        <test-method signature="ensureURL(java.lang.String)[pri:0, instance:testPackage.SampleTests@359f7cdf]" started-at="2022-03-30T07:36:54 IST" name="ensureURL" data-provider="browserDecider" finished-at="2022-03-30T07:37:02 IST" duration-ms="8614" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[chrome]]>
-              </value>
-            </param>
-          </params>
+        <test-method signature="ensureURL()[pri:0, instance:FacebookTests.FacebookTest@34a3d150]" started-at="2022-04-05T09:05:35 IST" name="ensureURL" finished-at="2022-04-05T09:06:02 IST" duration-ms="27194" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ensureURL -->
-        <test-method is-config="true" signature="afterMethod()[pri:0, instance:testPackage.SampleTests@359f7cdf]" started-at="2022-03-30T07:37:02 IST" name="afterMethod" finished-at="2022-03-30T07:37:03 IST" duration-ms="627" status="PASS">
+        <test-method is-config="true" signature="afterMethod()[pri:0, instance:FacebookTests.FacebookTest@34a3d150]" started-at="2022-04-05T09:06:02 IST" name="afterMethod" finished-at="2022-04-05T09:06:02 IST" duration-ms="187" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterMethod -->
-        <test-method is-config="true" signature="afterSuite()[pri:0, instance:testPackage.SampleTests@359f7cdf]" started-at="2022-03-30T07:37:03 IST" name="afterSuite" finished-at="2022-03-30T07:37:03 IST" duration-ms="319" status="PASS">
+        <test-method is-config="true" signature="afterSuite()[pri:0, instance:FacebookTests.FacebookTest@34a3d150]" started-at="2022-04-05T09:06:02 IST" name="afterSuite" finished-at="2022-04-05T09:06:02 IST" duration-ms="390" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterSuite -->
-      </class> <!-- testPackage.SampleTests -->
+      </class> <!-- FacebookTests.FacebookTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

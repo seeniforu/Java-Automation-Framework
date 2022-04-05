@@ -11,7 +11,8 @@ import org.testng.annotations.Test;
 
 import basePackage.MultiBrowser;
 import basePackage.ProjectBaseTwo;
-import xpathPackage.xpathMain;
+import facebookPagesPackage.locators.xpathMain;
+
 
 /*
  * Important things to be noted 
@@ -23,34 +24,12 @@ import xpathPackage.xpathMain;
 public class SampleTests extends ProjectBaseTwo {
 
 	public String b2, b1;
-	
-	@AfterSuite
-	public void afterSuite() {
-		getResults();
-		openFile();
-	}
-	
-	@BeforeMethod
-	public void beforeMethod() {
-		try {
-			setUp();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	@DataProvider(name = "browserDecider")
 	public String[][] browser() {
 		b1 = MultiBrowser.First_Execution_BrowserName;
 		b2 = MultiBrowser.Second_Execution_BrowserName;
 		return new String[][] { { b2 }, };
-	}
-
-	@AfterMethod
-	public void afterMethod() {
-		// closeBrowser();
-		reportFlush();
 	}
 
 	@Test(priority = 0, dataProvider = "browserDecider")

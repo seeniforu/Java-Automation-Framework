@@ -1,4 +1,4 @@
-package xpathPackage;
+package facebookPagesPackage.locators;
 
 public class xpathMain {
 	 

@@ -3,14 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testPackage.SampleTests">
+      <class name="FacebookTests.FacebookTest">
         <methods>
-          <include name="beforeMethod"/>
           <include name="afterSuite"/>
           <include name="afterMethod"/>
-          <include name="ensureURL" invocation-numbers="0"/>
+          <include name="beforeMethod"/>
+          <include name="ensureURL"/>
         </methods>
-      </class> <!-- testPackage.SampleTests -->
+      </class> <!-- FacebookTests.FacebookTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

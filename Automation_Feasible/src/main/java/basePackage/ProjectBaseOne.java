@@ -99,7 +99,7 @@ public class ProjectBaseOne {
 	}
 
 	public void logError(String msg) {
-		Screenshot("Error Screenshot", driver);
+		//Screenshot("Error Screenshot", driver);
 		logger.log(Status.ERROR, msg);
 	}
 

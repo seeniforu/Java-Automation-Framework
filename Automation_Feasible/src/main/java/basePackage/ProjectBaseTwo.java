@@ -10,6 +10,9 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 
 public class ProjectBaseTwo extends ProjectBaseOne {
 	public List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;
@@ -26,6 +29,20 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				logSkip("Please Provide a URL in Settings");
 			} else {
 				driver.get(prop.getProperty("WebUrl"));
+				int StatusCode = statusCode(driver.getCurrentUrl());
+				logPass("[" + driver.getCurrentUrl() + "]" + " - is Launched - " + "Status code : " + StatusCode);
+			}
+		} catch (Exception e) {
+			logFail(e.getMessage());
+		}
+	}
+	
+	public void openURL(String URL) {
+		try {
+			if (URL.isEmpty()) {
+				logSkip("Please Provide a URL in Settings");
+			} else {
+				driver.get(URL);
 				int StatusCode = statusCode(driver.getCurrentUrl());
 				logPass("[" + driver.getCurrentUrl() + "]" + " - is Launched - " + "Status code : " + StatusCode);
 			}
@@ -368,5 +385,31 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
+	
+	@AfterMethod
+	public void afterMethod() {
+		// closeBrowser();
+		reportFlush();
+	}
+	
+	@AfterSuite
+	public void afterSuite() {
+		getResults();
+		openFile();
+	}
+	
+	public String browser;
+
+	@BeforeMethod
+	public void beforeMethod() {
+		try {
+			setUp();
+			browser = prop.getProperty("browserName");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 }
