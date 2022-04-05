@@ -23,6 +23,12 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	int CodeCount200 = 0, CodeCount404 = 0, CodeCount500 = 0;
 	public List<WebElement> tempElements;
 
+	/*
+	 * There are 2 open URL methods there 
+	 * 1. takes from projectsettings.properties
+	 * 2. user can pass any URL
+	 */
+	
 	public void openURL() {
 		try {
 			if (prop.getProperty("WebUrl").isEmpty()) {
