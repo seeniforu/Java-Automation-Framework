@@ -127,7 +127,7 @@ public class SampleTests extends ProjectBaseTwo {
 		openURL();
 		doBasicThingsforNewPage();
 		sortElements("h2");
-		clickUsingClassName("_8esh");
+		clickUsingClassName("_8esh","Button Clicked");
 		quitBrowser(browser);
 		
 		//to sort elements according to tag name passed 
@@ -167,8 +167,18 @@ public class SampleTests extends ProjectBaseTwo {
 	// add  methods to click on element using attribute 
 	// giving xpath/attribute to select tag from all element list to perform operations
 	
+	@Test
+	public void ClickElements() throws Exception {
+		testName("Clicking Elements Test " + "[" + browser + "]");
+		handleBrowser(browser);
+		openURL();
+		clickElementUsingAttribute("data-testid", "royal_login_button");
+		quitBrowser(browser);
+	}
+	
 	public void alertcheck() {
 		// give a alert to website and handle that alert.
+		clickElementUsingAttribute("data-testid", "royal_login_button");
 	}
 	
 	public void scrollTillLastElementCheck() {

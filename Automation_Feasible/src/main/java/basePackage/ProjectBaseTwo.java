@@ -250,6 +250,56 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	/*
 	 * Below are created on my own methods without using existing methods
 	 */
+	
+	public void clickElementUsingAttribute(String AttributeName, String AttributeValue) {
+		/*
+		 * This method can be used with Class as AttributeName and its value as AttributeValue (or)
+		 * This method can be used with id as AttributeName and its value as AttributeValue (or)
+		 * This method can be used with Any Attribute property as AttributeName and its value as AttributeValue
+		 * Eg : data-testid='royal_login_button'.
+		 */
+		try {
+		String path = "//*[@"+AttributeName+"='"+AttributeValue+"']" + " | "+"//*[contains(@"+AttributeName+",'"+AttributeValue+"')]";
+		driver.findElement(By.xpath(path)).click();
+		}catch (Exception e) {
+			try {
+				String Altpath = "//*[contains(@"+AttributeName+",'"+AttributeValue+"')]";
+				driver.findElement(By.xpath(Altpath)).click();
+				logInfo("Primary Attribute Failed, Alternate Passed");
+			}catch (Exception m) {
+				logInfo("Problem in Method : clickElementsUsingAttribute");
+				logFail(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public void clickElementUsingAttribute(String AttributeName, String AttributeValue, String LogStatement) {
+		/*
+		 * This method can be used with Class as AttributeName and its value as AttributeValue (or)
+		 * This method can be used with id as AttributeName and its value as AttributeValue (or)
+		 * This method can be used with Any Attribute property as AttributeName and its value as AttributeValue
+		 * Eg : data-testid='royal_login_button'.
+		 * Included with Log Statement
+		 */
+		try {
+		String path = "//*[@"+AttributeName+"='"+AttributeValue+"']" + " | "+"//*[contains(@"+AttributeName+",'"+AttributeValue+"')]";
+		driver.findElement(By.xpath(path)).click();
+		logPass(LogStatement);
+		}catch (Exception e) {
+			try {
+				String Altpath = "//*[contains(@"+AttributeName+",'"+AttributeValue+"')]";
+				driver.findElement(By.xpath(Altpath)).click();
+				logInfo("Primary Attribute Failed, Alternate Passed");
+				logPass(LogStatement);
+			}catch (Exception m) {
+				logInfo("Problem in Method : clickElementsUsingAttribute");
+				logFail(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
 	public void goToNextPage(String nxtpage) {
 		try {
 			for (int i = 0; i < anchorTag.size(); i++) {
@@ -330,6 +380,23 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textOfElement;
 	}
+	
+	public String getTextUsingId(String Id) {
+		String textOfElement = null;
+		try {
+			for (int i = 0; i < elements.size(); i++) {
+				if (elements.get(i).getAttribute("Id").contains(Id)) {
+					textOfElement = elements.get(i).getText();
+					break;
+				}
+			}
+		} catch (Exception e) {
+			logFail("Failed Using Method Name : getTextUsingId");
+			e.printStackTrace();
+		}
+		return textOfElement;
+	}
+	
 
 	public List<WebElement> sortElements(String nameoftag) {
 		List<WebElement> temp = new ArrayList<WebElement>();
@@ -370,66 +437,100 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	 * logged.
 	 */
 
-	public void clickElementUsingXpath(String path) {
+	public void clickElementUsingXpath(String path, String LogStatement) {
 		try {
 			driver.findElement(By.xpath(path)).click();
+			logPass(LogStatement);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
-	public void clickElementUsingXpath(String path, String AlternateXpath) {
+	public void clickElementUsingXpath(String path, String AlternateXpath, String LogStatement) {
 		try {
 			driver.findElement(By.xpath(path)).click();
+			logPass(LogStatement);
 		} catch (Exception e) {
 			try {
 				driver.findElement(By.xpath(AlternateXpath)).click();
+				logInfo("Primary Xpath Failed, Alternate Passed");
+				logPass(LogStatement);
 			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
 				logError(m.getMessage());
 				m.printStackTrace();
 			}
 		}
 	}
+	
+	public String getElementTextUsingXpath(String path, String AlternateXpath, String LogStatement) {
+		String textofelement = null;
+		try {
+			textofelement = driver.findElement(By.xpath(path)).getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				textofelement = driver.findElement(By.xpath(AlternateXpath)).getText();
+				logInfo("Primary Xpath Failed, Alternate Passed");
+				logPass(LogStatement);
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return textofelement;
+	}
 
-	public void clickUsingClassName(String clsname) {
+	public void clickUsingClassName(String clsname, String LogStatement) {
 		try {
 			driver.findElement(By.className(clsname)).click();
+			logPass(LogStatement);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
-	public void clickUsingClassName(String clsname, String altxpath) {
+	public void clickUsingClassName(String clsname, String altxpath, String LogStatement) {
 		try {
 			driver.findElement(By.className(clsname)).click();
+			logPass(LogStatement);
 		} catch (Exception e) {
 			try {
 				driver.findElement(By.xpath(altxpath)).click();
+				logInfo("Primary ClassName Failed, Alternate Passed");
+				logPass(LogStatement);
 			} catch (Exception m) {
+				logInfo("Both Primary ClassName , Alternate Failed");
 				logError(m.getMessage());
 				m.printStackTrace();
 			}
 		}
 	}
-
-	public void clickUsingId(String id) {
+	
+	public void clickUsingId(String id, String LogStatement) {
 		try {
 			driver.findElement(By.id(id)).click();
+			logPass(LogStatement);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
-	public void clickUsingId(String id, String altxpath) {
+	public void clickUsingId(String id, String altxpath, String LogStatement) {
 		try {
 			driver.findElement(By.id(id)).click();
+			logPass(LogStatement);
 		} catch (Exception e) {
 			try {
 				driver.findElement(By.xpath(altxpath)).click();
+				logInfo("Primary Id Failed, Alternate Passed");
+				logPass(LogStatement);
 			} catch (Exception m) {
+				logInfo("Both Primary Id , Alternate Failed");
 				logError(m.getMessage());
 				m.printStackTrace();
 			}
