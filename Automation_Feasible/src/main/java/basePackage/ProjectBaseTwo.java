@@ -24,11 +24,10 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	public List<WebElement> tempElements;
 
 	/*
-	 * There are 2 open URL methods there 
-	 * 1. takes from projectsettings.properties
+	 * There are 2 open URL methods there 1. takes from projectsettings.properties
 	 * 2. user can pass any URL
 	 */
-	
+
 	public void openURL() {
 		try {
 			if (prop.getProperty("WebUrl").isEmpty()) {
@@ -40,9 +39,10 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());
+			e.printStackTrace();
 		}
 	}
-	
+
 	public void openURL(String URL) {
 		try {
 			if (URL.isEmpty()) {
@@ -54,14 +54,20 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
 	public int statusCode(String argUrl) throws IOException {
-		URL url = new URL(argUrl);
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.connect();
-		int httpStatusCode = connection.getResponseCode();
+		int httpStatusCode = 0;
+		try {
+			URL url = new URL(argUrl);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.connect();
+			httpStatusCode = connection.getResponseCode();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return httpStatusCode;
 	}
 
@@ -72,12 +78,17 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					+ statusCode(driver.getCurrentUrl()));
 		} catch (Exception e) {
 			logFail(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
 	public int countAllElements() {
-		elements = driver.findElements(By.xpath("//*"));
-		countOfElements = elements.size();
+		try {
+			elements = driver.findElements(By.xpath("//*"));
+			countOfElements = elements.size();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return countOfElements;
 	}
 
@@ -86,6 +97,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			logInfo("The Total Number of Elements Locatable in Given Webpage - " + "[" + countOfElements + "]");
 		} catch (Exception e) {
 			logFail(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -239,61 +251,82 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	 * Below are created on my own methods without using existing methods
 	 */
 	public void goToNextPage(String nxtpage) {
-		for (int i = 0; i < anchorTag.size(); i++) {
-			String nextPageSearch = anchorTag.get(i).getAttribute("href");
-			if (nextPageSearch.contains(nxtpage)) {
-				logPass("--------------- After Navigation --------------");
-				anchorTag.get(i).click();
-				break;
-			}
-		}
-	}
-
-	public void clickUsingClass(String tagname, String ClassOfElement) {
-		if (tagname.equalsIgnoreCase("a")) {
+		try {
 			for (int i = 0; i < anchorTag.size(); i++) {
-				if (anchorTag.get(i).getAttribute("class").contains(ClassOfElement)) {
+				String nextPageSearch = anchorTag.get(i).getAttribute("href");
+				if (nextPageSearch.contains(nxtpage)) {
+					logPass("--------------- After Navigation --------------");
 					anchorTag.get(i).click();
 					break;
 				}
 			}
-		} else if (tagname.equalsIgnoreCase("button")) {
-			for (int i = 0; i < buttonTag.size(); i++) {
-				if (buttonTag.get(i).getAttribute("class").contains(ClassOfElement)) {
-					buttonTag.get(i).click();
-					break;
+		} catch (Exception e) {
+			logFail("Navigation Failed - Method Name : goToNextPage");
+			e.printStackTrace();
+		}
+	}
+
+	public void clickUsingClass(String tagname, String ClassOfElement) {
+		try {
+			if (tagname.equalsIgnoreCase("a")) {
+				for (int i = 0; i < anchorTag.size(); i++) {
+					if (anchorTag.get(i).getAttribute("class").contains(ClassOfElement)) {
+						anchorTag.get(i).click();
+						break;
+					}
 				}
-			}
-		} else {
+			} else if (tagname.equalsIgnoreCase("button")) {
+				for (int i = 0; i < buttonTag.size(); i++) {
+					if (buttonTag.get(i).getAttribute("class").contains(ClassOfElement)) {
+						buttonTag.get(i).click();
+						break;
+					}
+				}
+			} else {
 //			 If there are more element in a webpage this will sort elements according to tag 
 //			 and find the element using class among the sorted list instead of searching class in all elements.
-			List<WebElement> useTemp = sortElements(tagname);
-			for (int i = 0; i < useTemp.size(); i++) {
-				if (useTemp.get(i).getAttribute("class").contains(ClassOfElement)) {
-					useTemp.get(i).click();
-					break;
+				List<WebElement> useTemp = sortElements(tagname);
+				for (int i = 0; i < useTemp.size(); i++) {
+					if (useTemp.get(i).getAttribute("class").contains(ClassOfElement)) {
+						useTemp.get(i).click();
+						break;
+					}
 				}
 			}
+		} catch (Exception e) {
+			logFail("Failed Using Method Name : clickUsingClass");
+			e.printStackTrace();
+			quitBrowser(browser);
 		}
 
 	}
 
 	public void clickUsingID(String Id) {
-		for (int i = 0; i < elements.size(); i++) {
-			if (elements.get(i).getAttribute("id").contains(Id)) {
-				elements.get(i).click();
-				break;
+		try {
+			for (int i = 0; i < elements.size(); i++) {
+				if (elements.get(i).getAttribute("id").contains(Id)) {
+					elements.get(i).click();
+					break;
+				}
 			}
+		} catch (Exception e) {
+			logFail("Failed Using Method Name : clickUsingID");
+			e.printStackTrace();
 		}
 	}
 
 	public String getTextUsingClass(String ClassOfElement) {
 		String textOfElement = null;
-		for (int i = 0; i < elements.size(); i++) {
-			if (elements.get(i).getAttribute("class").contains(ClassOfElement)) {
-				textOfElement = elements.get(i).getText();
-				break;
+		try {
+			for (int i = 0; i < elements.size(); i++) {
+				if (elements.get(i).getAttribute("class").contains(ClassOfElement)) {
+					textOfElement = elements.get(i).getText();
+					break;
+				}
 			}
+		} catch (Exception e) {
+			logFail("Failed Using Method Name : getTextUsingClass");
+			e.printStackTrace();
 		}
 		return textOfElement;
 	}
@@ -308,14 +341,15 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 			System.out.println(temp.size());
 		} catch (Exception e) {
-			logFatal("Problem in sorting elements");
-			System.out.println("Problem in sorting elements");
+			logFail("Problem in sorting elements - Method name : sortElements");
+			e.printStackTrace();
 		}
 		return temp;
 
 	}
 
 	public void seperateInput() {
+		try {
 		for (WebElement webElement : inputTag) {
 			if (webElement.getAttribute("type").equalsIgnoreCase("text")
 					|| webElement.getAttribute("type").equalsIgnoreCase("password")
@@ -323,6 +357,10 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					|| webElement.getAttribute("type").equalsIgnoreCase("email")) {
 				webElement.sendKeys("Hello");
 			}
+		}
+		}catch(Exception e) {
+			logFail("Method name : sortElements");
+			e.printStackTrace();
 		}
 	}
 
@@ -337,6 +375,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			driver.findElement(By.xpath(path)).click();
 		} catch (Exception e) {
 			logError(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -348,6 +387,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				driver.findElement(By.xpath(AlternateXpath)).click();
 			} catch (Exception m) {
 				logError(m.getMessage());
+				m.printStackTrace();
 			}
 		}
 	}
@@ -357,6 +397,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			driver.findElement(By.className(clsname)).click();
 		} catch (Exception e) {
 			logError(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -368,6 +409,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				driver.findElement(By.xpath(altxpath)).click();
 			} catch (Exception m) {
 				logError(m.getMessage());
+				m.printStackTrace();
 			}
 		}
 	}
@@ -377,6 +419,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			driver.findElement(By.id(id)).click();
 		} catch (Exception e) {
 			logError(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
@@ -388,22 +431,23 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				driver.findElement(By.xpath(altxpath)).click();
 			} catch (Exception m) {
 				logError(m.getMessage());
+				m.printStackTrace();
 			}
 		}
 	}
-	
+
 	@AfterMethod
 	public void afterMethod() {
 		// closeBrowser();
 		reportFlush();
 	}
-	
+
 	@AfterSuite
 	public void afterSuite() {
 		getResults();
 		openFile();
 	}
-	
+
 	public String browser;
 
 	@BeforeMethod
@@ -416,6 +460,5 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			e.printStackTrace();
 		}
 	}
-	
 
 }

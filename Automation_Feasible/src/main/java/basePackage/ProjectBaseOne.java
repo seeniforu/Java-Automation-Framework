@@ -22,6 +22,7 @@ import org.openqa.selenium.safari.SafariDriver;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 
@@ -30,7 +31,6 @@ public class ProjectBaseOne {
 	WebDriver driver;
 	public static Properties prop;
 	String browserName;
-
 	public ExtentReports report;
 	public ExtentTest logger;
 	public static ExtentReports extentReport;
@@ -85,7 +85,7 @@ public class ProjectBaseOne {
 	}
 
 	public void logFail(String msg) {
-		//Screenshot("Fail Screenshot");
+		Screenshot("Fail msg");
 		logger.log(Status.FAIL, msg);
 	}
 
@@ -99,7 +99,7 @@ public class ProjectBaseOne {
 	}
 
 	public void logError(String msg) {
-		//Screenshot("Error Screenshot", driver);
+		Screenshot("Error msg");
 		logger.log(Status.ERROR, msg);
 	}
 
@@ -185,7 +185,7 @@ public class ProjectBaseOne {
 	}
 
 	// This method for naming and creating screenshots
-	public void Screenshot(String Sname, WebDriver driver) {
+	public String Screenshot(String Sname) {
 		String screenShotName = Sname.replaceAll(" ", "_").replaceAll(":", "");
 		TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
 		File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
@@ -197,6 +197,7 @@ public class ProjectBaseOne {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png";
 	}
 
 	public void setUp() throws IOException {
@@ -220,7 +221,7 @@ public class ProjectBaseOne {
 						|| prop.getProperty("Firefox").isEmpty() || prop.getProperty("Safari").isEmpty()) {
 					System.out.println(
 							"Chrome | Firefox | Edge | Safari - One or More Driver Path is Missing in Settings");
-					logError("Chrome | Firefox | Edge | Safari - One or More Driver Path is Missing in Settings");
+					logWarning("Chrome | Firefox | Edge | Safari - One or More Driver Path is Missing in Settings");
 					logWarning("Execution in Different Browsers is not supported until all Driver Path is Given");
 				}
 				reportFlush();
