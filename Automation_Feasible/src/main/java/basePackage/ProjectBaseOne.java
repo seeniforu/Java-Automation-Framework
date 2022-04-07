@@ -161,7 +161,7 @@ public class ProjectBaseOne {
 			else if (browserName.equalsIgnoreCase("Firefox")) {
 				System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
 				driver = new FirefoxDriver();
-				logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser is Launched");
+				logPass(browser.toUpperCase() + " " + "Browser is Launched");
 			}
 			// To verify through edge browser
 			else if (browser.equalsIgnoreCase("Edge")) {
@@ -210,7 +210,7 @@ public class ProjectBaseOne {
 			if (prop.getProperty("ReportName").isEmpty() || prop.getProperty("browserName").isEmpty()
 					|| prop.getProperty("Chrome").isEmpty() || prop.getProperty("Edge").isEmpty()
 					|| prop.getProperty("Firefox").isEmpty() || prop.getProperty("Safari").isEmpty()) {
-				testName("Error or Warnings to be Noted");
+				testName("Warnings and Test Properties to be Noted");
 
 				if (prop.getProperty("browserName").isEmpty()) {
 					System.out.println("Please Enter a Browser Name in Settings");
@@ -224,6 +224,8 @@ public class ProjectBaseOne {
 					logWarning("Chrome | Firefox | Edge | Safari - One or More Driver Path is Missing in Settings");
 					logWarning("Execution in Different Browsers is not supported until all Driver Path is Given");
 				}
+				logInfo("Page Load Time is : "+prop.getProperty("PageLoadTime"));
+				logInfo("Implicit Wait Time is : "+prop.getProperty("ImplicitWait"));
 				reportFlush();
 			}
 		} catch (Exception e) {
@@ -232,11 +234,15 @@ public class ProjectBaseOne {
 	}
 
 	public void pageLoad() {
-		driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
+		String Sec = prop.getProperty("ImplicitWait");
+		int Seconds = Integer.parseInt(Sec);  
+		driver.manage().timeouts().pageLoadTimeout(Seconds, TimeUnit.SECONDS);
 	}
 
 	public void implicitWait() {
-		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+		String Sec = prop.getProperty("ImplicitWait");
+		int Seconds = Integer.parseInt(Sec);  
+		driver.manage().timeouts().implicitlyWait(Seconds, TimeUnit.SECONDS);
 	}
 
 	// To maximize the window
