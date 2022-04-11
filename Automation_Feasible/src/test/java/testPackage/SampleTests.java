@@ -1,6 +1,9 @@
 package testPackage;
 
 import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -20,6 +23,15 @@ import facebookPagesPackage.locators.xpathMain;
  * Remember to giver driver path, It is not added because size issues.
  */
 
+/*
+ * Things to be Done:
+ * 
+ * Add and complete Highlight wherever possible.
+ * Add Multiple Tab handling.
+ * Add Methods for linktext, partial link text.
+ * Add Comments to all Existing Testcases.
+ */
+
 
 public class SampleTests extends ProjectBaseTwo {
 
@@ -31,16 +43,29 @@ public class SampleTests extends ProjectBaseTwo {
 		b2 = MultiBrowser.Second_Execution_BrowserName;
 		return new String[][] { { b2 }, };
 	}
+	
+	
+	/*
+	 * Below Testcase Execution order
+	 * TestName is to Identity Uniquely in the Report.
+	 * 1. Warning and Properties are Logged Using warnings() Method. If User Need this can add to any Testcases.
+	 * 2. Handle Browser used to Pass Name of the Browser to Execute.
+	 * 3. openURL - User can pass any URL or can give it in the Project Settings.
+	 * 4. quitbrowser Helps us to Quit the Browser.
+	 * 
+	 * Purpose : To Ensure the Given URL is Launching Or Not and Returning 200 Status Code to verify URL Responds Correctly.
+	 * 
+	 * Can be Improved With : 
+	 * add screenshot to capture website is launched. Whenever new navigation to next page capture and add to test step.
+	 */
 
 	@Test(priority = 0, dataProvider = "browserDecider")
 	public void ensureURL(String browser) throws Exception {
 		warnings();
 		testName("Ensure URL Working " + "[" + browser + "]");
-		handleBrowser(browser); // firefox browser method needs to be changed.
-		openURL(); // change to - getCurrentUrl after launching
+		handleBrowser(browser); 
+		openURL();
 		quitBrowser(browser);
-		// if possible get status code 200 to verify and add screenshot to capture
-		// website is launched. Whenever new navigation to next page capture and add to test step.
 	}
 
 	@Test(priority = 1, dataProvider = "browserDecider")
@@ -68,16 +93,6 @@ public class SampleTests extends ProjectBaseTwo {
 		countAllElements();
 		seperateElements();
 		performOperationOnAnchor();
-		/*
-		 * if possible with all href links go to headless mode or whatever check those
-		 * links are working or returning 200 status code URL url = new
-		 * URL("http://www.stackoverflow.com"); HttpURLConnection connection =
-		 * (HttpURLConnection)url.openConnection(); connection.connect();
-		 * 
-		 * int httpStatusCode = connection.getResponseCode(); //200, 404 etc. check
-		 * https://stackoverflow.com/questions/15252351/checking-the-status-of-a-web-
-		 * page https://www.baeldung.com/java-check-url-exists
-		 */
 		quitBrowser(browser);
 	}
 
@@ -98,8 +113,6 @@ public class SampleTests extends ProjectBaseTwo {
 					+ "] is not Equal with No.of Elements when Launched -[" + beforeRefresh + "]");
 		}
 		quitBrowser(browser);
-		// log page loads details in report
-		// add page loads, wait seconds in project settings so user can decide seconds
 	}
 
 	@Test(priority = 4, dataProvider = "browserDecider")
@@ -120,24 +133,15 @@ public class SampleTests extends ProjectBaseTwo {
 	
 	@Test(priority = 5, dataProvider = "browserDecider")
 	public void sortElementsCheck(String browser) throws Exception {
-		// with javascript executor scroll down page
-		// pass alerts
 		testName("Sort Elements Check " + "[" + browser + "]");
 		handleBrowser(browser);
 		openURL();
 		doBasicThingsforNewPage();
 		sortElements("h2");
+		highLighterMethod(driver.findElement(By.id("email")));
 		clickUsingClassName("_8esh","Button Clicked");
 		quitBrowser(browser);
-		
-		//to sort elements according to tag name passed 
-		//for to reduce the time seacrhing for matching class in all elements.
 	}
-
-	// add button clicks
-	// try to redirect to another page and come backward to the same page where it
-	// is started.
-	// use both forward and backward
 
 	@Test(priority = 5, dataProvider = "browserDecider")
 	public void navigate(String browser) throws Exception {
@@ -146,14 +150,11 @@ public class SampleTests extends ProjectBaseTwo {
 			handleBrowser(browser);
 			openURL();
 			doBasicThingsforNewPage();
-			clickUsingClass("a","_8esh");  // 154 and 155 do same operation
-//			goToNextPage("create/");
-//			doBasicThingsforNewPage();
-			clickElementUsingXpath(xpathMain.CreateClass,"(//div[@class='_43rm'])[1]");  //If one xpath fails It'll try with alternate one.
-//			Thread.sleep(2000);
-//			navigateBack();
-			//clickUsingClass("a","_42ft _4jy0 signup_btn _4jy4 _4jy2 selected _51sy");
-			Thread.sleep(2000);
+			//clickUsingClass("a","_8esh");  // 154 and 155 do same operation
+			goToNextPage("create/");
+			doBasicThingsforNewPage();
+			clickElementUsingXpath(xpathMain.CreateClass,"Element is Clicked"); 
+			navigateBack();
 		} catch (Exception e) {
 			logError(e.getMessage());
 		} finally {
@@ -161,18 +162,14 @@ public class SampleTests extends ProjectBaseTwo {
 		}
 	}
 	
-	// try classname, linktext, partial link text.
-	// Create xpath page to store all xpaths
-	
-	// add  methods to click on element using attribute 
-	// giving xpath/attribute to select tag from all element list to perform operations
 	
 	@Test
 	public void ClickElements() throws Exception {
 		testName("Clicking Elements Test " + "[" + browser + "]");
 		handleBrowser(browser);
 		openURL();
-		clickElementUsingAttribute("data-testid", "royal_login_button");
+		clickElementUsingAttribute("data-testid", "royal_login_button");		//Click he element of given attribute or id or class.
+		GetElementUsingAttribute("data-testid", "royal_login_button");        // Returns the element of given attribute or id or class.
 		quitBrowser(browser);
 	}
 	
@@ -193,13 +190,5 @@ public class SampleTests extends ProjectBaseTwo {
 		// create a method for sendkeys two args 1. xpath 2. what we need to send to that field
 	}
 	
-	/*
-	 * Issues : 
-	 * Safari Is not Tested. Don't know will work or not.
-	 * opera has some issues in headless mode and it is also not tested both UI and Headless Execution. It needs different selenium version to updated in POM.
-	 * HtmlUnitDriver also has some issues. Execution is improper. Not working
-	 * phantomJs driver Pom needs to be updated with jar file. not working.
-	 * Edge need to be updated with headless and incognito.
-	 */
 
 }

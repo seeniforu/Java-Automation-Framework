@@ -33,7 +33,7 @@ import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 
 public class ProjectBaseOne {
 
-	WebDriver driver;
+	public WebDriver driver;
 	public static Properties prop;
 	String browserName;
 	public ExtentReports report;
@@ -331,6 +331,10 @@ public class ProjectBaseOne {
 	// To maximize the window
 	public void maximizeWindow() {
 		driver.manage().window().maximize();
+	}
+	
+	public void navigateForward() {
+		driver.navigate().forward();
 	}
 
 	public void navigateBack() {

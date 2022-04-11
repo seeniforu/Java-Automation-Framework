@@ -250,49 +250,52 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	/*
 	 * Below are created on my own methods without using existing methods
 	 */
-	
+
 	public void clickElementUsingAttribute(String AttributeName, String AttributeValue) {
 		/*
-		 * This method can be used with Class as AttributeName and its value as AttributeValue (or)
-		 * This method can be used with id as AttributeName and its value as AttributeValue (or)
-		 * This method can be used with Any Attribute property as AttributeName and its value as AttributeValue
-		 * Eg : data-testid='royal_login_button'.
+		 * This method can be used with Class as AttributeName and its value as
+		 * AttributeValue (or) This method can be used with id as AttributeName and its
+		 * value as AttributeValue (or) This method can be used with Any Attribute
+		 * property as AttributeName and its value as AttributeValue Eg :
+		 * data-testid='royal_login_button'.
 		 */
 		try {
-		String path = "//*[@"+AttributeName+"='"+AttributeValue+"']" + " | "+"//*[contains(@"+AttributeName+",'"+AttributeValue+"')]";
-		driver.findElement(By.xpath(path)).click();
-		}catch (Exception e) {
+			String path = "//*[@" + AttributeName + "='" + AttributeValue + "']" + " | " + "//*[contains(@"
+					+ AttributeName + ",'" + AttributeValue + "')]";
+			driver.findElement(By.xpath(path)).click();
+		} catch (Exception e) {
 			try {
-				String Altpath = "//*[contains(@"+AttributeName+",'"+AttributeValue+"')]";
+				String Altpath = "//*[contains(@" + AttributeName + ",'" + AttributeValue + "')]";
 				driver.findElement(By.xpath(Altpath)).click();
 				logInfo("Primary Attribute Failed, Alternate Passed");
-			}catch (Exception m) {
+			} catch (Exception m) {
 				logInfo("Problem in Method : clickElementsUsingAttribute");
 				logFail(m.getMessage());
 				m.printStackTrace();
 			}
 		}
 	}
-	
+
 	public void clickElementUsingAttribute(String AttributeName, String AttributeValue, String LogStatement) {
 		/*
-		 * This method can be used with Class as AttributeName and its value as AttributeValue (or)
-		 * This method can be used with id as AttributeName and its value as AttributeValue (or)
-		 * This method can be used with Any Attribute property as AttributeName and its value as AttributeValue
-		 * Eg : data-testid='royal_login_button'.
-		 * Included with Log Statement
+		 * This method can be used with Class as AttributeName and its value as
+		 * AttributeValue (or) This method can be used with id as AttributeName and its
+		 * value as AttributeValue (or) This method can be used with Any Attribute
+		 * property as AttributeName and its value as AttributeValue Eg :
+		 * data-testid='royal_login_button'. Included with Log Statement
 		 */
 		try {
-		String path = "//*[@"+AttributeName+"='"+AttributeValue+"']" + " | "+"//*[contains(@"+AttributeName+",'"+AttributeValue+"')]";
-		driver.findElement(By.xpath(path)).click();
-		logPass(LogStatement);
-		}catch (Exception e) {
+			String path = "//*[@" + AttributeName + "='" + AttributeValue + "']" + " | " + "//*[contains(@"
+					+ AttributeName + ",'" + AttributeValue + "')]";
+			driver.findElement(By.xpath(path)).click();
+			logPass(LogStatement);
+		} catch (Exception e) {
 			try {
-				String Altpath = "//*[contains(@"+AttributeName+",'"+AttributeValue+"')]";
+				String Altpath = "//*[contains(@" + AttributeName + ",'" + AttributeValue + "')]";
 				driver.findElement(By.xpath(Altpath)).click();
 				logInfo("Primary Attribute Failed, Alternate Passed");
 				logPass(LogStatement);
-			}catch (Exception m) {
+			} catch (Exception m) {
 				logInfo("Problem in Method : clickElementsUsingAttribute");
 				logFail(m.getMessage());
 				m.printStackTrace();
@@ -300,6 +303,29 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 	
+	public WebElement GetElementUsingAttribute(String AttributeName, String AttributeValue) {
+		/*
+		 *
+		 */
+		WebElement TempElement = null;
+		try {
+			String path = "//*[@" + AttributeName + "='" + AttributeValue + "']" + " | " + "//*[contains(@"
+					+ AttributeName + ",'" + AttributeValue + "')]";
+			TempElement = driver.findElement(By.xpath(path));
+		} catch (Exception e) {
+			try {
+				String Altpath = "//*[contains(@" + AttributeName + ",'" + AttributeValue + "')]";
+				TempElement = driver.findElement(By.xpath(Altpath));
+			} catch (Exception m) {
+				logInfo("Problem in Method : GetElementUsingAttribute");
+				logFail(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return TempElement;
+	}
+	
+
 	public void goToNextPage(String nxtpage) {
 		try {
 			for (int i = 0; i < anchorTag.size(); i++) {
@@ -380,7 +406,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textOfElement;
 	}
-	
+
 	public String getTextUsingId(String Id) {
 		String textOfElement = null;
 		try {
@@ -396,7 +422,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textOfElement;
 	}
-	
 
 	public List<WebElement> sortElements(String nameoftag) {
 		List<WebElement> temp = new ArrayList<WebElement>();
@@ -417,15 +442,15 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	public void seperateInput() {
 		try {
-		for (WebElement webElement : inputTag) {
-			if (webElement.getAttribute("type").equalsIgnoreCase("text")
-					|| webElement.getAttribute("type").equalsIgnoreCase("password")
-					|| webElement.getAttribute("type").equalsIgnoreCase("number")
-					|| webElement.getAttribute("type").equalsIgnoreCase("email")) {
-				webElement.sendKeys("Hello");
+			for (WebElement webElement : inputTag) {
+				if (webElement.getAttribute("type").equalsIgnoreCase("text")
+						|| webElement.getAttribute("type").equalsIgnoreCase("password")
+						|| webElement.getAttribute("type").equalsIgnoreCase("number")
+						|| webElement.getAttribute("type").equalsIgnoreCase("email")) {
+					webElement.sendKeys("Hello");
+				}
 			}
-		}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logFail("Method name : sortElements");
 			e.printStackTrace();
 		}
@@ -463,7 +488,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-	
+
 	public String getElementTextUsingXpath(String path, String AlternateXpath, String LogStatement) {
 		String textofelement = null;
 		try {
@@ -482,10 +507,17 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textofelement;
 	}
+	
+	public void highLighterMethod(WebElement element) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
+	}
 
 	public void clickUsingClassName(String clsname, String LogStatement) {
 		try {
-			driver.findElement(By.className(clsname)).click();
+			WebElement element = driver.findElement(By.className(clsname));
+			highLighterMethod(element);
+			element.click();
 			logPass(LogStatement);
 		} catch (Exception e) {
 			logError(e.getMessage());
@@ -509,7 +541,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-	
+
 	public void clickUsingId(String id, String LogStatement) {
 		try {
 			driver.findElement(By.id(id)).click();
