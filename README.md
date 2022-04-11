@@ -11,6 +11,12 @@ Creating My own Framework for Automation.
   Any Website on Internet can be Automated
 </h3>
 
+## Requirements
+
+- Eclipse is Advisable to Clone or Import this project.
+- Basic Java and Selenium Knowledge.
+- Knowledge about this Tool and How it Works.
+
 ## Features 
 
 - Tool is Independent of Website, Any Website can be Easily Automated with this Tool.
@@ -32,8 +38,9 @@ Creating My own Framework for Automation.
 - It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
   - These have Arguments like Primary Id or Classname. The method is Configured in a way, If Primary Fails It'll try to access the element using Alternate Xpath.
   - Xpaths, Classname, id are Seperated for Easy Maintenance.
-- It has **Multi-Browser Execution**. All you need to do is Give Driver Path in Project Settings File and 'Yes' in MultiBrowser.java File.
+- It has **Multi-Browser Execution**. All you need to do is Give Driver Path and Name of the Browser User want to Execute in Project Settings File.
 - It has **Headless Mode** Feature, If enabled in Project Settings File, User cannot see Driver Execution but you'll get all results Once execution is completed. 
+- User Can Run Test in **Incognito Mode** by Enabling It in Project Settings File.
 
 ## When, Where and Who can Use this Tool
 
@@ -46,4 +53,12 @@ Creating My own Framework for Automation.
 ### Drawbacks 
 
 - If any Errors Notify me Using Issues. Thank you.
+
+### Issues Need to be Resolved
+
+* Safari Is not Tested. Don't know will work or not.
+* opera has some issues in headless mode and it is also not tested both UI and Headless Execution. It needs different selenium version to updated in POM.
+* HtmlUnitDriver also has some issues. Execution is improper. Not working
+* phantomJs driver Pom needs to be updated with jar file. Not working.
+* Edge need to be updated with headless and incognito.
 
