@@ -17,7 +17,7 @@ public class FacebookTest extends FacebookPages {
 		warnings();
 		testName("Ensure URL Working " + "[" + browser + "]");
 		handleBrowser(browser); 
-		openURL("https://www.hackerearth.com");
+		openURL();
 		basicThingsForHomepage();
 		quitBrowser(browser);
 	}

@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -14,8 +13,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.opera.OperaOptions;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
@@ -85,12 +90,12 @@ public class ProjectBaseOne {
 	}
 
 	public void logFail(String msg) {
-		Screenshot("Fail msg");
+		// Screenshot("Fail msg");
 		logger.log(Status.FAIL, msg);
 	}
 
 	public void logFatal(String msg) {
-		//Screenshot("Fatal Screenshot");
+		// Screenshot("Fatal Screenshot");
 		logger.log(Status.FATAL, msg);
 	}
 
@@ -123,12 +128,13 @@ public class ProjectBaseOne {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void getResults() {
 		System.out.println("******************************************");
 		System.out.println("Below link to Results, Open in a Browser");
 		System.out.println("******************************************");
-		System.out.println("Results : - "+System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
+		System.out.println(
+				"Results : - " + System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
 		System.out.println("******************************************");
 	}
 
@@ -145,36 +151,111 @@ public class ProjectBaseOne {
 			// To verify through chrome browser
 			browserName = prop.getProperty("browserName");
 			if (browser.equalsIgnoreCase("Chrome")) {
-				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+				if(prop.getProperty("Headless").equalsIgnoreCase("Yes") && prop.getProperty("Incognito").equalsIgnoreCase("Yes")){
 					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
 					ChromeOptions options = new ChromeOptions();
+					options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); 
+					options.addArguments("--headless","--incognito");
+					driver = new ChromeDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode" + " + Incognito Mode");
+				}else if(prop.getProperty("Headless").equalsIgnoreCase("Yes") && prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); 
 					options.addArguments("--headless");
 					driver = new ChromeDriver(options);
 					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode");
-				} else {
+				}else if(prop.getProperty("Headless").equalsIgnoreCase("No") && prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
 					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
-					driver = new ChromeDriver();
+					ChromeOptions options = new ChromeOptions();
+					options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); 
+					options.addArguments("--incognito");
+					driver = new ChromeDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				}else if(prop.getProperty("Headless").equalsIgnoreCase("No") && prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); 
+					driver = new ChromeDriver(options);
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}else {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); 
+					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
 				}
 			}
 			// To verify through firefox browser
 			else if (browserName.equalsIgnoreCase("Firefox")) {
-				System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
-				driver = new FirefoxDriver();
-				logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				if (prop.getProperty("Headless").equalsIgnoreCase("Yes") && prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					options.addArguments("--headless","--incognito");
+					driver = new FirefoxDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode" + " + Incognito Mode");
+				} else if(prop.getProperty("Headless").equalsIgnoreCase("Yes") && prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					options.addArguments("--headless");
+					driver = new FirefoxDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode");
+				}else if(prop.getProperty("Headless").equalsIgnoreCase("No") && prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					options.addArguments("--incognito","--disable-infobar");
+					driver = new FirefoxDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				} else if(prop.getProperty("Headless").equalsIgnoreCase("No") && prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					driver = new FirefoxDriver();
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}else {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					driver = new FirefoxDriver();
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}
 			}
 			// To verify through edge browser
 			else if (browser.equalsIgnoreCase("Edge")) {
-				System.setProperty("webdriver.edge.driver", prop.getProperty("Edge"));
-				driver = new EdgeDriver();
-				logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.edge.driver", prop.getProperty("Edge"));
+					 //Initialize the EdgeOptions class
+			        EdgeOptions edgeOptions =new EdgeOptions();
+			        //edgeOptions.addArguments("headless");
+			        driver= new EdgeDriver(edgeOptions);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode");
+				} else {
+					System.setProperty("webdriver.edge.driver", prop.getProperty("Edge"));
+					driver = new EdgeDriver();
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}
 			} else if (browserName.equalsIgnoreCase("Safari")) {
 				if (System.getProperty("os.version").contains("Mac")) {
 					driver = new SafariDriver();
 					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser is Launched");
 				} else {
-					logFail("The Selected Browser Execution is Safari not Found in this Machine");
+					logFail("Previously SafariDriver was supporting safari browser on Windows machine but recently Apple has decided to remove its support for windows and then execution on safari has become the job of Mac machine. So for the same, we need mac machine where safari browser should be installed.");
 				}
+			}else if (browserName.equalsIgnoreCase("Opera")) {
+				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.opera.driver", prop.getProperty("Opera"));
+					OperaOptions options = new OperaOptions();
+					options.addArguments("--headless");
+					driver = new OperaDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode");
+				} else {
+					System.setProperty("webdriver.opera.driver", prop.getProperty("Opera"));
+					driver = new OperaDriver();
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}
+			}
+			else if (browserName.equalsIgnoreCase("HTMLUnitDriver")) {
+				driver = new HtmlUnitDriver();
+				}
+			else if(browserName.equalsIgnoreCase("PhantomJS")) {
+				 System.setProperty("phantomjs.binary.path", prop.getProperty("PhantomJS"));		
+				 driver = new PhantomJSDriver();	
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());
@@ -210,7 +291,7 @@ public class ProjectBaseOne {
 			if (prop.getProperty("ReportName").isEmpty() || prop.getProperty("browserName").isEmpty()
 					|| prop.getProperty("Chrome").isEmpty() || prop.getProperty("Edge").isEmpty()
 					|| prop.getProperty("Firefox").isEmpty() || prop.getProperty("Safari").isEmpty()) {
-				testName("Warnings and Test Properties to be Noted");
+				testName("Test Properties and Warnings to be Noted");
 
 				if (prop.getProperty("browserName").isEmpty()) {
 					System.out.println("Please Enter a Browser Name in Settings");
@@ -224,8 +305,10 @@ public class ProjectBaseOne {
 					logWarning("Chrome | Firefox | Edge | Safari - One or More Driver Path is Missing in Settings");
 					logWarning("Execution in Different Browsers is not supported until all Driver Path is Given");
 				}
-				logInfo("Page Load Time is : "+prop.getProperty("PageLoadTime"));
-				logInfo("Implicit Wait Time is : "+prop.getProperty("ImplicitWait"));
+				logInfo("Headless Mode : "+prop.getProperty("Headless"));
+				logInfo("Incognito Mode : "+prop.getProperty("Incognito"));
+				logInfo("Page Load Time is : " + prop.getProperty("PageLoadTime"));
+				logInfo("Implicit Wait Time is : " + prop.getProperty("ImplicitWait"));
 				reportFlush();
 			}
 		} catch (Exception e) {
@@ -235,13 +318,13 @@ public class ProjectBaseOne {
 
 	public void pageLoad() {
 		String Sec = prop.getProperty("ImplicitWait");
-		int Seconds = Integer.parseInt(Sec);  
+		int Seconds = Integer.parseInt(Sec);
 		driver.manage().timeouts().pageLoadTimeout(Seconds, TimeUnit.SECONDS);
 	}
 
 	public void implicitWait() {
 		String Sec = prop.getProperty("ImplicitWait");
-		int Seconds = Integer.parseInt(Sec);  
+		int Seconds = Integer.parseInt(Sec);
 		driver.manage().timeouts().implicitlyWait(Seconds, TimeUnit.SECONDS);
 	}
 

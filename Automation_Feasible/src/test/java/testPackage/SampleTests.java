@@ -192,5 +192,14 @@ public class SampleTests extends ProjectBaseTwo {
 	public void loginPageCheck() {
 		// create a method for sendkeys two args 1. xpath 2. what we need to send to that field
 	}
+	
+	/*
+	 * Issues : 
+	 * Safari Is not Tested. Don't know will work or not.
+	 * opera has some issues in headless mode and it is also not tested both UI and Headless Execution. It needs different selenium version to updated in POM.
+	 * HtmlUnitDriver also has some issues. Execution is improper. Not working
+	 * phantomJs driver Pom needs to be updated with jar file. not working.
+	 * Edge need to be updated with headless and incognito.
+	 */
 
 }

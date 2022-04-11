@@ -1,22 +1,14 @@
 package testPackage;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import java.io.File;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 public class extensionTest {
 	public static void main(String[] args) {
-		System.setProperty("webdriver.chrome.driver", "E:\\selenium-java-3.141.59\\chromedriver_win32 (1)\\chromedriver.exe");
-		// ChromeOptions object
-		ChromeOptions options = new ChromeOptions();
-		options.addExtensions(new File("E:\\selenium-java-3.141.59\\daily.dev  The Homepage Developers Deserve 3.15.5.0.crx")); 
-		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-		options.merge(capabilities);
-		ChromeDriver driver = new ChromeDriver(options);
+		 //System.setProperty("phantomjs.binary.path", "E:\\selenium-java-3.141.59\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");		
+		 WebDriver driver = new HtmlUnitDriver();	
+		 driver.get("https://www.facebook.com");
+		 System.out.println(driver.getTitle());
 	}
 }
