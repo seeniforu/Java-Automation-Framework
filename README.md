@@ -19,7 +19,7 @@ Creating My own Framework for Automation.
 
 ## Features 
 
-- Tool is Independent of Website, Any Website can be Easily Automated with this Tool.
+- Tool is Independent of Website and also can adopt Major Changes in Webpage or in a Flow. Any Website can be Easily Automated with this Tool.
   - Just Give URL in Properties File. 
   - **Fill All the Mandatory Fields in ProjectSettings.properties** file to Modify **URL, Report Name, Broswer to Exceute and Driver Path**.
 - Everything is Logged using Extent report, So When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
@@ -31,16 +31,16 @@ Creating My own Framework for Automation.
   - Case 5 - It'll Launch the Given URL, If Input Field was found in the Page It'll try to pass Some inputs to the Field (Can be Configured with Positive and Negative values) to do a Noraml Input Field Check.
   - Case 6 - It'll Launch the Given URL, Sort elements according to tag name given.
 
-### Above are some common Default Testcases. User can also do,
+### Above are some common Default Testcases. Additional Features are,
 
-- Start Writing Own Testcases. 
-- Navigate to Next pages using a Part of URL. 
+- User can Start Writing **Own Testcases** using Existing Methods. 
+- It has **Multi-Browser Execution**. All you need to do is Give Driver Path and Name of the Browser User want to Execute in Project Settings File.
+- It has **HEADLESS MODE** Feature, If enabled in Project Settings File, User cannot see Driver Execution but you'll get all results Once execution is completed. 
+- User Can Run Test in **INCOGNITO MODE** by Enabling It in Project Settings File.
+- User Can Setup their **Own PROXY** for Safe Execution.
 - It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
   - These have Arguments like Primary Id or Classname. The method is Configured in a way, If Primary Fails It'll try to access the element using Alternate Xpath.
   - Xpaths, Classname, id are Seperated for Easy Maintenance.
-- It has **Multi-Browser Execution**. All you need to do is Give Driver Path and Name of the Browser User want to Execute in Project Settings File.
-- It has **Headless Mode** Feature, If enabled in Project Settings File, User cannot see Driver Execution but you'll get all results Once execution is completed. 
-- User Can Run Test in **Incognito Mode** by Enabling It in Project Settings File.
 
 ## When, Where and Who can Use this Tool
 
@@ -57,8 +57,8 @@ Creating My own Framework for Automation.
 ### Issues Need to be Resolved
 
 * Safari Is not Tested. Don't know will work or not.
-* opera has some issues in headless mode and it is also not tested both UI and Headless Execution. It needs different selenium version to updated in POM.
+* opera has some issues in headless mode and it is also not tested both UI, Headless, Proxy Execution. It needs different selenium version to updated in POM.
 * HtmlUnitDriver also has some issues. Execution is improper. Not working
 * phantomJs driver Pom needs to be updated with jar file. Not working.
-* Edge need to be updated with headless and incognito.
+* Edge need to be updated with headless, incognito and Proxy.
 
