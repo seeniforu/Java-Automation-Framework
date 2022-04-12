@@ -46,7 +46,7 @@
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<li>
                 <a href='#!'>
-                    <span class='label suite-start-time blue darken-3'>Apr 11 - 2022 18:11:09</span>
+                    <span class='label suite-start-time blue darken-3'>Apr 12 - 2022 10:10:10</span>
 				</a>
 			</li>
 			<li>
@@ -72,6 +72,7 @@
 				</a>
 				<ul id='tests-toggle' class='dropdown-content'>
 											<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
+						<li status='warning'><a href='#!'>Warning <i class='material-icons orange-text'>warning</i></a></li>
 					<li class='divider'></li>
 					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
 				</ul>
@@ -122,10 +123,10 @@
 					<canvas id='parent-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='100%'><span class='strong'>1</span> test(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='50%'><span class='strong'>1</span> test(s) passed</span>
 				</div>
 				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
+					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='50%'>1</span> others
 				</div>
 			</div>
 		</div>
@@ -137,10 +138,10 @@
 					<canvas id='child-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='33.333%'><span class='strong'>7</span> step(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='23.529%'><span class='strong'>4</span> step(s) passed</span>
 				</div>
 				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='66.667%'>14</span> others
+					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='76.471%'>13</span> others
 				</div>
 			</div>
 		</div>
@@ -155,17 +156,76 @@
 			<ul id='test-collection' class='test-collection'>
 				
 				
-				<li class='test displayed active  pass' status='pass' bdd='false' test-id='1'>
+				<li class='test displayed active  warning' status='warning' bdd='false' test-id='1'>
 					<div class='test-heading'>
-						<span class='test-name'>Navigate Check [chrome]</span>
-						<span class='test-time'>Apr 11 - 2022 18:11:09</span>
+						<span class='test-name'>Test Properties and Warnings to be Noted</span>
+						<span class='test-time'>Apr 12 - 2022 10:10:11</span>
+						<span class='test-status right warning'>warning</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Apr 12 - 2022 10:10:11</span>
+	<span class='label end-time'>Apr 12 - 2022 10:10:11</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+13ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='warning'>
+					<td class='status warning' title='warning' alt='warning'><i class='material-icons'>warning</i></td>
+					<td class='timestamp'>10:10:11 AM</td>
+					<td class='step-details'>Chrome | Firefox | Edge | Safari - One or More Driver Path is Missing in Settings</td>
+				</tr>
+				<tr class='log' status='warning'>
+					<td class='status warning' title='warning' alt='warning'><i class='material-icons'>warning</i></td>
+					<td class='timestamp'>10:10:11 AM</td>
+					<td class='step-details'>Execution in Different Browsers is not supported until all Driver Path is Given</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>10:10:11 AM</td>
+					<td class='step-details'>Headless Mode : no</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>10:10:11 AM</td>
+					<td class='step-details'>Incognito Mode : yes</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>10:10:11 AM</td>
+					<td class='step-details'>Page Load Time is : 45</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>10:10:11 AM</td>
+					<td class='step-details'>Implicit Wait Time is : 45</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='2'>
+					<div class='test-heading'>
+						<span class='test-name'>Ensure URL Working [Chrome]</span>
+						<span class='test-time'>Apr 12 - 2022 10:10:11</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>Apr 11 - 2022 18:11:09</span>
-	<span class='label end-time'>Apr 11 - 2022 18:12:09</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 1m 0s+152ms</span>
+	<span class='label start-time'>Apr 12 - 2022 10:10:11</span>
+	<span class='label end-time'>Apr 12 - 2022 10:10:21</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 9s+408ms</span>
 </div>
 	<div class='test-steps'>
 		<table class='bordered table-results'>
@@ -179,107 +239,57 @@
 			<tbody>
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>6:11:12 PM</td>
+					<td class='timestamp'>10:10:14 AM</td>
 					<td class='step-details'>CHROME Browser Executed in Incognito Mode</td>
 				</tr>
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>6:11:14 PM</td>
+					<td class='timestamp'>10:10:17 AM</td>
 					<td class='step-details'>[https://www.facebook.com/] - is Launched - Status code : 200</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:11:14 PM</td>
+					<td class='timestamp'>10:10:17 AM</td>
 					<td class='step-details'>Title of Webpage - [Facebook – log in or sign up]</td>
 				</tr>
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>6:11:15 PM</td>
+					<td class='timestamp'>10:10:18 AM</td>
 					<td class='step-details'>[https://www.facebook.com/] - is Launched - Status code : 200</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:11:16 PM</td>
-					<td class='step-details'>The Total Number of Elements Locatable in Given Webpage - [261]</td>
+					<td class='timestamp'>10:10:20 AM</td>
+					<td class='step-details'>The Total Number of Elements Locatable in Given Webpage - [259]</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:11:16 PM</td>
+					<td class='timestamp'>10:10:20 AM</td>
 					<td class='step-details'>The Total Number of Anchor Tag in Given Webpage - [47]</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:11:16 PM</td>
-					<td class='step-details'>The Total Number of Link Tag in Given Webpage - [49]</td>
+					<td class='timestamp'>10:10:20 AM</td>
+					<td class='step-details'>The Total Number of Link Tag in Given Webpage - [48]</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:11:16 PM</td>
+					<td class='timestamp'>10:10:20 AM</td>
 					<td class='step-details'>The Total Number of Input Tag in Given Webpage - [6]</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:11:16 PM</td>
+					<td class='timestamp'>10:10:20 AM</td>
 					<td class='step-details'>The Total Number of Button Tag in Given Webpage - [1]</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:11:16 PM</td>
+					<td class='timestamp'>10:10:20 AM</td>
 					<td class='step-details'>The Total Number of H2 Tag in Given Webpage - [1]</td>
 				</tr>
 				<tr class='log' status='pass'>
 					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>6:11:16 PM</td>
-					<td class='step-details'>--------------- After Navigation --------------</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:11:19 PM</td>
-					<td class='step-details'>Title of Webpage - [Facebook]</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>6:11:19 PM</td>
-					<td class='step-details'>[https://www.facebook.com/pages/create/?ref_type=registration_form] - is Launched - Status code : 500</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:12:06 PM</td>
-					<td class='step-details'>The Total Number of Elements Locatable in Given Webpage - [457]</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:12:06 PM</td>
-					<td class='step-details'>The Total Number of Anchor Tag in Given Webpage - [9]</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:12:06 PM</td>
-					<td class='step-details'>The Total Number of Link Tag in Given Webpage - [164]</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:12:06 PM</td>
-					<td class='step-details'>The Total Number of Input Tag in Given Webpage - [20]</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:12:06 PM</td>
-					<td class='step-details'>The Total Number of Button Tag in Given Webpage - [5]</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>6:12:06 PM</td>
-					<td class='step-details'>The Total Number of H1 Tag in Given Webpage - [1]</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>6:12:07 PM</td>
-					<td class='step-details'>Element is Clicked</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>6:12:09 PM</td>
+					<td class='timestamp'>10:10:21 AM</td>
 					<td class='step-details'>CHROME Browser is Closed</td>
 				</tr>
 			</tbody>
@@ -322,31 +332,31 @@
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Tests
-					<div class='panel-lead'>1</div>
+					<div class='panel-lead'>2</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Steps
-					<div class='panel-lead'>21</div>
+					<div class='panel-lead'>17</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>Apr 11 - 2022 18:11:09</div>
+					<div class='panel-lead'>Apr 12 - 2022 10:10:10</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>Apr 11 - 2022 18:12:09</div>
+			 		<div class='panel-lead'>Apr 12 - 2022 10:10:21</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>0h 1m 0s+326ms</div>
+					<div class='panel-lead'>0h 0m 10s+184ms</div>
 				</div>
 			</div>
 			<div class='col s4'>
@@ -395,18 +405,18 @@
 				failParent: 0,
 				fatalParent: 0,
 				errorParent: 0,
-				warningParent: 0,
+				warningParent: 1,
 				skipParent: 0,
-				exceptionsParent: 0,
+				exceptionsParent: 1,
 				
-				passChild: 7,
+				passChild: 4,
 				failChild: 0,
 				fatalChild: 0,
 				errorChild: 0,
-				warningChild: 0,
+				warningChild: 2,
 				skipChild: 0,
-				infoChild: 14,
-				exceptionsChild: 0,
+				infoChild: 11,
+				exceptionsChild: 2,
 				
 				passGrandChild: 0,
 				failGrandChild: 0,

@@ -26,10 +26,16 @@ import facebookPagesPackage.locators.xpathMain;
 /*
  * Things to be Done:
  * 
+ * Add More tags // count and display more type of tag Eg: script, iframe..
+ * 	// add if for displaying some log statements if it is present in the webpage
+	// then display log statement in report.
  * Add and complete Highlight wherever possible.
  * Add Multiple Tab handling.
- * Add Methods for linktext, partial link text.
+ * Add Methods for linktext, partial link text and CSS Selector.
  * Add Comments to all Existing Testcases.
+ * Add Assertion
+ * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
+ * inputfield(String locator, String type = positive | negative, Total no.of chracters or numbers can be inserted)
  */
 
 
@@ -77,11 +83,8 @@ public class SampleTests extends ProjectBaseTwo {
 		countAllElements();
 		seperateElements();
 		logCountAllElements();
-		// add if for displaying some log statements if it is present in the webpage
-		// then display log statement in report.
 		logDetailsOthers();
 		logDetailsHeadingTag();
-		// count and display more type of tag Eg: script, iframe..
 		quitBrowser(browser);
 	}
 
@@ -123,11 +126,6 @@ public class SampleTests extends ProjectBaseTwo {
 		countAllElements();
 		seperateElements();
 		seperateInput();
-		// seperate for each input if number send number
-		// add screenshot to capture input fields are accessible
-		// if possible send valid data/ invalid data Eg: more than character limit from
-		// excel
-		// If no input found end the test case with no input found
 		quitBrowser(browser);
 	}
 	
