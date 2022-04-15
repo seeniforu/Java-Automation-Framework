@@ -1,15 +1,7 @@
 package testPackage;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import basePackage.MultiBrowser;
@@ -34,9 +26,25 @@ import facebookPagesPackage.locators.xpathMain;
  * Add Methods for linktext, partial link text and CSS Selector.
  * Add Comments to all Existing Testcases.
  * Add Assertion
+ * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
  * inputfield(String locator, String type = positive | negative, Total no.of chracters or numbers can be inserted)
  */
+
+
+/*
+ * https://www.facebook.com/
+ * https://www.amazon.com/
+ * https://www.apple.com/
+ * https://www.w3schools.com/TAgs/default.asp
+ * https://www.makemytrip.com/
+ * https://www.verizon.com/
+ * https://www.way2automation.com/demo.html
+ * https://demoqa.com/
+ * https://www.netflix.com/in/
+ * https://www.hotstar.com/in
+ */
+
 
 
 public class SampleTests extends ProjectBaseTwo {
@@ -80,9 +88,7 @@ public class SampleTests extends ProjectBaseTwo {
 		handleBrowser(browser);
 		openURL();
 		getTitle();
-		countAllElements();
-		seperateElements();
-		logCountAllElements();
+		BasicForEachPageElementsLogDetails();
 		logDetailsOthers();
 		logDetailsHeadingTag();
 		quitBrowser(browser);
@@ -93,8 +99,7 @@ public class SampleTests extends ProjectBaseTwo {
 		testName("List of Anchor Tags " + "[" + browser + "]");
 		handleBrowser(browser);
 		openURL();
-		countAllElements();
-		seperateElements();
+		BasicForEachPageElementsLogDetails();
 		performOperationOnAnchor();
 		quitBrowser(browser);
 	}
@@ -118,39 +123,39 @@ public class SampleTests extends ProjectBaseTwo {
 		quitBrowser(browser);
 	}
 
-	@Test(priority = 4, dataProvider = "browserDecider")
+	//@Test(priority = 4, dataProvider = "browserDecider")
 	public void inputCheck(String browser) throws Exception {
 		testName("Input field Check " + "[" + browser + "]");
 		handleBrowser(browser);
 		openURL();
 		countAllElements();
-		seperateElements();
+		BasicForEachPageElementsLogDetails();
 		seperateInput();
 		quitBrowser(browser);
 	}
 	
-	@Test(priority = 5, dataProvider = "browserDecider")
+	//@Test(priority = 5, dataProvider = "browserDecider")
 	public void sortElementsCheck(String browser) throws Exception {
 		testName("Sort Elements Check " + "[" + browser + "]");
 		handleBrowser(browser);
 		openURL();
-		doBasicThingsforNewPage();
+		BasicForEachPageElementsLogDetails();
 		sortElements("h2");
 		highLighterMethod(driver.findElement(By.id("email")));
 		clickUsingClassName("_8esh","Button Clicked");
 		quitBrowser(browser);
 	}
 
-	@Test(priority = 5, dataProvider = "browserDecider")
+	//@Test(priority = 5, dataProvider = "browserDecider")
 	public void navigate(String browser) throws Exception {
 		try {
 			testName("Navigate Check " + "[" + browser + "]");
 			handleBrowser(browser);
 			openURL();
-			doBasicThingsforNewPage();
+			BasicForEachPageElementsLogDetails();
 			//clickUsingClass("a","_8esh");  // 154 and 155 do same operation
 			goToNextPage("create/");
-			doBasicThingsforNewPage();
+			BasicForEachPageElementsLogDetails();
 			clickElementUsingXpath(xpathMain.CreateClass,"Element is Clicked"); 
 			navigateBack();
 		} catch (Exception e) {
@@ -161,7 +166,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	
-	@Test
+	//@Test
 	public void ClickElements() throws Exception {
 		testName("Clicking Elements Test " + "[" + browser + "]");
 		handleBrowser(browser);
@@ -171,9 +176,14 @@ public class SampleTests extends ProjectBaseTwo {
 		quitBrowser(browser);
 	}
 	
-	public void alertcheck() {
+	//@Test
+	public void alertcheck() throws Exception {
 		// give a alert to website and handle that alert.
-		clickElementUsingAttribute("data-testid", "royal_login_button");
+		testName("Stale why?");
+		handleBrowser(browser);
+		openURL("https://www.w3schools.com/TAgs/default.asp");
+		BasicForEachPageElementsLogDetails();
+		quitBrowser(browser);
 	}
 	
 	public void scrollTillLastElementCheck() {

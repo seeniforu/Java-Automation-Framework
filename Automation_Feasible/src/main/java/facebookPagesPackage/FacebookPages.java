@@ -14,6 +14,6 @@ public class FacebookPages extends ProjectBaseTwo {
 	String u = xpathMain.CreateClass;
 
 	public void basicThingsForHomepage() {
-		doBasicThingsforNewPage();
+		BasicForEachPageElementsLogDetails();
 	}
 }

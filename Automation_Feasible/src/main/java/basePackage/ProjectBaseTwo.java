@@ -3,6 +3,7 @@ package basePackage;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,12 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 
 public class ProjectBaseTwo extends ProjectBaseOne {
-	public List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;
+	public List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag, divTag, frameTag, scriptTag, tableTag, ulTag, olTag, otherTags;
 	public List<WebElement> h1Tag, h2Tag, h3Tag, h4Tag, h5Tag, h6Tag;
 	public List<String> allElementTagName = new ArrayList<String>();
 	int countofanchor, countofinput, countofbutton, countoflink;
-	int countOfElements, countofh1, countofh2, countofh3, countofh4, countofh5, countofh6 = 0;
-	int CodeCount200 = 0, CodeCount404 = 0, CodeCount500 = 0;
+	int countOfElements, countofh1, countofh2, countofh3, countofh4, countofh5, countofh6, countofdiv,countofframe = 0;
+	int CodeCount200 = 0, CodeCount300 = 0, CodeCount404 = 0, CodeCount500 = 0;
 	public List<WebElement> tempElements;
 
 	/*
@@ -101,11 +102,24 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	public void seperateElements() {
+	public void BasicForEachPageElementsLogDetails() {
 		try {
 			countAllElements();
-			for (WebElement webElement : elements) {
-				allElementTagName.add(webElement.getTagName());
+			logCountAllElements();
+//			for (WebElement webElement : elements) {
+//				allElementTagName.add(webElement.getTagName());
+//			}
+			int i = 0;
+			try {
+
+				List<WebElement> Elements = driver.findElements(By.xpath("//*"));
+				for (i = 0; i < Elements.size(); i++) {
+					allElementTagName.add(i, Elements.get(i).getTagName());
+				}
+			} catch (Exception e) {
+				if (e.getMessage().contains("stale element reference")) {
+					i = i + 1;
+				}
 			}
 			// System.out.println(allElementTagName);
 
@@ -147,15 +161,21 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				h4Tag = driver.findElements(By.xpath("//h4"));
 				countofh4 = h4Tag.size();
 			}
-
 			if (allElementTagName.contains("h5")) {
 				h5Tag = driver.findElements(By.xpath("//h5"));
 				countofh5 = h5Tag.size();
 			}
-
 			if (allElementTagName.contains("h6")) {
 				h6Tag = driver.findElements(By.xpath("//h6"));
 				countofh6 = h6Tag.size();
+			}
+			if (allElementTagName.contains("div")) {
+				divTag = driver.findElements(By.xpath("//div"));
+				countofdiv = divTag.size();
+			}
+			if(allElementTagName.contains("frame")) {
+				frameTag = driver.findElements(By.xpath("//frame"));
+				countofframe = frameTag.size();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -176,6 +196,12 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		if (countofbutton >= 1) {
 			logInfo("The Total Number of Button Tag in Given Webpage - " + "[" + countofbutton + "]");
+		}
+		if (countofdiv >= 1) {
+			logInfo("The Total Number of Div Tag in Given Webpage - " + "[" + countofdiv + "]");
+		}
+		if (countofframe >= 1) {
+			logInfo("The Total Number of Frame Tag in Given Webpage - " + "[" + countofframe + "]");
 		}
 	}
 
@@ -200,50 +226,65 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
+	public static boolean isUrlValid(String url) {
+		try {
+			URL obj = new URL(url);
+			obj.toURI();
+			return true;
+		} catch (MalformedURLException e) {
+			return false;
+		} catch (URISyntaxException e) {
+			return false;
+		}
+	}
+
 	public void performOperationOnAnchor() throws InterruptedException {
 		for (int i = 0; i < anchorTag.size(); i++) {
 			try {
-				int code = statusCode(anchorTag.get(i).getAttribute("href"));
-				if (code == 200) {
-					statusCodeCount(code);
-					logInfo("[" + anchorTag.get(i).getAttribute("href") + "]" + " Present in Given Webpage - " + code);
-				}
-				if (code == 404 || code == 500 || code == 503) {
-					int Retrycode = statusCode(anchorTag.get(i).getAttribute("href"));
-					statusCodeCount(Retrycode);
-					logInfo("[" + anchorTag.get(i).getAttribute("href") + "]" + " Present in Given Webpage - "
-							+ Retrycode);
+				System.out.println(anchorTag.get(i).getAttribute("href"));
+				String url = anchorTag.get(i).getAttribute("href");
+				if (isUrlValid(url)) {
+					int code = statusCode(url);
+					if (code == 200) {
+						statusCodeCount(code);
+						logInfo("[" + url + "]" + " Present in Given Webpage - " + code);
+					} else if (code == 404 || code == 500 || code == 503) {
+						int Retrycode = statusCode(anchorTag.get(i).getAttribute("href"));
+						statusCodeCount(Retrycode);
+						logInfo("[" + url + "]" + " Present in Given Webpage - " + Retrycode);
+					} else {
+						statusCodeCount(code);
+						logInfo("[" + url + "] - " + code);
+					}
+				} else {
+					logInfo("[" + url + "]" + " - Not Valid");
 				}
 			} catch (Exception e) {
 				logFail(e.getMessage());
 			}
 		}
-		logPass("Count of 200 is " + "[" + CodeCount200 + "]" + "Out of " + countofanchor);
-		logPass("Count of 404 is " + "[" + CodeCount404 + "]" + "Out of " + countofanchor);
-		logPass("Count of 500 is " + "[" + CodeCount500 + "]" + "Out of " + countofanchor);
+		logPass("Count of Status Code 200 - 299 is " + "[" + CodeCount200 + "]" + " Out of " + countofanchor
+				+ " - success");
+		logPass("Count of Status Code 300 - 399 is " + "[" + CodeCount300 + "]" + " Out of " + countofanchor
+				+ " - redirection");
+		logPass("Count of Status Code 400 - 499 is " + "[" + CodeCount404 + "]" + " Out of " + countofanchor
+				+ " - client errors");
+		logPass("Count of Status Code 500 - 599 is " + "[" + CodeCount500 + "]" + " Out of " + countofanchor
+				+ " - server errors");
 	}
 
 	public void statusCodeCount(int count) {
-		if (count == 200) {
+		if (count >= 200 && count <= 299) {
 			CodeCount200 = CodeCount200 + 1;
-		} else if (count == 404) {
-			CodeCount404 = CodeCount404 + 1;
-		} else if (count == 500) {
-			CodeCount500 = CodeCount500 + 1;
 		}
-	}
-
-	public void doBasicThingsforNewPage() {
-		try {
-			getTitle();
-			countAllElements();
-			seperateElements();
-			logCountAllElements();
-			logDetailsOthers();
-			logDetailsHeadingTag();
-		} catch (Exception e) {
-			e.printStackTrace();
-			logError(e.getMessage());
+		if (count >= 300 && count <= 399) {
+			CodeCount300 = CodeCount300 + 1;
+		}
+		if (count >= 400 && count <= 499) {
+			CodeCount404 = CodeCount404 + 1;
+		}
+		if (count >= 500 && count <= 599) {
+			CodeCount500 = CodeCount500 + 1;
 		}
 	}
 
@@ -302,7 +343,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-	
+
 	public WebElement GetElementUsingAttribute(String AttributeName, String AttributeValue) {
 		/*
 		 *
@@ -324,7 +365,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return TempElement;
 	}
-	
 
 	public void goToNextPage(String nxtpage) {
 		try {
@@ -507,7 +547,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textofelement;
 	}
-	
+
 	public void highLighterMethod(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
@@ -588,7 +628,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		try {
 			setUp();
 			browser = prop.getProperty("browserName");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
