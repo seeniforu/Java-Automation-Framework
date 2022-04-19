@@ -148,7 +148,7 @@ public class SampleTests extends ProjectBaseTwo {
 	 * 
 	 * Purpose : To Verify the Stability of the Webpage launched, Useful when a web application is in Development.
 	 * 
-	 * If it is a Dynamic website and loads everytime  
+	 * If it is a Dynamic website and loads everytime according to user data, this testcase may fail.
 	 */
 
 	@Test(priority = 3, dataProvider = "browserDecider")
