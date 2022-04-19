@@ -20,6 +20,7 @@ Creating My own Framework for Automation.
 ## Features 
 
 - Tool is Independent of Website and also can adopt Major Changes in Webpage or in a Flow. Any Website can be Easily Automated with this Tool.
+- User can Start Automate by Pasting Direct or Cookie URL. No need to Start from Home or Landing Page.
   - Just Give URL in Properties File. 
   - **Fill All the Mandatory Fields in ProjectSettings.properties** file to Modify **URL, Report Name, Broswer to Exceute and Driver Path**.
 - Everything is Logged using Extent report, So When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
@@ -56,9 +57,10 @@ Creating My own Framework for Automation.
 
 ### Issues Need to be Resolved
 
+* Not Tested in any Test environments.
+* Case - 3 takes so much time to Execute if More Anchor tags are available. Threads need to included.
 * Safari Is not Tested. Don't know will work or not.
 * opera has some issues in headless mode and it is also not tested both UI, Headless, Proxy Execution. It needs different selenium version to updated in POM.
 * HtmlUnitDriver also has some issues. Execution is improper. Not working
 * phantomJs driver Pom needs to be updated with jar file. Not working.
 * Edge need to be updated with headless, incognito and Proxy.
-
