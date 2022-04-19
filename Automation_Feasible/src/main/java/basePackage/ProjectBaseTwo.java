@@ -3,6 +3,7 @@ package basePackage;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +17,35 @@ import org.testng.annotations.BeforeMethod;
 
 public class ProjectBaseTwo extends ProjectBaseOne {
 	public List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;
-	public List<WebElement> h1Tag, h2Tag, h3Tag, h4Tag, h5Tag, h6Tag;
 	public List<String> allElementTagName = new ArrayList<String>();
 	int countofanchor, countofinput, countofbutton, countoflink;
-	int countOfElements, countofh1, countofh2, countofh3, countofh4, countofh5, countofh6 = 0;
-	int CodeCount200 = 0, CodeCount404 = 0, CodeCount500 = 0;
+	int countOfElements = 0;
+	public WebElement TempElement;
+	int CodeCount200 = 0, CodeCount300 = 0, CodeCount404 = 0, CodeCount500 = 0;
 	public List<WebElement> tempElements;
-
+	public List<Integer> countofOtherElements = new ArrayList<Integer>();
+	/*
+	 * countofOtherElements tagname with index where all count is stored. -
+	 * countElements("p",1);
+	 * countElements("div", 2); 
+	 * countElements("h1",3); 
+	 * countElements("h2", 4); 
+	 * countElements("h3", 5); 
+	 * countElements("h4", 6);
+	 * countElements("h5", 7); 
+	 * countElements("h6", 8); 
+	 * countElements("frame",9);
+	 * countElements("iframe", 10); 
+	 * countElements("table", 11); 
+	 * countElements("tr",12); 
+	 * countElements("td", 13); 
+	 * countElements("ol", 14); 
+	 * countElements("ul",15); 
+	 * countElements("span", 16);
+	 *    // 17th index for temporary elements. 
+	 *    //Add new count from 18th Index.
+	 */
+	
 	/*
 	 * There are 2 open URL methods there 1. takes from projectsettings.properties
 	 * 2. user can pass any URL
@@ -94,18 +117,41 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	public void logCountAllElements() {
 		try {
-			logInfo("The Total Number of Elements Locatable in Given Webpage - " + "[" + countOfElements + "]");
+			logInfo("The "+"<b>"+"Total Number of Elements Locatable"+"</b>"+ " in Given Webpage - " + "[" + countOfElements + "]");
 		} catch (Exception e) {
 			logFail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
+	
+	public void countElements(String TagName, int IndexOfCount) {
+		List<WebElement> tempcount = new ArrayList<WebElement>();
+		if(allElementTagName.contains(TagName)) {
+		tempcount = driver.findElements(By.xpath("//"+TagName));
+		countofOtherElements.add(IndexOfCount, tempcount.size());
+		}else {
+			countofOtherElements.add(IndexOfCount, 0);
+		}
+	}
 
-	public void seperateElements() {
+	public void BasicForEachPageElementsLogDetails() {
 		try {
 			countAllElements();
-			for (WebElement webElement : elements) {
-				allElementTagName.add(webElement.getTagName());
+			logCountAllElements();
+//			for (WebElement webElement : elements) {
+//				allElementTagName.add(webElement.getTagName());
+//			}
+			int i = 0;
+			try {
+
+				List<WebElement> Elements = driver.findElements(By.xpath("//*"));
+				for (i = 0; i < Elements.size(); i++) {
+					allElementTagName.add(i, Elements.get(i).getTagName());
+				}
+			} catch (Exception e) {
+				if (e.getMessage().contains("stale element reference")) {
+					i = i + 1;
+				}
 			}
 			// System.out.println(allElementTagName);
 
@@ -127,36 +173,25 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				buttonTag = driver.findElements(By.xpath("//button"));
 				countofbutton = buttonTag.size();
 			}
-
-			if (allElementTagName.contains("h1")) {
-				h1Tag = driver.findElements(By.xpath("//h1"));
-				countofh1 = h1Tag.size();
-			}
-
-			if (allElementTagName.contains("h2")) {
-				h2Tag = driver.findElements(By.xpath("//h2"));
-				countofh2 = h2Tag.size();
-			}
-
-			if (allElementTagName.contains("h3")) {
-				h3Tag = driver.findElements(By.xpath("//h3"));
-				countofh3 = h3Tag.size();
-			}
-
-			if (allElementTagName.contains("h4")) {
-				h4Tag = driver.findElements(By.xpath("//h4"));
-				countofh4 = h4Tag.size();
-			}
-
-			if (allElementTagName.contains("h5")) {
-				h5Tag = driver.findElements(By.xpath("//h5"));
-				countofh5 = h5Tag.size();
-			}
-
-			if (allElementTagName.contains("h6")) {
-				h6Tag = driver.findElements(By.xpath("//h6"));
-				countofh6 = h6Tag.size();
-			}
+			
+			countElements("script",0);
+			countElements("p",1);
+			countElements("div", 2);
+			countElements("h1", 3);
+			countElements("h2", 4);
+			countElements("h3", 5);
+			countElements("h4", 6);
+			countElements("h5", 7);
+			countElements("h6", 8);
+			countElements("frame",9);
+			countElements("iframe", 10);
+			countElements("table", 11);
+			countElements("tr", 12);
+			countElements("td", 13);
+			countElements("ol", 14);
+			countElements("ul", 15);
+			countElements("span", 16);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			logFatal(e.getMessage());
@@ -164,7 +199,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	}
 
-	public void logDetailsOthers() {
+	public void logDetailsPrimaryTags() {
 		if (countofanchor >= 1) {
 			logInfo("The Total Number of Anchor Tag in Given Webpage - " + "[" + countofanchor + "]");
 		}
@@ -177,73 +212,123 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		if (countofbutton >= 1) {
 			logInfo("The Total Number of Button Tag in Given Webpage - " + "[" + countofbutton + "]");
 		}
+		if(countofOtherElements.get(1) >= 1) {
+			logInfo("The Total Number of Paragraph [p] Tag in Given Webpage - " + "[" + countofOtherElements.get(1) + "]");
+		}
+		if (countofOtherElements.get(2) >= 1) {
+			logInfo("The Total Number of Div Tag in Given Webpage - " + "[" + countofOtherElements.get(2) + "]");
+		}
+		if (countofOtherElements.get(16) >= 1) {
+			logInfo("The Total Number of Span Tag in Given Webpage - " + "[" + countofOtherElements.get(16) + "]");
+		}
+		if (countofOtherElements.get(9) >= 1) {
+			logInfo("The Total Number of Frame Tag in Given Webpage - " + "[" + countofOtherElements.get(9) + "]");
+		}
+		if (countofOtherElements.get(10) >= 1) {
+			logInfo("The Total Number of iFrame Tag in Given Webpage - " + "[" + countofOtherElements.get(10) + "]");
+		}
+		if(countofOtherElements.get(0) >= 1) {
+			logInfo("The Total Number of Script Tag in Given Webpage - " + "[" + countofOtherElements.get(0) + "]");
+		}
+		if(countofOtherElements.get(11) >= 1) {
+			logInfo("The Total Number of Table Tag in Given Webpage - " + "[" + countofOtherElements.get(11) + "]");
+		}
+		if(countofOtherElements.get(12) >= 1) {
+			logInfo("The Total Number of Table Row [TR] Tag in Given Webpage - " + "[" + countofOtherElements.get(12) + "]");
+		}
+		if(countofOtherElements.get(13) >= 1) {
+			logInfo("The Total Number of Table Data [TD] Tag in Given Webpage - " + "[" + countofOtherElements.get(13) + "]");
+		}
+		if(countofOtherElements.get(14) >= 1) {
+			logInfo("The Total Number of Ordered List [ol] Tag in Given Webpage - " + "[" + countofOtherElements.get(14) + "]");
+		}
+		if(countofOtherElements.get(15) >= 1) {
+			logInfo("The Total Number of Unordered List [ul] Tag in Given Webpage - " + "[" + countofOtherElements.get(15) + "]");
+		}
+		
+		
 	}
 
 	public void logDetailsHeadingTag() {
-		if (countofh1 >= 1) {
-			logInfo("The Total Number of H1 Tag in Given Webpage - " + "[" + countofh1 + "]");
+		if (countofOtherElements.get(3) >= 1) {
+			logInfo("The Total Number of H1 Tag in Given Webpage - " + "[" + countofOtherElements.get(3) + "]");
 		}
-		if (countofh2 >= 1) {
-			logInfo("The Total Number of H2 Tag in Given Webpage - " + "[" + countofh2 + "]");
+		if (countofOtherElements.get(4) >= 1) {
+			logInfo("The Total Number of H2 Tag in Given Webpage - " + "[" + countofOtherElements.get(4) + "]");
 		}
-		if (countofh3 >= 1) {
-			logInfo("The Total Number of H3 Tag in Given Webpage - " + "[" + countofh3 + "]");
+		if (countofOtherElements.get(5) >= 1) {
+			logInfo("The Total Number of H3 Tag in Given Webpage - " + "[" + countofOtherElements.get(5) + "]");
 		}
-		if (countofh4 >= 1) {
-			logInfo("The Total Number of H4 Tag in Given Webpage - " + "[" + countofh4 + "]");
+		if (countofOtherElements.get(6) >= 1) {
+			logInfo("The Total Number of H4 Tag in Given Webpage - " + "[" + countofOtherElements.get(6) + "]");
 		}
-		if (countofh5 >= 1) {
-			logInfo("The Total Number of H5 Tag in Given Webpage - " + "[" + countofh5 + "]");
+		if (countofOtherElements.get(7) >= 1) {
+			logInfo("The Total Number of H5 Tag in Given Webpage - " + "[" + countofOtherElements.get(7) + "]");
 		}
-		if (countofh6 >= 1) {
-			logInfo("The Total Number of H6 Tag in Given Webpage - " + "[" + countofh6 + "]");
+		if (countofOtherElements.get(8) >= 1) {
+			logInfo("The Total Number of H6 Tag in Given Webpage - " + "[" + countofOtherElements.get(8) + "]");
+		}
+	}
+
+	public static boolean isUrlValid(String url) {   
+		try {                                           // This method is used to validate a URL is valid or Not.
+			URL obj = new URL(url);
+			obj.toURI();
+			return true;
+		} catch (MalformedURLException e) {
+			return false;
+		} catch (URISyntaxException e) {
+			return false;
 		}
 	}
 
 	public void performOperationOnAnchor() throws InterruptedException {
 		for (int i = 0; i < anchorTag.size(); i++) {
 			try {
-				int code = statusCode(anchorTag.get(i).getAttribute("href"));
-				if (code == 200) {
-					statusCodeCount(code);
-					logInfo("[" + anchorTag.get(i).getAttribute("href") + "]" + " Present in Given Webpage - " + code);
-				}
-				if (code == 404 || code == 500 || code == 503) {
-					int Retrycode = statusCode(anchorTag.get(i).getAttribute("href"));
-					statusCodeCount(Retrycode);
-					logInfo("[" + anchorTag.get(i).getAttribute("href") + "]" + " Present in Given Webpage - "
-							+ Retrycode);
+				System.out.println(anchorTag.get(i).getAttribute("href"));
+				String url = anchorTag.get(i).getAttribute("href");
+				if (isUrlValid(url)) {
+					int code = statusCode(url);
+					if (code == 200) {
+						statusCodeCount(code);
+						logInfo("[" + url + "]" + " Present in Given Webpage - " + code);
+					} else if (code == 404 || code == 500 || code == 503) {
+						int Retrycode = statusCode(anchorTag.get(i).getAttribute("href"));
+						statusCodeCount(Retrycode);
+						logInfo("[" + url + "]" + " Present in Given Webpage - " + Retrycode);
+					} else {
+						statusCodeCount(code);
+						logInfo("[" + url + "] - " + code);
+					}
+				} else {
+					logInfo("[" + url + "]" + " - Not Valid");
 				}
 			} catch (Exception e) {
 				logFail(e.getMessage());
 			}
 		}
-		logPass("Count of 200 is " + "[" + CodeCount200 + "]" + "Out of " + countofanchor);
-		logPass("Count of 404 is " + "[" + CodeCount404 + "]" + "Out of " + countofanchor);
-		logPass("Count of 500 is " + "[" + CodeCount500 + "]" + "Out of " + countofanchor);
+		logPass("Count of Status Code 200 - 299 is " + "[" + CodeCount200 + "]" + " Out of " + countofanchor
+				+ " - success");
+		logPass("Count of Status Code 300 - 399 is " + "[" + CodeCount300 + "]" + " Out of " + countofanchor
+				+ " - redirection");
+		logPass("Count of Status Code 400 - 499 is " + "[" + CodeCount404 + "]" + " Out of " + countofanchor
+				+ " - client errors");
+		logPass("Count of Status Code 500 - 599 is " + "[" + CodeCount500 + "]" + " Out of " + countofanchor
+				+ " - server errors");
 	}
 
 	public void statusCodeCount(int count) {
-		if (count == 200) {
+		if (count >= 200 && count <= 299) {
 			CodeCount200 = CodeCount200 + 1;
-		} else if (count == 404) {
-			CodeCount404 = CodeCount404 + 1;
-		} else if (count == 500) {
-			CodeCount500 = CodeCount500 + 1;
 		}
-	}
-
-	public void doBasicThingsforNewPage() {
-		try {
-			getTitle();
-			countAllElements();
-			seperateElements();
-			logCountAllElements();
-			logDetailsOthers();
-			logDetailsHeadingTag();
-		} catch (Exception e) {
-			e.printStackTrace();
-			logError(e.getMessage());
+		if (count >= 300 && count <= 399) {
+			CodeCount300 = CodeCount300 + 1;
+		}
+		if (count >= 400 && count <= 499) {
+			CodeCount404 = CodeCount404 + 1;
+		}
+		if (count >= 500 && count <= 599) {
+			CodeCount500 = CodeCount500 + 1;
 		}
 	}
 
@@ -302,7 +387,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-	
+
 	public WebElement GetElementUsingAttribute(String AttributeName, String AttributeValue) {
 		/*
 		 *
@@ -324,7 +409,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return TempElement;
 	}
-	
 
 	public void goToNextPage(String nxtpage) {
 		try {
@@ -431,7 +515,9 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					temp.add(elements.get(i));
 				}
 			}
-			System.out.println(temp.size());
+			countElements(nameoftag, 17);
+			logPass("The Sorted Element is : "+ nameoftag);
+			logPass("Number of "+nameoftag+" Tag - "+ "["+countofOtherElements.get(17)+"]");
 		} catch (Exception e) {
 			logFail("Problem in sorting elements - Method name : sortElements");
 			e.printStackTrace();
@@ -440,27 +526,143 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	}
 
-	public void seperateInput() {
+	public void sendInputData(String Inputdata) {
 		try {
 			for (WebElement webElement : inputTag) {
 				if (webElement.getAttribute("type").equalsIgnoreCase("text")
 						|| webElement.getAttribute("type").equalsIgnoreCase("password")
 						|| webElement.getAttribute("type").equalsIgnoreCase("number")
 						|| webElement.getAttribute("type").equalsIgnoreCase("email")) {
-					webElement.sendKeys("Hello");
+					webElement.sendKeys(Inputdata);
 				}
 			}
+			logPass("Data Passed for all Input Field is : " + Inputdata);
 		} catch (Exception e) {
-			logFail("Method name : sortElements");
+			logFail("Method name : seperateInput");
 			e.printStackTrace();
 		}
 	}
-
+	
 	/*
 	 * Below here are default existing methods If one class or id is failing, It is
 	 * handled with alternate xpath. If that is also failing error message is
 	 * logged.
 	 */
+	
+	public void sendInputUsingXpath(String xpathLocator, String Data) {
+		try {
+			TempElement = driver.findElement(By.xpath(xpathLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendInputUsingXpath(String xpathLocator, String Data, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.xpath(xpathLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendInputUsingId(String idLocator, String Data) {
+		try {
+			TempElement = driver.findElement(By.id(idLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendInputUsingId(String idLocator, String Data, String Logstatement) {
+		try {
+			TempElement = driver.findElement(By.id(idLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(Logstatement);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendInputUsingClassName(String classLocator, String Data) {
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendInputUsingClassName(String idLocator, String Data, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.id(idLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendInputUsingAttribute(String AttributeName, String AttributeValue, String Data) {
+		try {
+			String path = "//*[@" + AttributeName + "='" + AttributeValue + "']" + " | " + "//*[contains(@"
+					+ AttributeName + ",'" + AttributeValue + "')]";
+			TempElement = driver.findElement(By.xpath(path));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+		} catch (Exception e) {
+			try {
+				String Altpath = "//*[contains(@" + AttributeName + ",'" + AttributeValue + "')]";
+				TempElement = driver.findElement(By.xpath(Altpath));
+				highLighterMethod(TempElement);
+				TempElement.sendKeys(Data);
+				logInfo("Primary Attribute Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Problem in Method : clickElementsUsingAttribute");
+				logFail(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public void sendInputUsingAttribute(String AttributeName, String AttributeValue, String Data, String LogStatement) {
+		try {
+			String path = "//*[@" + AttributeName + "='" + AttributeValue + "']" + " | " + "//*[contains(@"
+					+ AttributeName + ",'" + AttributeValue + "')]";
+			TempElement = driver.findElement(By.xpath(path));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				String Altpath = "//*[contains(@" + AttributeName + ",'" + AttributeValue + "')]";
+				TempElement = driver.findElement(By.xpath(Altpath));
+				highLighterMethod(TempElement);
+				TempElement.sendKeys(Data);
+				logPass(LogStatement);
+				logInfo("Primary Attribute Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Problem in Method : clickElementsUsingAttribute");
+				logFail(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
 
 	public void clickElementUsingXpath(String path, String LogStatement) {
 		try {
@@ -507,7 +709,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textofelement;
 	}
-	
+
 	public void highLighterMethod(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
@@ -515,9 +717,9 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	public void clickUsingClassName(String clsname, String LogStatement) {
 		try {
-			WebElement element = driver.findElement(By.className(clsname));
-			highLighterMethod(element);
-			element.click();
+			TempElement = driver.findElement(By.className(clsname));
+			highLighterMethod(TempElement);
+			TempElement.click();
 			logPass(LogStatement);
 		} catch (Exception e) {
 			logError(e.getMessage());
@@ -588,7 +790,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		try {
 			setUp();
 			browser = prop.getProperty("browserName");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
