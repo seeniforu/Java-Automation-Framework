@@ -21,7 +21,6 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -318,7 +317,7 @@ public class ProjectBaseOne {
 				driver = new HtmlUnitDriver();
 			} else if (browserName.equalsIgnoreCase("PhantomJS")) {
 				System.setProperty("phantomjs.binary.path", prop.getProperty("PhantomJS"));
-				driver = new PhantomJSDriver();
+				//driver = new PhantomJSDriver();
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());

@@ -2,7 +2,6 @@ package testPackage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 public class extensionTest {
 	public static void main(String[] args) {
