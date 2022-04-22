@@ -231,7 +231,7 @@ public class SampleTests extends ProjectBaseTwo {
 			goToNextPage("create/");                       // Navigating with help of part of URL.
 			BasicForEachPageElementsLogDetails();
 			logDetailsPrimaryTags();
-			clickElementUsingXpath(xpathMain.CreateClass,"Element is Clicked"); 
+			clickUsingXpath(xpathMain.CreateClass,"Element is Clicked"); 
 			navigateBack();
 		} catch (Exception e) {
 			logError(e.getMessage());
@@ -250,8 +250,18 @@ public class SampleTests extends ProjectBaseTwo {
 		quitBrowser(browser);
 	}
 	
+	@Test
 	public void alertcheck() throws Exception {
 		// give a alert to website and handle that alert.
+		testName("CSS Accessing Elements Test " + "[" + browser + "]");  
+		handleBrowser(browser);
+		openURL();
+		clickOrVerifyWithCssSelector("Verify", "input#email", "Element is Visible", "Element is not Visible");
+		getCssValueUsingId("email","font-size","CSS value is Logged");
+		getLocationUsingId("email", "Location value is logged");
+		getSizeUsingId("email","Size of element is Logged");
+		verifyUsingId("email", "Element is Displayed", "Element is Not Displayed");
+		quitBrowser(browser);
 	}
 	
 	public void scrollTillLastElementCheck() {

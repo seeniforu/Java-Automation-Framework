@@ -2,6 +2,7 @@ package FacebookTests;
 
 import org.testng.annotations.Test;
 
+import basePackage.ProjectBaseTwo;
 import facebookPagesPackage.FacebookPages;
 
 /*
@@ -10,7 +11,7 @@ import facebookPagesPackage.FacebookPages;
  */
 
 
-public class FacebookTest extends FacebookPages {
+public class FacebookTest extends FacebookPages{
 
 	@Test(priority = 0)
 	public void ensureURL() throws Exception {
@@ -20,6 +21,10 @@ public class FacebookTest extends FacebookPages {
 		openURL();
 		basicThingsForHomepage();
 		quitBrowser(browser);
+	}
+	
+	public void newtest() {
+		
 	}
 
 }

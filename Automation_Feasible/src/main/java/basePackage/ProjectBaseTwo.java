@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -491,7 +493,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		return textOfElement;
 	}
 
-	public String getTextUsingId(String Id) {
+	public String getTextUsingID(String Id) {
 		String textOfElement = null;
 		try {
 			for (int i = 0; i < elements.size(); i++) {
@@ -549,74 +551,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	 * logged.
 	 */
 	
-	public void sendInputUsingXpath(String xpathLocator, String Data) {
-		try {
-			TempElement = driver.findElement(By.xpath(xpathLocator));
-			highLighterMethod(TempElement);
-			TempElement.sendKeys(Data);
-		}catch(Exception e) {
-			logError(e.getMessage());
-			e.printStackTrace();
-		}
-	}
 	
-	public void sendInputUsingXpath(String xpathLocator, String Data, String LogStatement) {
-		try {
-			TempElement = driver.findElement(By.xpath(xpathLocator));
-			highLighterMethod(TempElement);
-			TempElement.sendKeys(Data);
-			logPass(LogStatement);
-		}catch(Exception e) {
-			logError(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
-	public void sendInputUsingId(String idLocator, String Data) {
-		try {
-			TempElement = driver.findElement(By.id(idLocator));
-			highLighterMethod(TempElement);
-			TempElement.sendKeys(Data);
-		}catch(Exception e) {
-			logError(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
-	public void sendInputUsingId(String idLocator, String Data, String Logstatement) {
-		try {
-			TempElement = driver.findElement(By.id(idLocator));
-			highLighterMethod(TempElement);
-			TempElement.sendKeys(Data);
-			logPass(Logstatement);
-		}catch(Exception e) {
-			logError(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
-	public void sendInputUsingClassName(String classLocator, String Data) {
-		try {
-			TempElement = driver.findElement(By.className(classLocator));
-			highLighterMethod(TempElement);
-			TempElement.sendKeys(Data);
-		}catch(Exception e) {
-			logError(e.getMessage());
-			e.printStackTrace();
-		}
-	}
-	
-	public void sendInputUsingClassName(String idLocator, String Data, String LogStatement) {
-		try {
-			TempElement = driver.findElement(By.id(idLocator));
-			highLighterMethod(TempElement);
-			TempElement.sendKeys(Data);
-			logPass(LogStatement);
-		}catch(Exception e) {
-			logError(e.getMessage());
-			e.printStackTrace();
-		}
-	}
 	
 	public void sendInputUsingAttribute(String AttributeName, String AttributeValue, String Data) {
 		try {
@@ -663,10 +598,26 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
+	
+	
+	//-------------------------------------------------------- Xpath -----------------------------------------------
 
-	public void clickElementUsingXpath(String path, String LogStatement) {
+	public void clickUsingXpath(String xPath) {
 		try {
-			driver.findElement(By.xpath(path)).click();
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			TempElement.click();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickUsingXpath(String xPath, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			TempElement.click();
 			logPass(LogStatement);
 		} catch (Exception e) {
 			logError(e.getMessage());
@@ -674,15 +625,63 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	public void clickElementUsingXpath(String path, String AlternateXpath, String LogStatement) {
+	public void clickUsingXpath(String xPath, String AlternateXpath, String LogStatement) {
 		try {
-			driver.findElement(By.xpath(path)).click();
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			TempElement.click();
 			logPass(LogStatement);
 		} catch (Exception e) {
 			try {
-				driver.findElement(By.xpath(AlternateXpath)).click();
-				logInfo("Primary Xpath Failed, Alternate Passed");
+				TempElement = driver.findElement(By.xpath(AlternateXpath));
+				highLighterMethod(TempElement);
+				TempElement.click();
 				logPass(LogStatement);
+				logInfo("Primary Xpath Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public void sendKeysUsingXpath(String xPath, String Data) {
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendKeysUsingXpath(String xPath, String Data, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendKeysUsingXpath(String xPath, String AlternateXpath, String Data, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		}catch(Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(AlternateXpath));
+				highLighterMethod(TempElement);
+				TempElement.sendKeys(Data);
+				logPass(LogStatement);
+				logInfo("Primary Xpath Failed, Alternate Passed");
 			} catch (Exception m) {
 				logInfo("Both Primary Xpath , Alternate Failed");
 				logError(m.getMessage());
@@ -691,16 +690,48 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	public String getElementTextUsingXpath(String path, String AlternateXpath, String LogStatement) {
+	public String getTextUsingXpath(String xPath) {
 		String textofelement = null;
 		try {
-			textofelement = driver.findElement(By.xpath(path)).getText();
+			TempElement =  driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			textofelement = TempElement.getText();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+	
+	public String getTextUsingXpath(String xPath, String LogStatement) {
+		String textofelement = null;
+		try {
+			TempElement =  driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			textofelement = TempElement.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+	
+	
+	public String getTextUsingXpath(String xPath, String AlternateXpath, String LogStatement) {
+		String textofelement = null;
+		try {
+			TempElement =  driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			textofelement = TempElement.getText();
 			logPass(LogStatement);
 		} catch (Exception e) {
 			try {
-				textofelement = driver.findElement(By.xpath(AlternateXpath)).getText();
-				logInfo("Primary Xpath Failed, Alternate Passed");
+				TempElement =  driver.findElement(By.xpath(AlternateXpath));
+				highLighterMethod(TempElement);
+				textofelement = TempElement.getText();
 				logPass(LogStatement);
+				logInfo("Primary Xpath Failed, Alternate Passed");
 			} catch (Exception m) {
 				logInfo("Both Primary Xpath , Alternate Failed");
 				logError(m.getMessage());
@@ -709,12 +740,150 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textofelement;
 	}
-
-	public void highLighterMethod(WebElement element) {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
+	
+	public boolean verifyUsingXpath(String xPath) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			if(TempElement.isDisplayed()) {
+				value = true;
+			}else {
+				value = false; 
+			}
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+	
+	public boolean verifyUsingXpath(String xPath, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			if(TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}else {
+				value = false; 
+				logFail(LogStatementIfFailed);
+			}
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+	
+	public boolean verifyUsingXpath(String xPath, String AlternateXpath, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			if(TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}
+		}catch(Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(AlternateXpath));
+				highLighterMethod(TempElement);
+				if(TempElement.isDisplayed()) {
+					logPass(LogPassStatement);
+					value = true;
+				}else {
+					value = false;
+					logFail(LogStatementIfFailed);
+				}
+			}catch (Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+				value = false;
+			}
+		}
+		return value;
+	}
+	
+	public String getCssValueUsingXpath(String xPath, String Property, String Logstatemment) {
+		String tempText = null;
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			tempText = TempElement.getCssValue(Property);
+			logInfo("The CSS Value of "+ Property +" is : " + tempText);
+			logPass(Logstatemment);
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return tempText;
+	}
+	
+	public Point getLocationUsingXpath(String xPath, String Logstatement) {
+		Point location = null;
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			location = TempElement.getLocation();
+			logInfo("The Location of X : "+location.getX() +" and Location of Y : "+ location.getY());
+			logPass(Logstatement);
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return location;
+	}
+	
+	public Dimension getSizeUsingXpath(String xPath, String LogStatement) {
+		Dimension size = null;
+		try {
+			TempElement = driver.findElement(By.xpath(xPath));
+			highLighterMethod(TempElement);
+			size = TempElement.getSize();
+			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return size;
 	}
 
+
+	public void highLighterMethod(WebElement element) {
+		try {
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].setAttribute('style', 'border: 5px solid blue;');", element);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception m) {
+			logError(m.getMessage());
+			m.printStackTrace();
+		}
+	}
+
+	
+	// ------------------------------------------------ Classname ----------------------------------------------------
+	
+	public void clickUsingClassName(String clsname) {
+		try {
+			TempElement = driver.findElement(By.className(clsname));
+			highLighterMethod(TempElement);
+			TempElement.click();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
 	public void clickUsingClassName(String clsname, String LogStatement) {
 		try {
 			TempElement = driver.findElement(By.className(clsname));
@@ -729,11 +898,15 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	public void clickUsingClassName(String clsname, String altxpath, String LogStatement) {
 		try {
-			driver.findElement(By.className(clsname)).click();
+			TempElement = driver.findElement(By.className(clsname));
+			highLighterMethod(TempElement);
+			TempElement.click();
 			logPass(LogStatement);
 		} catch (Exception e) {
 			try {
-				driver.findElement(By.xpath(altxpath)).click();
+				TempElement = driver.findElement(By.xpath(altxpath));
+				highLighterMethod(TempElement);
+				TempElement.click();
 				logInfo("Primary ClassName Failed, Alternate Passed");
 				logPass(LogStatement);
 			} catch (Exception m) {
@@ -743,10 +916,231 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-
-	public void clickUsingId(String id, String LogStatement) {
+	
+	public void sendKeysUsingClassName(String classLocator, String Data) {
 		try {
-			driver.findElement(By.id(id)).click();
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendKeysUsingClassName(String classLocator, String Data, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendKeysUsingClassName(String classLocator, String altxpath, String Data, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altxpath));
+				highLighterMethod(TempElement);
+				TempElement.sendKeys(Data);
+				logPass(LogStatement);
+			} catch (Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public String getTextUsingClassName(String classLocator) {
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return Temptext;
+	}
+	
+	public String getTextUsingClassName(String classLocator, String Logstatement) {
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+			logPass(Logstatement);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return Temptext;
+	}
+	
+	public String getTextUsingClassName(String classLocator, String altxpath, String Logstatement) {
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+			logPass(Logstatement);
+		}catch(Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altxpath));
+				highLighterMethod(TempElement);
+				Temptext = TempElement.getText();
+				logPass(Logstatement);
+			}catch(Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return Temptext;
+	}
+	
+	public boolean verifyUsingClassName(String classLocator) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			if(TempElement.isDisplayed()) {
+				value = true;
+			}else {
+				value = false; 
+			}
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+	
+	public boolean verifyUsingClassName(String classLocator, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			if(TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}else {
+				value = false; 
+				logFail(LogStatementIfFailed);
+			}
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+	
+	public boolean verifyUsingClassName(String classLocator, String altxpath, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			if(TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}
+		}catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altxpath));
+				highLighterMethod(TempElement);
+				if(TempElement.isDisplayed()) {
+					logPass(LogPassStatement);
+					value = true;
+				}else {
+					value = false;
+					logFail(LogStatementIfFailed);
+				}
+			}catch (Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+				value = false;
+			}
+		}
+		return value;
+	}
+	
+	
+	
+	public String getCssValueUsingClassName(String classLocator, String Property, String Logstatemment) {
+		String tempText = null;
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			tempText = TempElement.getCssValue(Property);
+			logInfo("The CSS Value of "+ Property +" is : " + tempText);
+			logPass(Logstatemment);
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return tempText;
+	}
+	
+	public Point getLocationUsingClassName(String classLocator, String Logstatement) {
+		Point location = null;
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			location = TempElement.getLocation();
+			logInfo("The Location of X : "+location.getX() +" and Location of Y : "+ location.getY());
+			logPass(Logstatement);
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return location;
+	}
+	
+	public Dimension getSizeUsingClassName(String classLocator, String LogStatement) {
+		Dimension size = null;
+		try {
+			TempElement = driver.findElement(By.className(classLocator));
+			highLighterMethod(TempElement);
+			size = TempElement.getSize();
+			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return size;
+	}
+	
+	
+	
+	// ------------------------------------------------- ID --------------------------------------------------------------
+
+	public void clickUsingId(String idLocator) {
+		try {
+			TempElement = driver.findElement(By.id(idLocator));
+			highLighterMethod(TempElement);		
+			TempElement.click();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickUsingId(String idLocator, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.id(idLocator));
+			highLighterMethod(TempElement);		
+			TempElement.click();
 			logPass(LogStatement);
 		} catch (Exception e) {
 			logError(e.getMessage());
@@ -754,13 +1148,17 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	public void clickUsingId(String id, String altxpath, String LogStatement) {
+	public void clickUsingId(String idLocator, String altxpath, String LogStatement) {
 		try {
-			driver.findElement(By.id(id)).click();
+			TempElement = driver.findElement(By.id(idLocator));
+			highLighterMethod(TempElement);
+			TempElement.click();
 			logPass(LogStatement);
 		} catch (Exception e) {
 			try {
-				driver.findElement(By.xpath(altxpath)).click();
+				TempElement = driver.findElement(By.xpath(altxpath));
+				highLighterMethod(TempElement);
+				TempElement.click();
 				logInfo("Primary Id Failed, Alternate Passed");
 				logPass(LogStatement);
 			} catch (Exception m) {
@@ -770,6 +1168,225 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
+	
+	public String getTextUsingId(String idLocator) {
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.id(idLocator));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return Temptext;
+		
+	}
+	
+	public String getTextUsingId(String idLocator, String LogStatement) {
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.id(idLocator));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+			logInfo("The Text is : "+Temptext);
+			logPass(LogStatement);
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return Temptext;
+		
+	}
+	
+	public String getTextUsingId(String Locator, String altXpath, String LogStatement) {
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+			logInfo("The Text is : "+Temptext);
+			logPass(LogStatement);
+		}catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altXpath));
+				highLighterMethod(TempElement);
+				Temptext = TempElement.getText();
+				logPass(LogStatement);
+			}catch(Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return Temptext;
+		
+	}
+	
+	public void sendKeysUsingId(String Locator, String Data) {
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendKeysUsingId(String Locator, String Data, String Logstatement) {
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(Logstatement);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void sendKeysUsingId(String Locator, String altxpath, String Data, String Logstatement) {
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(Data);
+			logPass(Logstatement);
+		}catch(Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altxpath));
+				highLighterMethod(TempElement);
+				TempElement.sendKeys(Data);
+				logPass(Logstatement);
+			}catch(Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public boolean verifyUsingId(String Locator) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			if(TempElement.isDisplayed()) {
+				value = true;
+			}else {
+				value = false; 
+			}
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+		
+	}
+	
+	public boolean verifyUsingId(String Locator, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			if(TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}else {
+				value = false; 
+				logFail(LogStatementIfFailed);
+			}
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+		
+	}
+
+	public boolean verifyUsingId(String Locator, String altxpath, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			if(TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}
+		}catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altxpath));
+				highLighterMethod(TempElement);
+				if(TempElement.isDisplayed()) {
+					logPass(LogPassStatement);
+					value = true;
+				}else {
+					value = false;
+					logFail(LogStatementIfFailed);
+				}
+			}catch (Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+				value = false;
+			}
+		}
+		return value;
+	}
+	
+	public String getCssValueUsingId(String Locator, String Property, String Logstatemment) {
+		String tempText = null;
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			tempText = TempElement.getCssValue(Property);
+			logInfo("The CSS Value of "+ Property +" is : " + tempText);
+			logPass(Logstatemment);
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return tempText;
+	}
+	
+	public Point getLocationUsingId(String Locator, String Logstatement) {
+		Point location = null;
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			location = TempElement.getLocation();
+			logInfo("The Location of X : "+location.getX() +" and Location of Y : "+ location.getY());
+			logPass(Logstatement);
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return location;
+	}
+	
+	public Dimension getSizeUsingId(String Locator, String LogStatement) {
+		Dimension size = null;
+		try {
+			TempElement = driver.findElement(By.id(Locator));
+			highLighterMethod(TempElement);
+			size = TempElement.getSize();
+			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return size;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@AfterMethod
 	public void afterMethod() {
@@ -795,5 +1412,41 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public WebElement clickOrVerifyWithCssSelector(String Operation, String Locator, String LogPassStatement, String LogStatementIfFailed) {
+		WebElement CSSTempElement = null;
+		if (Operation.equalsIgnoreCase("Click")) {
+			try {
+				CSSTempElement = driver.findElement(By.cssSelector(Locator));
+				highLighterMethod(CSSTempElement);
+				if (CSSTempElement.isDisplayed()) {
+					CSSTempElement.click();
+					logPass(LogPassStatement);
+				}
+			} catch (Exception e) {
+				logFail(LogStatementIfFailed);
+				logError(e.getMessage());
+				e.printStackTrace();
+			}
+		} else if (Operation.equalsIgnoreCase("Verify")) {
+			try {
+				CSSTempElement = driver.findElement(By.cssSelector(Locator));
+				highLighterMethod(CSSTempElement);
+				if (CSSTempElement.isDisplayed()) {
+					logPass(LogPassStatement);
+				}
+			} catch (Exception e) {
+				logFail(LogStatementIfFailed);
+				logError(e.getMessage());
+				e.printStackTrace();
+			}
+		}
+		return CSSTempElement;
+	}
+	
+	
+	
 
 }
