@@ -251,9 +251,8 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	@Test
-	public void alertcheck() throws Exception {
-		// give a alert to website and handle that alert.
-		testName("CSS Accessing Elements Test " + "[" + browser + "]");  
+	public void accessingElements() throws Exception {
+		testName("Accessing Elements Test " + "[" + browser + "]");  
 		handleBrowser(browser);
 		openURL();
 		clickOrVerifyWithCssSelector("Verify", "input#email", "Element is Visible", "Element is not Visible");
@@ -261,7 +260,12 @@ public class SampleTests extends ProjectBaseTwo {
 		getLocationUsingId("email", "Location value is logged");
 		getSizeUsingId("email","Size of element is Logged");
 		verifyUsingId("email", "Element is Displayed", "Element is Not Displayed");
+		System.out.println(getPageSource());
 		quitBrowser(browser);
+	}
+	
+	public void alertCheck() {
+		// give a alert to website and handle that alert.
 	}
 	
 	public void scrollTillLastElementCheck() {

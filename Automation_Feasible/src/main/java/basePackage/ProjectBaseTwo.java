@@ -772,6 +772,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				logFail(LogStatementIfFailed);
 			}
 		}catch (Exception e) {
+			logFail(LogStatementIfFailed);
 			logError(e.getMessage());
 			e.printStackTrace();
 			value = false;
@@ -800,6 +801,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					logFail(LogStatementIfFailed);
 				}
 			}catch (Exception m) {
+				logFail(LogStatementIfFailed);
 				logError(m.getMessage());
 				m.printStackTrace();
 				value = false;
@@ -1038,6 +1040,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				logFail(LogStatementIfFailed);
 			}
 		}catch (Exception e) {
+			logFail(LogStatementIfFailed);
 			logError(e.getMessage());
 			e.printStackTrace();
 			value = false;
@@ -1066,6 +1069,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					logFail(LogStatementIfFailed);
 				}
 			}catch (Exception m) {
+				logFail(LogStatementIfFailed);
 				logError(m.getMessage());
 				m.printStackTrace();
 				value = false;
@@ -1296,6 +1300,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				logFail(LogStatementIfFailed);
 			}
 		}catch (Exception e) {
+			logFail(LogStatementIfFailed);
 			logError(e.getMessage());
 			e.printStackTrace();
 			value = false;
@@ -1325,6 +1330,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					logFail(LogStatementIfFailed);
 				}
 			}catch (Exception m) {
+				logFail(LogStatementIfFailed);
 				logError(m.getMessage());
 				m.printStackTrace();
 				value = false;
@@ -1378,11 +1384,121 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		return size;
 	}
 	
+// 	------------------------------------------------------- CSS Selector ----------------------------------------------
 	
+	public void clickUsingCssSelector(String CssLocator) {
+		
+	}
 	
+	public void clickUsingCssSelector(String CssLocator, String LogStatement) {
+		
+	}
 	
+	public void clickUsingCssSelector(String CssLocator, String altXpath, String LogStatement) {
+		
+	}
 	
+	public String getTextUsingCssSelector(String CssLocator) {
+		return CssLocator;
+		
+	}
 	
+	public String getTextUsingCssSelector(String CssLocator, String LogStatement) {
+		return LogStatement;
+		
+	}
+	
+	public String getTextUsingCssSelector(String CssLocator, String altXpath, String LogStatement) {
+		return LogStatement;
+		
+	}
+	
+	public void sendKeysUsingCssSelector(String CssLocator, String data) {
+		
+	}
+	
+	public void sendKeysUsingCssSelector(String CssLocator, String data, String LogStatement) {
+		
+	}
+	
+	public void sendKeysUsingCssSelector(String CssLocator, String altXpath, String data, String LogStatement) {
+		
+	}
+	
+	public boolean verifyUsingCssSelector(String CssLocator) {
+		boolean value = true;
+		
+		return value;
+	}
+	
+	public boolean verifyUsingCssSelector(String CssLocator, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = true;
+		
+		return value;
+	}
+	
+	public boolean verifyUsingCssSelector(String CssLocator, String altxpath, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = true;
+		
+		return value;
+	}
+	
+	public String getCssValueUsingCssSelector(String CssLocator, String Property, String Logstatemment) {
+		String tempText = null;
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			tempText = TempElement.getCssValue(Property);
+			logInfo("The CSS Value of "+ Property +" is : " + tempText);
+			logPass(Logstatemment);
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return tempText;
+	}
+	
+	public Point getLocationUsingCssSelector(String CssLocator, String Logstatement) {
+		Point location = null;
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			location = TempElement.getLocation();
+			logInfo("The Location of X : "+location.getX() +" and Location of Y : "+ location.getY());
+			logPass(Logstatement);
+		}catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return location;
+	}
+	
+	public Dimension getSizeUsingCssSelector(String CssLocator, String LogStatement) {
+		Dimension size = null;
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			size = TempElement.getSize();
+			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return size;
+	}
+	
+	public String getPageSource() {
+		String TempText = null;
+		try {
+			TempText = driver.getPageSource();
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return TempText;
+		
+	}
 	
 	
 	
@@ -1417,8 +1533,8 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	
 	public WebElement clickOrVerifyWithCssSelector(String Operation, String Locator, String LogPassStatement, String LogStatementIfFailed) {
 		WebElement CSSTempElement = null;
-		if (Operation.equalsIgnoreCase("Click")) {
-			try {
+		if (Operation.equalsIgnoreCase("Click")) {                            // This method accepts click or verify as parameter and it'll execute
+			try {                                                             // according to argument passed in operation.
 				CSSTempElement = driver.findElement(By.cssSelector(Locator));
 				highLighterMethod(CSSTempElement);
 				if (CSSTempElement.isDisplayed()) {
