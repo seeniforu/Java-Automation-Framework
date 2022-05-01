@@ -28,26 +28,15 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	public List<Integer> countofOtherElements = new ArrayList<Integer>();
 	/*
 	 * countofOtherElements tagname with index where all count is stored. -
-	 * countElements("p",1);
-	 * countElements("div", 2); 
-	 * countElements("h1",3); 
-	 * countElements("h2", 4); 
-	 * countElements("h3", 5); 
-	 * countElements("h4", 6);
-	 * countElements("h5", 7); 
-	 * countElements("h6", 8); 
-	 * countElements("frame",9);
-	 * countElements("iframe", 10); 
-	 * countElements("table", 11); 
-	 * countElements("tr",12); 
-	 * countElements("td", 13); 
-	 * countElements("ol", 14); 
-	 * countElements("ul",15); 
-	 * countElements("span", 16);
-	 *    // 17th index for temporary elements. 
-	 *    //Add new count from 18th Index.
+	 * countElements("p",1); countElements("div", 2); countElements("h1",3);
+	 * countElements("h2", 4); countElements("h3", 5); countElements("h4", 6);
+	 * countElements("h5", 7); countElements("h6", 8); countElements("frame",9);
+	 * countElements("iframe", 10); countElements("table", 11);
+	 * countElements("tr",12); countElements("td", 13); countElements("ol", 14);
+	 * countElements("ul",15); countElements("span", 16); // 17th index for
+	 * temporary elements. //Add new count from 18th Index.
 	 */
-	
+
 	/*
 	 * There are 2 open URL methods there 1. takes from projectsettings.properties
 	 * 2. user can pass any URL
@@ -119,19 +108,20 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	public void logCountAllElements() {
 		try {
-			logInfo("The "+"<b>"+"Total Number of Elements Locatable"+"</b>"+ " in Given Webpage - " + "[" + countOfElements + "]");
+			logInfo("The " + "<b>" + "Total Number of Elements Locatable" + "</b>" + " in Given Webpage - " + "["
+					+ countOfElements + "]");
 		} catch (Exception e) {
 			logFail(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void countElements(String TagName, int IndexOfCount) {
 		List<WebElement> tempcount = new ArrayList<WebElement>();
-		if(allElementTagName.contains(TagName)) {
-		tempcount = driver.findElements(By.xpath("//"+TagName));
-		countofOtherElements.add(IndexOfCount, tempcount.size());
-		}else {
+		if (allElementTagName.contains(TagName)) {
+			tempcount = driver.findElements(By.xpath("//" + TagName));
+			countofOtherElements.add(IndexOfCount, tempcount.size());
+		} else {
 			countofOtherElements.add(IndexOfCount, 0);
 		}
 	}
@@ -175,9 +165,9 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				buttonTag = driver.findElements(By.xpath("//button"));
 				countofbutton = buttonTag.size();
 			}
-			
-			countElements("script",0);
-			countElements("p",1);
+
+			countElements("script", 0);
+			countElements("p", 1);
 			countElements("div", 2);
 			countElements("h1", 3);
 			countElements("h2", 4);
@@ -185,7 +175,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			countElements("h4", 6);
 			countElements("h5", 7);
 			countElements("h6", 8);
-			countElements("frame",9);
+			countElements("frame", 9);
 			countElements("iframe", 10);
 			countElements("table", 11);
 			countElements("tr", 12);
@@ -193,7 +183,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			countElements("ol", 14);
 			countElements("ul", 15);
 			countElements("span", 16);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			logFatal(e.getMessage());
@@ -214,8 +204,9 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		if (countofbutton >= 1) {
 			logInfo("The Total Number of Button Tag in Given Webpage - " + "[" + countofbutton + "]");
 		}
-		if(countofOtherElements.get(1) >= 1) {
-			logInfo("The Total Number of Paragraph [p] Tag in Given Webpage - " + "[" + countofOtherElements.get(1) + "]");
+		if (countofOtherElements.get(1) >= 1) {
+			logInfo("The Total Number of Paragraph [p] Tag in Given Webpage - " + "[" + countofOtherElements.get(1)
+					+ "]");
 		}
 		if (countofOtherElements.get(2) >= 1) {
 			logInfo("The Total Number of Div Tag in Given Webpage - " + "[" + countofOtherElements.get(2) + "]");
@@ -229,26 +220,29 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		if (countofOtherElements.get(10) >= 1) {
 			logInfo("The Total Number of iFrame Tag in Given Webpage - " + "[" + countofOtherElements.get(10) + "]");
 		}
-		if(countofOtherElements.get(0) >= 1) {
+		if (countofOtherElements.get(0) >= 1) {
 			logInfo("The Total Number of Script Tag in Given Webpage - " + "[" + countofOtherElements.get(0) + "]");
 		}
-		if(countofOtherElements.get(11) >= 1) {
+		if (countofOtherElements.get(11) >= 1) {
 			logInfo("The Total Number of Table Tag in Given Webpage - " + "[" + countofOtherElements.get(11) + "]");
 		}
-		if(countofOtherElements.get(12) >= 1) {
-			logInfo("The Total Number of Table Row [TR] Tag in Given Webpage - " + "[" + countofOtherElements.get(12) + "]");
+		if (countofOtherElements.get(12) >= 1) {
+			logInfo("The Total Number of Table Row [TR] Tag in Given Webpage - " + "[" + countofOtherElements.get(12)
+					+ "]");
 		}
-		if(countofOtherElements.get(13) >= 1) {
-			logInfo("The Total Number of Table Data [TD] Tag in Given Webpage - " + "[" + countofOtherElements.get(13) + "]");
+		if (countofOtherElements.get(13) >= 1) {
+			logInfo("The Total Number of Table Data [TD] Tag in Given Webpage - " + "[" + countofOtherElements.get(13)
+					+ "]");
 		}
-		if(countofOtherElements.get(14) >= 1) {
-			logInfo("The Total Number of Ordered List [ol] Tag in Given Webpage - " + "[" + countofOtherElements.get(14) + "]");
+		if (countofOtherElements.get(14) >= 1) {
+			logInfo("The Total Number of Ordered List [ol] Tag in Given Webpage - " + "[" + countofOtherElements.get(14)
+					+ "]");
 		}
-		if(countofOtherElements.get(15) >= 1) {
-			logInfo("The Total Number of Unordered List [ul] Tag in Given Webpage - " + "[" + countofOtherElements.get(15) + "]");
+		if (countofOtherElements.get(15) >= 1) {
+			logInfo("The Total Number of Unordered List [ul] Tag in Given Webpage - " + "["
+					+ countofOtherElements.get(15) + "]");
 		}
-		
-		
+
 	}
 
 	public void logDetailsHeadingTag() {
@@ -272,8 +266,8 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	public static boolean isUrlValid(String url) {   
-		try {                                           // This method is used to validate a URL is valid or Not.
+	public static boolean isUrlValid(String url) {
+		try { // This method is used to validate a URL is valid or Not.
 			URL obj = new URL(url);
 			obj.toURI();
 			return true;
@@ -518,8 +512,8 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				}
 			}
 			countElements(nameoftag, 17);
-			logPass("The Sorted Element is : "+ nameoftag);
-			logPass("Number of "+nameoftag+" Tag - "+ "["+countofOtherElements.get(17)+"]");
+			logPass("The Sorted Element is : " + nameoftag);
+			logPass("Number of " + nameoftag + " Tag - " + "[" + countofOtherElements.get(17) + "]");
 		} catch (Exception e) {
 			logFail("Problem in sorting elements - Method name : sortElements");
 			e.printStackTrace();
@@ -544,15 +538,13 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
 	 * Below here are default existing methods If one class or id is failing, It is
 	 * handled with alternate xpath. If that is also failing error message is
 	 * logged.
 	 */
-	
-	
-	
+
 	public void sendInputUsingAttribute(String AttributeName, String AttributeValue, String Data) {
 		try {
 			String path = "//*[@" + AttributeName + "='" + AttributeValue + "']" + " | " + "//*[contains(@"
@@ -574,7 +566,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-	
+
 	public void sendInputUsingAttribute(String AttributeName, String AttributeValue, String Data, String LogStatement) {
 		try {
 			String path = "//*[@" + AttributeName + "='" + AttributeValue + "']" + " | " + "//*[contains(@"
@@ -598,9 +590,32 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
+
+	// -------------------------------------------------------- Xpath
+	// -----------------------------------------------
 	
+	public WebElement getElementUsingXpath(String xPath) {
+		WebElement element = null;
+		try {
+			element = driver.findElement(By.xpath(xPath));
+			highLighterMethod(element);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
 	
-	//-------------------------------------------------------- Xpath -----------------------------------------------
+	public List<WebElement> getElementsInListUsingXpath(String xPath) {
+		List<WebElement> elements = new ArrayList<WebElement>();
+		try {
+			elements = driver.findElements(By.xpath(xPath));
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return elements;
+	}
 
 	public void clickUsingXpath(String xPath) {
 		try {
@@ -612,7 +627,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void clickUsingXpath(String xPath, String LogStatement) {
 		try {
 			TempElement = driver.findElement(By.xpath(xPath));
@@ -645,37 +660,37 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-	
+
 	public void sendKeysUsingXpath(String xPath, String Data) {
 		try {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void sendKeysUsingXpath(String xPath, String Data, String LogStatement) {
 		try {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
 			logPass(LogStatement);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void sendKeysUsingXpath(String xPath, String AlternateXpath, String Data, String LogStatement) {
 		try {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
 			logPass(LogStatement);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			try {
 				TempElement = driver.findElement(By.xpath(AlternateXpath));
 				highLighterMethod(TempElement);
@@ -693,7 +708,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	public String getTextUsingXpath(String xPath) {
 		String textofelement = null;
 		try {
-			TempElement =  driver.findElement(By.xpath(xPath));
+			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			textofelement = TempElement.getText();
 		} catch (Exception e) {
@@ -702,11 +717,11 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textofelement;
 	}
-	
+
 	public String getTextUsingXpath(String xPath, String LogStatement) {
 		String textofelement = null;
 		try {
-			TempElement =  driver.findElement(By.xpath(xPath));
+			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			textofelement = TempElement.getText();
 			logPass(LogStatement);
@@ -716,18 +731,17 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textofelement;
 	}
-	
-	
+
 	public String getTextUsingXpath(String xPath, String AlternateXpath, String LogStatement) {
 		String textofelement = null;
 		try {
-			TempElement =  driver.findElement(By.xpath(xPath));
+			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			textofelement = TempElement.getText();
 			logPass(LogStatement);
 		} catch (Exception e) {
 			try {
-				TempElement =  driver.findElement(By.xpath(AlternateXpath));
+				TempElement = driver.findElement(By.xpath(AlternateXpath));
 				highLighterMethod(TempElement);
 				textofelement = TempElement.getText();
 				logPass(LogStatement);
@@ -740,38 +754,38 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return textofelement;
 	}
-	
+
 	public boolean verifyUsingXpath(String xPath) {
 		boolean value = true;
 		try {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
-			if(TempElement.isDisplayed()) {
+			if (TempElement.isDisplayed()) {
 				value = true;
-			}else {
-				value = false; 
+			} else {
+				value = false;
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 			value = false;
 		}
 		return value;
 	}
-	
+
 	public boolean verifyUsingXpath(String xPath, String LogPassStatement, String LogStatementIfFailed) {
 		boolean value = true;
 		try {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
-			if(TempElement.isDisplayed()) {
+			if (TempElement.isDisplayed()) {
 				logPass(LogPassStatement);
 				value = true;
-			}else {
-				value = false; 
+			} else {
+				value = false;
 				logFail(LogStatementIfFailed);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logFail(LogStatementIfFailed);
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -779,28 +793,29 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return value;
 	}
-	
-	public boolean verifyUsingXpath(String xPath, String AlternateXpath, String LogPassStatement, String LogStatementIfFailed) {
+
+	public boolean verifyUsingXpath(String xPath, String AlternateXpath, String LogPassStatement,
+			String LogStatementIfFailed) {
 		boolean value = true;
 		try {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
-			if(TempElement.isDisplayed()) {
+			if (TempElement.isDisplayed()) {
 				logPass(LogPassStatement);
 				value = true;
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			try {
 				TempElement = driver.findElement(By.xpath(AlternateXpath));
 				highLighterMethod(TempElement);
-				if(TempElement.isDisplayed()) {
+				if (TempElement.isDisplayed()) {
 					logPass(LogPassStatement);
 					value = true;
-				}else {
+				} else {
 					value = false;
 					logFail(LogStatementIfFailed);
 				}
-			}catch (Exception m) {
+			} catch (Exception m) {
 				logFail(LogStatementIfFailed);
 				logError(m.getMessage());
 				m.printStackTrace();
@@ -809,37 +824,37 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return value;
 	}
-	
+
 	public String getCssValueUsingXpath(String xPath, String Property, String Logstatemment) {
 		String tempText = null;
 		try {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			tempText = TempElement.getCssValue(Property);
-			logInfo("The CSS Value of "+ Property +" is : " + tempText);
+			logInfo("The CSS Value of " + Property + " is : " + tempText);
 			logPass(Logstatemment);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return tempText;
 	}
-	
+
 	public Point getLocationUsingXpath(String xPath, String Logstatement) {
 		Point location = null;
 		try {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			location = TempElement.getLocation();
-			logInfo("The Location of X : "+location.getX() +" and Location of Y : "+ location.getY());
+			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
 			logPass(Logstatement);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return location;
 	}
-	
+
 	public Dimension getSizeUsingXpath(String xPath, String LogStatement) {
 		Dimension size = null;
 		try {
@@ -855,7 +870,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		return size;
 	}
 
-
 	public void highLighterMethod(WebElement element) {
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -863,7 +877,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (Exception m) {
@@ -872,9 +885,32 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
+	// ------------------------------------------------ Classname
+	// ----------------------------------------------------
 	
-	// ------------------------------------------------ Classname ----------------------------------------------------
+	public WebElement getElementUsingClassName(String clsname) {
+		WebElement element = null;
+		try {
+			element = driver.findElement(By.className(clsname));
+			highLighterMethod(element);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
 	
+	public List<WebElement> getElementsInListUsingClassName(String clsname) {
+		List<WebElement> elements = new ArrayList<WebElement>();
+		try {
+			elements = driver.findElements(By.className(clsname));
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return elements;
+	}
+
 	public void clickUsingClassName(String clsname) {
 		try {
 			TempElement = driver.findElement(By.className(clsname));
@@ -885,7 +921,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void clickUsingClassName(String clsname, String LogStatement) {
 		try {
 			TempElement = driver.findElement(By.className(clsname));
@@ -918,30 +954,30 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-	
+
 	public void sendKeysUsingClassName(String classLocator, String Data) {
 		try {
 			TempElement = driver.findElement(By.className(classLocator));
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void sendKeysUsingClassName(String classLocator, String Data, String LogStatement) {
 		try {
 			TempElement = driver.findElement(By.className(classLocator));
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
 			logPass(LogStatement);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void sendKeysUsingClassName(String classLocator, String altxpath, String Data, String LogStatement) {
 		try {
 			TempElement = driver.findElement(By.className(classLocator));
@@ -960,20 +996,20 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-	
+
 	public String getTextUsingClassName(String classLocator) {
 		String Temptext = null;
 		try {
 			TempElement = driver.findElement(By.className(classLocator));
 			highLighterMethod(TempElement);
 			Temptext = TempElement.getText();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return Temptext;
 	}
-	
+
 	public String getTextUsingClassName(String classLocator, String Logstatement) {
 		String Temptext = null;
 		try {
@@ -981,13 +1017,13 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			highLighterMethod(TempElement);
 			Temptext = TempElement.getText();
 			logPass(Logstatement);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return Temptext;
 	}
-	
+
 	public String getTextUsingClassName(String classLocator, String altxpath, String Logstatement) {
 		String Temptext = null;
 		try {
@@ -995,51 +1031,51 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			highLighterMethod(TempElement);
 			Temptext = TempElement.getText();
 			logPass(Logstatement);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			try {
 				TempElement = driver.findElement(By.xpath(altxpath));
 				highLighterMethod(TempElement);
 				Temptext = TempElement.getText();
 				logPass(Logstatement);
-			}catch(Exception m) {
+			} catch (Exception m) {
 				logError(m.getMessage());
 				m.printStackTrace();
 			}
 		}
 		return Temptext;
 	}
-	
+
 	public boolean verifyUsingClassName(String classLocator) {
 		boolean value = true;
 		try {
 			TempElement = driver.findElement(By.className(classLocator));
 			highLighterMethod(TempElement);
-			if(TempElement.isDisplayed()) {
+			if (TempElement.isDisplayed()) {
 				value = true;
-			}else {
-				value = false; 
+			} else {
+				value = false;
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 			value = false;
 		}
 		return value;
 	}
-	
+
 	public boolean verifyUsingClassName(String classLocator, String LogPassStatement, String LogStatementIfFailed) {
 		boolean value = true;
 		try {
 			TempElement = driver.findElement(By.className(classLocator));
 			highLighterMethod(TempElement);
-			if(TempElement.isDisplayed()) {
+			if (TempElement.isDisplayed()) {
 				logPass(LogPassStatement);
 				value = true;
-			}else {
-				value = false; 
+			} else {
+				value = false;
 				logFail(LogStatementIfFailed);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logFail(LogStatementIfFailed);
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -1047,28 +1083,29 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return value;
 	}
-	
-	public boolean verifyUsingClassName(String classLocator, String altxpath, String LogPassStatement, String LogStatementIfFailed) {
+
+	public boolean verifyUsingClassName(String classLocator, String altxpath, String LogPassStatement,
+			String LogStatementIfFailed) {
 		boolean value = true;
 		try {
 			TempElement = driver.findElement(By.className(classLocator));
 			highLighterMethod(TempElement);
-			if(TempElement.isDisplayed()) {
+			if (TempElement.isDisplayed()) {
 				logPass(LogPassStatement);
 				value = true;
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			try {
 				TempElement = driver.findElement(By.xpath(altxpath));
 				highLighterMethod(TempElement);
-				if(TempElement.isDisplayed()) {
+				if (TempElement.isDisplayed()) {
 					logPass(LogPassStatement);
 					value = true;
-				}else {
+				} else {
 					value = false;
 					logFail(LogStatementIfFailed);
 				}
-			}catch (Exception m) {
+			} catch (Exception m) {
 				logFail(LogStatementIfFailed);
 				logError(m.getMessage());
 				m.printStackTrace();
@@ -1077,39 +1114,37 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return value;
 	}
-	
-	
-	
+
 	public String getCssValueUsingClassName(String classLocator, String Property, String Logstatemment) {
 		String tempText = null;
 		try {
 			TempElement = driver.findElement(By.className(classLocator));
 			highLighterMethod(TempElement);
 			tempText = TempElement.getCssValue(Property);
-			logInfo("The CSS Value of "+ Property +" is : " + tempText);
+			logInfo("The CSS Value of " + Property + " is : " + tempText);
 			logPass(Logstatemment);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return tempText;
 	}
-	
+
 	public Point getLocationUsingClassName(String classLocator, String Logstatement) {
 		Point location = null;
 		try {
 			TempElement = driver.findElement(By.className(classLocator));
 			highLighterMethod(TempElement);
 			location = TempElement.getLocation();
-			logInfo("The Location of X : "+location.getX() +" and Location of Y : "+ location.getY());
+			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
 			logPass(Logstatement);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return location;
 	}
-	
+
 	public Dimension getSizeUsingClassName(String classLocator, String LogStatement) {
 		Dimension size = null;
 		try {
@@ -1124,26 +1159,48 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return size;
 	}
+
+	// ------------------------------------------------- ID
+	// --------------------------------------------------------------
 	
+	public WebElement getElementUsingId(String idLocator) {
+		WebElement element = null;
+		try {
+			element = driver.findElement(By.id(idLocator));
+			highLighterMethod(element);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
 	
-	
-	// ------------------------------------------------- ID --------------------------------------------------------------
+	public List<WebElement> getElementsInListUsingId(String idLocator) {
+		List<WebElement> elements = new ArrayList<WebElement>();
+		try {
+			elements = driver.findElements(By.id(idLocator));
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return elements;
+	}
 
 	public void clickUsingId(String idLocator) {
 		try {
 			TempElement = driver.findElement(By.id(idLocator));
-			highLighterMethod(TempElement);		
+			highLighterMethod(TempElement);
 			TempElement.click();
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void clickUsingId(String idLocator, String LogStatement) {
 		try {
 			TempElement = driver.findElement(By.id(idLocator));
-			highLighterMethod(TempElement);		
+			highLighterMethod(TempElement);
 			TempElement.click();
 			logPass(LogStatement);
 		} catch (Exception e) {
@@ -1172,164 +1229,165 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 	}
-	
+
 	public String getTextUsingId(String idLocator) {
 		String Temptext = null;
 		try {
 			TempElement = driver.findElement(By.id(idLocator));
 			highLighterMethod(TempElement);
 			Temptext = TempElement.getText();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return Temptext;
-		
+
 	}
-	
+
 	public String getTextUsingId(String idLocator, String LogStatement) {
 		String Temptext = null;
 		try {
 			TempElement = driver.findElement(By.id(idLocator));
 			highLighterMethod(TempElement);
 			Temptext = TempElement.getText();
-			logInfo("The Text is : "+Temptext);
+			logInfo("The Text is : " + Temptext);
 			logPass(LogStatement);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return Temptext;
-		
+
 	}
-	
+
 	public String getTextUsingId(String Locator, String altXpath, String LogStatement) {
 		String Temptext = null;
 		try {
 			TempElement = driver.findElement(By.id(Locator));
 			highLighterMethod(TempElement);
 			Temptext = TempElement.getText();
-			logInfo("The Text is : "+Temptext);
+			logInfo("The Text is : " + Temptext);
 			logPass(LogStatement);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			try {
 				TempElement = driver.findElement(By.xpath(altXpath));
 				highLighterMethod(TempElement);
 				Temptext = TempElement.getText();
 				logPass(LogStatement);
-			}catch(Exception m) {
+			} catch (Exception m) {
 				logError(m.getMessage());
 				m.printStackTrace();
 			}
 		}
 		return Temptext;
-		
+
 	}
-	
+
 	public void sendKeysUsingId(String Locator, String Data) {
 		try {
 			TempElement = driver.findElement(By.id(Locator));
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void sendKeysUsingId(String Locator, String Data, String Logstatement) {
 		try {
 			TempElement = driver.findElement(By.id(Locator));
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
 			logPass(Logstatement);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void sendKeysUsingId(String Locator, String altxpath, String Data, String Logstatement) {
 		try {
 			TempElement = driver.findElement(By.id(Locator));
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
 			logPass(Logstatement);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			try {
 				TempElement = driver.findElement(By.xpath(altxpath));
 				highLighterMethod(TempElement);
 				TempElement.sendKeys(Data);
 				logPass(Logstatement);
-			}catch(Exception m) {
+			} catch (Exception m) {
 				logError(m.getMessage());
 				m.printStackTrace();
 			}
 		}
 	}
-	
+
 	public boolean verifyUsingId(String Locator) {
 		boolean value = true;
 		try {
 			TempElement = driver.findElement(By.id(Locator));
 			highLighterMethod(TempElement);
-			if(TempElement.isDisplayed()) {
+			if (TempElement.isDisplayed()) {
 				value = true;
-			}else {
-				value = false; 
+			} else {
+				value = false;
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 			value = false;
 		}
 		return value;
-		
+
 	}
-	
+
 	public boolean verifyUsingId(String Locator, String LogPassStatement, String LogStatementIfFailed) {
 		boolean value = true;
 		try {
 			TempElement = driver.findElement(By.id(Locator));
 			highLighterMethod(TempElement);
-			if(TempElement.isDisplayed()) {
+			if (TempElement.isDisplayed()) {
 				logPass(LogPassStatement);
 				value = true;
-			}else {
-				value = false; 
+			} else {
+				value = false;
 				logFail(LogStatementIfFailed);
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logFail(LogStatementIfFailed);
 			logError(e.getMessage());
 			e.printStackTrace();
 			value = false;
 		}
 		return value;
-		
+
 	}
 
-	public boolean verifyUsingId(String Locator, String altxpath, String LogPassStatement, String LogStatementIfFailed) {
+	public boolean verifyUsingId(String Locator, String altxpath, String LogPassStatement,
+			String LogStatementIfFailed) {
 		boolean value = true;
 		try {
 			TempElement = driver.findElement(By.id(Locator));
 			highLighterMethod(TempElement);
-			if(TempElement.isDisplayed()) {
+			if (TempElement.isDisplayed()) {
 				logPass(LogPassStatement);
 				value = true;
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			try {
 				TempElement = driver.findElement(By.xpath(altxpath));
 				highLighterMethod(TempElement);
-				if(TempElement.isDisplayed()) {
+				if (TempElement.isDisplayed()) {
 					logPass(LogPassStatement);
 					value = true;
-				}else {
+				} else {
 					value = false;
 					logFail(LogStatementIfFailed);
 				}
-			}catch (Exception m) {
+			} catch (Exception m) {
 				logFail(LogStatementIfFailed);
 				logError(m.getMessage());
 				m.printStackTrace();
@@ -1338,37 +1396,37 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return value;
 	}
-	
+
 	public String getCssValueUsingId(String Locator, String Property, String Logstatemment) {
 		String tempText = null;
 		try {
 			TempElement = driver.findElement(By.id(Locator));
 			highLighterMethod(TempElement);
 			tempText = TempElement.getCssValue(Property);
-			logInfo("The CSS Value of "+ Property +" is : " + tempText);
+			logInfo("The CSS Value of " + Property + " is : " + tempText);
 			logPass(Logstatemment);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return tempText;
 	}
-	
+
 	public Point getLocationUsingId(String Locator, String Logstatement) {
 		Point location = null;
 		try {
 			TempElement = driver.findElement(By.id(Locator));
 			highLighterMethod(TempElement);
 			location = TempElement.getLocation();
-			logInfo("The Location of X : "+location.getX() +" and Location of Y : "+ location.getY());
+			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
 			logPass(Logstatement);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return location;
 	}
-	
+
 	public Dimension getSizeUsingId(String Locator, String LogStatement) {
 		Dimension size = null;
 		try {
@@ -1383,96 +1441,261 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return size;
 	}
-	
+
 // 	------------------------------------------------------- CSS Selector ----------------------------------------------
 	
+	public WebElement getElementUsingCssSelector(String CssLocator) {
+		WebElement element = null;
+		try {
+			element = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(element);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
+	
+	public List<WebElement> getElementsInListUsingCssSelector(String CssLocator) {
+		List<WebElement> elements = new ArrayList<WebElement>();
+		try {
+			elements = driver.findElements(By.cssSelector(CssLocator));
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return elements;
+	}
+
 	public void clickUsingCssSelector(String CssLocator) {
-		
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			TempElement.click();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void clickUsingCssSelector(String CssLocator, String LogStatement) {
-		
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			TempElement.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void clickUsingCssSelector(String CssLocator, String altXpath, String LogStatement) {
-		
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			TempElement.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altXpath));
+				highLighterMethod(TempElement);
+				TempElement.click();
+				logInfo("Primary Id Failed, Alternate Passed");
+				logPass(LogStatement);
+			} catch (Exception m) {
+				logInfo("Both Primary Id , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
 	}
-	
+
 	public String getTextUsingCssSelector(String CssLocator) {
-		return CssLocator;
-		
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return Temptext;
 	}
-	
+
 	public String getTextUsingCssSelector(String CssLocator, String LogStatement) {
-		return LogStatement;
-		
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return Temptext;
 	}
-	
+
 	public String getTextUsingCssSelector(String CssLocator, String altXpath, String LogStatement) {
-		return LogStatement;
-		
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altXpath));
+				highLighterMethod(TempElement);
+				Temptext = TempElement.getText();
+				logPass(LogStatement);
+			} catch (Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return Temptext;
 	}
-	
+
 	public void sendKeysUsingCssSelector(String CssLocator, String data) {
-		
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(data);
+		} catch (Exception m) {
+			logError(m.getMessage());
+			m.printStackTrace();
+		}
 	}
-	
+
 	public void sendKeysUsingCssSelector(String CssLocator, String data, String LogStatement) {
-		
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(data);
+			logPass(LogStatement);
+		} catch (Exception m) {
+			logError(m.getMessage());
+			m.printStackTrace();
+		}
 	}
-	
+
 	public void sendKeysUsingCssSelector(String CssLocator, String altXpath, String data, String LogStatement) {
-		
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altXpath));
+				highLighterMethod(TempElement);
+				TempElement.sendKeys(data);
+				logPass(LogStatement);
+			} catch (Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
 	}
-	
+
 	public boolean verifyUsingCssSelector(String CssLocator) {
 		boolean value = true;
-		
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			if (TempElement.isDisplayed()) {
+				value = true;
+			}
+		} catch (Exception m) {
+			logError(m.getMessage());
+			m.printStackTrace();
+			value = false;
+		}
 		return value;
 	}
-	
+
 	public boolean verifyUsingCssSelector(String CssLocator, String LogPassStatement, String LogStatementIfFailed) {
 		boolean value = true;
-		
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			if (TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}
+		} catch (Exception m) {
+			logFail(LogStatementIfFailed);
+			logError(m.getMessage());
+			m.printStackTrace();
+			value = false;
+		}
 		return value;
 	}
-	
-	public boolean verifyUsingCssSelector(String CssLocator, String altxpath, String LogPassStatement, String LogStatementIfFailed) {
+
+	public boolean verifyUsingCssSelector(String CssLocator, String altxpath, String LogPassStatement,
+			String LogStatementIfFailed) {
 		boolean value = true;
-		
+		try {
+			TempElement = driver.findElement(By.cssSelector(CssLocator));
+			highLighterMethod(TempElement);
+			if (TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}
+		} catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altxpath));
+				highLighterMethod(TempElement);
+				if (TempElement.isDisplayed()) {
+					logPass(LogPassStatement);
+					value = true;
+				} else {
+					value = false;
+					logFail(LogStatementIfFailed);
+				}
+			} catch (Exception m) {
+				logFail(LogStatementIfFailed);
+				logError(m.getMessage());
+				m.printStackTrace();
+				value = false;
+			}
+		}
 		return value;
 	}
-	
+
 	public String getCssValueUsingCssSelector(String CssLocator, String Property, String Logstatemment) {
 		String tempText = null;
 		try {
 			TempElement = driver.findElement(By.cssSelector(CssLocator));
 			highLighterMethod(TempElement);
 			tempText = TempElement.getCssValue(Property);
-			logInfo("The CSS Value of "+ Property +" is : " + tempText);
+			logInfo("The CSS Value of " + Property + " is : " + tempText);
 			logPass(Logstatemment);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return tempText;
 	}
-	
+
 	public Point getLocationUsingCssSelector(String CssLocator, String Logstatement) {
 		Point location = null;
 		try {
 			TempElement = driver.findElement(By.cssSelector(CssLocator));
 			highLighterMethod(TempElement);
 			location = TempElement.getLocation();
-			logInfo("The Location of X : "+location.getX() +" and Location of Y : "+ location.getY());
+			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
 			logPass(Logstatement);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return location;
 	}
-	
+
 	public Dimension getSizeUsingCssSelector(String CssLocator, String LogStatement) {
 		Dimension size = null;
 		try {
@@ -1487,22 +1710,18 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return size;
 	}
-	
+
 	public String getPageSource() {
 		String TempText = null;
 		try {
 			TempText = driver.getPageSource();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		}
 		return TempText;
-		
+
 	}
-	
-	
-	
-	
 
 	@AfterMethod
 	public void afterMethod() {
@@ -1524,17 +1743,15 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			setUp();
 			browser = prop.getProperty("browserName");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	public WebElement clickOrVerifyWithCssSelector(String Operation, String Locator, String LogPassStatement, String LogStatementIfFailed) {
+
+	public WebElement clickOrVerifyWithCssSelector(String Operation, String Locator, String LogPassStatement,
+			String LogStatementIfFailed) {
 		WebElement CSSTempElement = null;
-		if (Operation.equalsIgnoreCase("Click")) {                            // This method accepts click or verify as parameter and it'll execute
-			try {                                                             // according to argument passed in operation.
+		if (Operation.equalsIgnoreCase("Click")) { // This method accepts click or verify as parameter and it'll execute
+			try { // according to argument passed in operation.
 				CSSTempElement = driver.findElement(By.cssSelector(Locator));
 				highLighterMethod(CSSTempElement);
 				if (CSSTempElement.isDisplayed()) {
@@ -1561,8 +1778,5 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return CSSTempElement;
 	}
-	
-	
-	
 
 }
