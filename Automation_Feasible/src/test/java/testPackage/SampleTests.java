@@ -18,9 +18,8 @@ import facebookPagesPackage.locators.xpathMain;
 /*
  * Things to be Done:
  * 
- * Add and complete Highlight wherever possible.
  * Add Multiple Tab handling.
- * Add Methods for linktext, partial link text and CSS Selector.
+ * Add Methods for linktext, partial link text
  * Add Assertion
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
@@ -74,7 +73,7 @@ public class SampleTests extends ProjectBaseTwo {
 	 */
 
 	@Test(priority = 0, dataProvider = "browserDecider")
-	public void ensureURL(String browser) throws Exception {
+	public void ensureURL(String browser) {
 		warnings();
 		testName("Ensure URL Working " + "[" + browser + "]");
 		handleBrowser(browser); 

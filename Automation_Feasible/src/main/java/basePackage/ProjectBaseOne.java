@@ -148,7 +148,7 @@ public class ProjectBaseOne {
 		prop.load(reader);
 	}
 
-	public void handleBrowser(String browser) throws Exception {
+	public void handleBrowser(String browser) {
 		try {
 			// To verify through chrome browser
 			browserName = prop.getProperty("browserName");
@@ -348,7 +348,7 @@ public class ProjectBaseOne {
 		intializeReport();
 	}
 
-	public void warnings() throws IOException {
+	public void warnings() {
 		try {
 			if (prop.getProperty("ReportName").isEmpty() || prop.getProperty("browserName").isEmpty()
 					|| prop.getProperty("Chrome").isEmpty() || prop.getProperty("Edge").isEmpty()
@@ -408,6 +408,15 @@ public class ProjectBaseOne {
 
 	public void refreshPage() {
 		driver.navigate().refresh();
+	}
+	
+	public void threadSleep(int Seconds) {
+		try {
+			Thread.sleep(Seconds);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void closeBrowser() {
