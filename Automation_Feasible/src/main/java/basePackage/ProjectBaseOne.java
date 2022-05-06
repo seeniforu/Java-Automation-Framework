@@ -42,6 +42,7 @@ public class ProjectBaseOne {
 	public ExtentTest logger;
 	public static ExtentReports extentReport;
 	public static ExtentHtmlReporter htmlReport;
+	
 
 	public static ExtentReports getExtentReport() {
 		try {

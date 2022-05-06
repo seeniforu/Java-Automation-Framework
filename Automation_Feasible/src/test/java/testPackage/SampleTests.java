@@ -71,7 +71,7 @@ public class SampleTests extends ProjectBaseTwo {
 			warningsAndProperties();
 			testName("Ensure URL Working " + "[" + browser + "]");
 			handleBrowser(browser);
-			openURL("http://ringtonecutter.com");
+			openURL();
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -320,6 +320,7 @@ public class SampleTests extends ProjectBaseTwo {
 			warningsAndProperties();
 		}
 	}
+	
 	
 	public void alertCheck() {
 		// give a alert to website and handle that alert.
