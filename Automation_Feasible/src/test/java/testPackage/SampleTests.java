@@ -1,10 +1,7 @@
 package testPackage;
 
-import org.openqa.selenium.By;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import basePackage.MultiBrowser;
 import basePackage.ProjectBaseTwo;
 import facebookPagesPackage.locators.xpathMain;
 
@@ -18,14 +15,16 @@ import facebookPagesPackage.locators.xpathMain;
 /*
  * Things to be Done:
  * 
- * Add Multiple Tab handling.
+ * create Empty Testcase shows all important methods and how to use it.
  * Add Methods for linktext, partial link text
  * Add Assertion
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
  * inputfield(String locator, String type = positive | negative, Total no.of chracters or numbers can be inserted)
- * if frame tag switch to frame and count and log elements.
  * add screen resolution in project settings with capabilities. 
+ * try adding page speed insights in headless mode.
+ * try adding extension and run tests.
+ * add scroll webpage
  */
 
 
@@ -42,21 +41,14 @@ import facebookPagesPackage.locators.xpathMain;
  * https://demoqa.com/
  * https://www.netflix.com/in/
  * https://www.hotstar.com/in
+ * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe
+ * http://www.maths.surrey.ac.uk/explore/nigelspages/frame2.htm
+ * https://www.w3schools.com/html/html_iframe.asp
  */
 
 
 
 public class SampleTests extends ProjectBaseTwo {
-
-	public String b2, b1;
-
-	@DataProvider(name = "browserDecider")
-	public String[][] browser() {
-		b1 = MultiBrowser.First_Execution_BrowserName;
-		b2 = MultiBrowser.Second_Execution_BrowserName;
-		return new String[][] { { b2 }, };
-	}
-	
 	
 	/*
 	 * Below Testcase Execution order
@@ -72,13 +64,19 @@ public class SampleTests extends ProjectBaseTwo {
 	 * add screenshot to capture website is launched. Whenever new navigation to next page capture and add to test step.
 	 */
 
-	@Test(priority = 0, dataProvider = "browserDecider")
-	public void ensureURL(String browser) {
-		warnings();
-		testName("Ensure URL Working " + "[" + browser + "]");
-		handleBrowser(browser); 
-		openURL();
-		quitBrowser(browser);
+	@Test(priority = 0)
+	public void ensureURL() {
+		try {
+			warningsAndProperties();
+			testName("Ensure URL Working " + "[" + browser + "]");
+			handleBrowser(browser);
+			openURL("http://ringtonecutter.com");
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			quitBrowser();
+		}
 	}
 
 	/*
@@ -92,19 +90,24 @@ public class SampleTests extends ProjectBaseTwo {
 	 * 6. logDetailsHeadingTag - logs heading tags details in the report.
 	 * 7. quitbrowser Helps us to Quit the Browser.
 	 * 
-	 * Purpose : To Catagorize and Log all elements of a webpage in the report.
-	 */
+	 * Purpose : To Catagorize and Log all elements of a webpage in the report.	 */
 	
-	@Test(priority = 1, dataProvider = "browserDecider")
-	public void detailsOfWebpage(String browser) throws Exception {
-		testName("Details of WebPage " + "[" + browser + "]");
-		handleBrowser(browser);
-		openURL();
-		getTitle();
-		BasicForEachPageElementsLogDetails();
-		logDetailsPrimaryTags();
-		logDetailsHeadingTag();
-		quitBrowser(browser);
+	@Test(priority = 1)
+	public void detailsOfWebpage() throws Exception {
+		try {
+			testName("Details of WebPage " + "[" + browser + "]");
+			handleBrowser(browser);
+			openURL();
+			getTitle();
+			DetailedElementsCount();
+			logDetailsPrimaryTags();
+			logDetailsHeadingTag();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			quitBrowser();
+		}
 	}
 	
 	/*
@@ -124,14 +127,20 @@ public class SampleTests extends ProjectBaseTwo {
 	 * Upgrade with detailed status codes which is very useful when testing a application under development.
 	 */
 
-	@Test(priority = 2, dataProvider = "browserDecider")
-	public void performOperations(String browser) throws Exception {
-		testName("List of Anchor Tags " + "[" + browser + "]");
-		handleBrowser(browser);
-		openURL();
-		BasicForEachPageElementsLogDetails();
-		performOperationOnAnchor();
-		quitBrowser(browser);
+	@Test(priority = 2)
+	public void performOperations() throws Exception {
+		try {
+			testName("List of Anchor Tags " + "[" + browser + "]");
+			handleBrowser(browser);
+			openURL();
+			BasicForEachPageElementsLogDetails();
+			performOperationOnAnchor();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			quitBrowser();
+		}
 	}
 	
 	/*
@@ -150,23 +159,29 @@ public class SampleTests extends ProjectBaseTwo {
 	 * If it is a Dynamic website and loads everytime according to user data, this testcase may fail.
 	 */
 
-	@Test(priority = 3, dataProvider = "browserDecider")
-	public void refreshCheck(String browser) throws Exception {
-		testName("Verify No.of Elements when Launched == After Refresh Page" + "[" + browser + "]");
-		handleBrowser(browser);
-		openURL();
-		int beforeRefresh = countAllElements();
-		refreshPage();
-		Thread.sleep(2000);
-		int afterRefresh = countAllElements();
-		if (beforeRefresh == afterRefresh) {
-			logPass("No.of Elements when Launched - [" + beforeRefresh + "] == After Refresh Page - [" + afterRefresh
-					+ "]");
-		} else {
-			logFail("No.of Elements After Refresh Page - [" + afterRefresh
-					+ "] is not Equal with No.of Elements when Launched -[" + beforeRefresh + "]");
+	@Test(priority = 3)
+	public void refreshCheck() throws Exception {
+		try {
+			testName("Verify No.of Elements when Launched == After Refresh Page" + "[" + browser + "]");
+			handleBrowser(browser);
+			openURL();
+			int beforeRefresh = countAllElements();
+			refreshPage();
+			Thread.sleep(2000);
+			int afterRefresh = countAllElements();
+			if (beforeRefresh == afterRefresh) {
+				logPass("No.of Elements when Launched - [" + beforeRefresh + "] == After Refresh Page - ["
+						+ afterRefresh + "]");
+			} else {
+				logFail("No.of Elements After Refresh Page - [" + afterRefresh
+						+ "] is not Equal with No.of Elements when Launched -[" + beforeRefresh + "]");
+			}
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			quitBrowser();
 		}
-		quitBrowser(browser);
 	}
 	
 	/*
@@ -182,15 +197,21 @@ public class SampleTests extends ProjectBaseTwo {
 	 * Purpose : To send inputs as per User need to verify maximum and minimum characters for all input field in a webpage Launched.
 	 */
 
-	@Test(priority = 4, dataProvider = "browserDecider")
-	public void inputCheck(String browser) throws Exception {
-		testName("Input field Check " + "[" + browser + "]");
-		handleBrowser(browser);
-		openURL();
-		BasicForEachPageElementsLogDetails();
-		sendInputData("123@gmail.com"); // Sending Raw input for all input fields in the Loaded page. can send positive and negative values for all input fields.
-		//sendInputUsingId("email", "seeniforu");  // Send input using Locators.
-		quitBrowser(browser);
+	@Test(priority = 4)
+	public void inputCheck() throws Exception {
+		try {
+			testName("Input field Check " + "[" + browser + "]");
+			handleBrowser(browser);
+			openURL();
+			BasicForEachPageElementsLogDetails();
+			sendInputData("123@gmail.com"); // Sending Raw input for all input fields in the Loaded page. can send positive and negative values for all input fields.
+			//sendInputUsingId("email", "seeniforu");  // Send input using Locators.
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}finally {
+			quitBrowser();
+		}
 	}
 	
 	/*
@@ -205,22 +226,28 @@ public class SampleTests extends ProjectBaseTwo {
 	 * Purpose : To Sort Elements accroding to argument passed by user.
 	 */
 	
-	@Test(priority = 5, dataProvider = "browserDecider")
-	public void sortElementsCheck(String browser) throws Exception {
-		testName("Sort Elements Check " + "[" + browser + "]");
-		handleBrowser(browser);
-		openURL();
-		BasicForEachPageElementsLogDetails();
-		sortElements("meta");
-		quitBrowser(browser);
+	@Test(priority = 5)
+	public void sortElementsCheck() throws Exception {
+		try {
+			testName("Sort Elements Check " + "[" + browser + "]");
+			handleBrowser(browser);
+			openURL();
+			BasicForEachPageElementsLogDetails();
+			sortElements("meta");
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}finally {
+			quitBrowser();
+		}
 	}
 	
 	// ------------------------------------ Above All cases are Website Independent ------------------------------------------------------------------
 
 	// ------------------------------------ Below are Particular Website based testcase for Reference -------------------------------------------------
 	
-	@Test(priority = 6, dataProvider = "browserDecider")
-	public void navigate(String browser) throws Exception {   // Website specific Testcase for reference.
+	//@Test
+	public void navigate() throws Exception {   // Website specific Testcase for reference.
 		try {													// https://www.facebook.com/ - is used.
 			testName("Navigate Check " + "[" + browser + "]");
 			handleBrowser(browser);
@@ -235,32 +262,62 @@ public class SampleTests extends ProjectBaseTwo {
 		} catch (Exception e) {
 			logError(e.getMessage());
 		} finally {
-			quitBrowser(browser);
+			quitBrowser();
 		}
 	}
 	
 	//@Test
 	public void ClickElements() throws Exception {                    // Website specific Testcase for reference.										
-		testName("Clicking Elements Test " + "[" + browser + "]");     // https://www.facebook.com/ - is used.
-		handleBrowser(browser);
-		openURL();
-		clickElementUsingAttribute("data-testid", "royal_login_button");		//Clicks the element of given attribute or id or class.
-		GetElementUsingAttribute("data-testid", "royal_login_button");        // Returns the element of given attribute or id or class.
-		quitBrowser(browser);
+		try {
+			testName("Clicking Elements Test " + "[" + browser + "]");     // https://www.facebook.com/ - is used.
+			handleBrowser(browser);
+			openURL();
+			clickElementUsingAttribute("data-testid", "royal_login_button");		//Clicks the element of given attribute or id or class.
+			GetElementUsingAttribute("data-testid", "royal_login_button");        // Returns the element of given attribute or id or class.
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}finally {
+			quitBrowser();
+		}
 	}
 	
-	@Test
-	public void accessingElements() throws Exception {
-		testName("Accessing Elements Test " + "[" + browser + "]");  
-		handleBrowser(browser);
-		openURL();
-		clickOrVerifyWithCssSelector("Verify", "input#email", "Element is Visible", "Element is not Visible");
-		getCssValueUsingId("email","font-size","CSS value is Logged");
-		getLocationUsingId("email", "Location value is logged");
-		getSizeUsingId("email","Size of element is Logged");
-		verifyUsingId("email", "Element is Displayed", "Element is Not Displayed");
-		System.out.println(getPageSource());
-		quitBrowser(browser);
+	//@Test
+	public void accessingElements() throws Exception {                                 // Website specific Testcase for reference.
+		try {
+			testName("Accessing Elements Test " + "[" + browser + "]");
+			handleBrowser(browser);                         
+			openURL();                                                             // https://www.facebook.com/ - is used.
+			clickOrVerifyWithCssSelector("Verify", "input#email", "Element is Visible", "Element is not Visible");
+			getCssValueUsingId("email", "font-size", "CSS value is Logged");
+			getLocationUsingId("email", "Location value is logged");
+			getSizeUsingId("email", "Size of element is Logged");
+			verifyUsingId("email", "Element is Displayed", "Element is Not Displayed");
+			System.out.println(getPageSource());
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			quitBrowser();
+		}
+	}
+	
+	//@Test
+	public void frameSwitchingCheck() {
+		try {
+			testName("Ensure Frame Switching " + "[" + browser + "]");
+			handleBrowser(browser);
+			openURL("https://www.w3schools.com/html/html_iframe.asp");
+			addAssertionForStringVerification(getTitle(), "HTML Iframe", "Title Verification Done", "Title is Not Matching");
+			//DetailedElementsCount();    // This method is useful when user needs to switch to a Frame in website to count elements inside it.
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			reportFlush();
+			quitBrowser();
+			warningsAndProperties();
+		}
 	}
 	
 	public void alertCheck() {
@@ -273,10 +330,6 @@ public class SampleTests extends ProjectBaseTwo {
 	
 	public void take_H_tag_text() {
 		// after page landing take all text of H1 to h6 and P tag, Store it in text file or log in extent report.
-	}
-	
-	public void loginPageCheck() {
-		// create a method for sendkeys two args 1. xpath 2. what we need to send to that field
 	}
 	
 

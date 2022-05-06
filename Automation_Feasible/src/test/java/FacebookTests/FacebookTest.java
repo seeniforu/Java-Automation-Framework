@@ -15,12 +15,12 @@ public class FacebookTest extends FacebookPages{
 
 	@Test(priority = 0)
 	public void ensureURL() throws Exception {
-		warnings();
+		warningsAndProperties();
 		testName("Ensure URL Working " + "[" + browser + "]");
 		handleBrowser(browser); 
 		openURL();
 		basicThingsForHomepage();
-		quitBrowser(browser);
+		quitBrowser();
 	}
 	
 	public void newtest() {

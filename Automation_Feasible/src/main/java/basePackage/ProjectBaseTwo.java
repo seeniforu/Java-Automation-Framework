@@ -1,5 +1,9 @@
 package basePackage;
 
+
+
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -7,12 +11,16 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -49,7 +57,11 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			} else {
 				driver.get(prop.getProperty("WebUrl"));
 				int StatusCode = statusCode(driver.getCurrentUrl());
+				if(StatusCode >= 200 && StatusCode <=299) {
 				logPass("[" + driver.getCurrentUrl() + "]" + " - is Launched - " + "Status code : " + StatusCode);
+				}else {
+					logSkip("URL Response is Not Applicable - "+ "Status code : " + StatusCode);
+				}
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());
@@ -85,15 +97,16 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		return httpStatusCode;
 	}
 
-	public void getTitle() {
+	public String getTitle() {
 		try {
 			logInfo("Title of Webpage - " + "[" + driver.getTitle() + "]");
-			logPass("[" + driver.getCurrentUrl() + "]" + " - is Launched - " + "Status code : "
-					+ statusCode(driver.getCurrentUrl()));
+			//logPass("[" + driver.getCurrentUrl() + "]" + " - is Launched - " + "Status code : "
+					//+ statusCode(driver.getCurrentUrl()));
 		} catch (Exception e) {
 			logFail(e.getMessage());
 			e.printStackTrace();
 		}
+		return driver.getTitle();
 	}
 
 	public int countAllElements() {
@@ -123,6 +136,63 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			countofOtherElements.add(IndexOfCount, tempcount.size());
 		} else {
 			countofOtherElements.add(IndexOfCount, 0);
+		}
+	}
+	
+	public List<WebElement> frameTag = new ArrayList<WebElement>();
+	
+	public void DetailedElementsCount() {
+		int i = 0;
+		try {
+			BasicForEachPageElementsLogDetails();
+			if (allElementTagName.contains("iframe")) {
+				frameTag = driver.findElements(By.xpath("//iframe"));
+				System.out.println(frameTag.size());
+			}
+			if (allElementTagName.contains("frame")) {
+				frameTag = driver.findElements(By.xpath("//frame"));
+			}
+			if (frameTag.size() >= 1) {
+				for (i = 0; i < frameTag.size(); i++) {
+					frameSwitchWithWebElement(frameTag.get(i));
+					logInfo("Switched to Frame : " + i);
+					System.out.println("Switched to Frame : " + i);
+					BasicForEachPageElementsLogDetails();
+					logDetailsPrimaryTags();
+					logDetailsHeadingTag();
+					backToOriginaFrame();
+				}
+			}
+		} catch (Exception e) {
+				e.printStackTrace();
+				logFatal(e.getMessage());
+		}
+	}
+	
+	public void frameSwitchWithWebElement(WebElement element) {
+		try {
+			driver.switchTo().frame(element);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logFatal(e.getMessage());
+		}
+	}
+	
+	public void frameSwitchWithIndex(int index) {
+		try {
+			driver.switchTo().frame(index);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logFatal(e.getMessage());
+		}
+	}
+	
+	public void frameSwitchWithId(String nameOrId) {
+		try {
+			driver.switchTo().frame(nameOrId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logFatal(e.getMessage());
 		}
 	}
 
@@ -341,8 +411,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		 * data-testid='royal_login_button'.
 		 */
 		try {
-			String path = "//*[@" + AttributeName + "='" + AttributeValue + "']" + " | " + "//*[contains(@"
-					+ AttributeName + ",'" + AttributeValue + "')]";
+			String path = "//*[@" + AttributeName + "='" + AttributeValue + "']";
 			driver.findElement(By.xpath(path)).click();
 		} catch (Exception e) {
 			try {
@@ -452,7 +521,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		} catch (Exception e) {
 			logFail("Failed Using Method Name : clickUsingClass");
 			e.printStackTrace();
-			quitBrowser(browser);
+			quitBrowser();
 		}
 
 	}
@@ -1722,6 +1791,26 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		return TempText;
 
 	}
+	
+	public ArrayList<String> tabs;
+	
+	public void gotoTab(int TabNumber) {
+		try {
+			tabs = new ArrayList<String> (driver.getWindowHandles());
+		    driver.switchTo().window(tabs.get(TabNumber));
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void backToOriginalTab() {
+		driver.switchTo().defaultContent();
+	}
+	
+	public void backToOriginaFrame() {
+		driver.switchTo().defaultContent();
+	}
 
 	@AfterMethod
 	public void afterMethod() {
@@ -1731,11 +1820,21 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	@AfterSuite
 	public void afterSuite() {
-		getResults();
-		openFile();
+		
+		if(isThereWarning == true) {
+			getResults();
+			openFile();
+		}else if (isTestCreated == true && isBrowserClosed == true) {
+			getResults();
+			openFile();
+		}
 	}
 
 	public String browser;
+	public List<String> readFile = new ArrayList<String>();
+	public String filePath = System.getProperty("user.dir")+"\\";
+	boolean isThereWarning = false;
+	boolean isTestCreated = false;
 
 	@BeforeMethod
 	public void beforeMethod() {
@@ -1745,6 +1844,110 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	boolean isBrowserClosed = false;
+	public void quitBrowser() {
+		try {
+			driver.quit();
+			isBrowserClosed = true;
+			logPass(browser.toUpperCase() + " " + "Browser is Closed");
+		} catch (Exception e) {
+			logFail(e.getMessage());
+			isBrowserClosed = false;
+		}
+	}
+	
+	public void createFile(String Filename) {
+		try {
+		      File myObj = new File(filePath+Filename);
+		      if (myObj.createNewFile()) {
+		        System.out.println("File created: " + myObj.getName());
+		      } else {
+		        System.out.println("File already exists.");
+		      }
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+	}
+	
+	
+	public void writeListInFile(String FileName, List<String> ArgumentList) {
+		createFile(FileName);
+		readFile(FileName);
+		FileWriter myWriter = null;
+			try {
+				myWriter = new FileWriter(filePath+FileName,true);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			for (String string : ArgumentList) {
+				try {
+					if (readFile.contains(string)) {
+						System.out.println("Already Available. So Ignored to add in File - "+string);
+						logInfo("Already Available. So Ignored to add in File - "+string);
+					} else {
+						myWriter.write("\n");
+						myWriter.write(string + "\n");
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			try {
+				myWriter.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+	
+	public void writeTextInFile(String FileName, String Data) {
+		createFile(FileName);
+		readFile(FileName);
+		FileWriter myWriter = null;
+		try {
+			myWriter = new FileWriter(filePath + FileName, true);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			myWriter.write("\n");
+			myWriter.write(Data);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			myWriter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void readFile(String FileName) {
+		 try {
+		      File myObj = new File(filePath+FileName);
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        if(data.isEmpty()) {
+		        	;
+		        }else {
+		        	 readFile.add(data);
+				     System.out.println("Read : "+data);
+		        }
+		      }
+		      myReader.close();
+		    } catch (Exception e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
 	}
 
 	public WebElement clickOrVerifyWithCssSelector(String Operation, String Locator, String LogPassStatement,
@@ -1777,6 +1980,17 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		}
 		return CSSTempElement;
+	}
+	
+	public void addAssertionForStringVerification(String Actual, String Expected, String LogPassStatement, String LogStatementIfFailed) {
+		try{
+			Assert.assertEquals(Actual, Expected);
+			logPass(LogPassStatement);
+		}catch (AssertionError e) {
+			logFail(LogStatementIfFailed);
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 }

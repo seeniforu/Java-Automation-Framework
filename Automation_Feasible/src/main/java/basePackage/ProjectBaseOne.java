@@ -59,11 +59,12 @@ public class ProjectBaseOne {
 				htmlReport.config().setTimeStampFormat("MMM dd - yyyy HH:mm:ss");
 
 				extentReport.setSystemInfo("Operating System and Version: ", System.getProperty("os.name"));
-				if (MultiBrowser.Multiple_Browser_YesOrNO != null
-						&& MultiBrowser.Multiple_Browser_YesOrNO.equalsIgnoreCase("yes")) {
+				if (prop.getProperty("Diff_Browser").equalsIgnoreCase("Yes")) {
 					extentReport.setSystemInfo("Browser : ", "MultiBrowser");
-				} else if (MultiBrowser.Multiple_Browser_YesOrNO.equalsIgnoreCase("no")) {
+				} else if (prop.getProperty("Diff_Browser").equalsIgnoreCase("No")) {
 					extentReport.setSystemInfo("Browser : ", prop.getProperty("browserName"));
+				}else {
+					extentReport.setSystemInfo("Browser : ", prop.getProperty("browserName"));	
 				}
 				extentReport.setSystemInfo("Java Version : ", System.getProperty("java.version"));
 				extentReport.setSystemInfo("Java Runtime Version: ", System.getProperty("java.runtime.version"));
@@ -78,13 +79,24 @@ public class ProjectBaseOne {
 	public void intializeReport() {
 		report = getExtentReport();
 	}
-
+	boolean isTestCreated = false;
 	public void testName(String name) {
-		logger = report.createTest(name);
+		try {
+			logger = report.createTest(name);
+			isTestCreated = true;
+		}catch(Exception e) {
+			isTestCreated = false;
+			e.printStackTrace();
+		}
 	}
 
 	public void logPass(String msg) {
 		logger.log(Status.PASS, msg);
+	}
+	
+	public void logPassLink(String msg) {
+		String msg1 = "<a href='"+msg+"' target='_blank'>"+ msg +" </a>";
+		logger.log(Status.PASS, msg1);
 	}
 
 	public void logSkip(String msg) {
@@ -151,7 +163,7 @@ public class ProjectBaseOne {
 	public void handleBrowser(String browser) {
 		try {
 			// To verify through chrome browser
-			browserName = prop.getProperty("browserName");
+			browserName = browser;
 			if (browser.equalsIgnoreCase("Chrome")) {
 				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
 						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
@@ -326,6 +338,259 @@ public class ProjectBaseOne {
 		implicitWait();
 		maximizeWindow();
 	}
+	
+	boolean HeadlessOrNot = false;
+	boolean IncognitoOrNot = false;
+	
+	public void handleBrowser(String browser, String Options) {
+		try {
+			// To verify through chrome browser
+			browserName = browser;
+			if (browser.equalsIgnoreCase("Chrome")) {
+				if (Options.contains("Headless")
+						 && prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					options.addArguments("--headless", "--incognito");
+					HeadlessOrNot = true;
+					IncognitoOrNot = true;
+					driver = new ChromeDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode"
+							+ " + Incognito Mode");
+				} else if (Options.contains("Headless")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					options.addArguments("--headless");
+					HeadlessOrNot = true;
+					IncognitoOrNot = false;
+					driver = new ChromeDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode");
+				} else if (Options.contains("Headless")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					options.addArguments("--incognito");
+					HeadlessOrNot = false;
+					IncognitoOrNot = true;
+					driver = new ChromeDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					HeadlessOrNot = false;
+					IncognitoOrNot = false;
+					driver = new ChromeDriver(options);
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}else if(Options.equalsIgnoreCase("Incognito") && prop.getProperty("Headless").equalsIgnoreCase("No")) {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					options.addArguments("--incognito");
+					HeadlessOrNot = false;
+					IncognitoOrNot = true;
+					driver = new ChromeDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				}else if(Options.equalsIgnoreCase("Incognito") && prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					options.addArguments("--headless", "--incognito");
+					HeadlessOrNot = true;
+					IncognitoOrNot = true;
+					driver = new ChromeDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				}else {
+					System.setProperty("webdriver.chrome.driver", prop.getProperty("Chrome"));
+					ChromeOptions options = new ChromeOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					HeadlessOrNot = false;
+					IncognitoOrNot = false;
+					driver = new ChromeDriver(options);
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}
+			}
+			// To verify through firefox browser
+			else if (browserName.equalsIgnoreCase("Firefox")) {
+				if (Options.contains("Headless")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.addArguments("--headless", "--incognito");
+					HeadlessOrNot = true;
+					IncognitoOrNot = true;
+					driver = new FirefoxDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode"
+							+ " + Incognito Mode");
+				} else if (Options.contains("Headless")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.addArguments("--headless");
+					HeadlessOrNot = true;
+					IncognitoOrNot = false;
+					driver = new FirefoxDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode");
+				} else if (Options.contains("Headless")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.addArguments("--headless","--incognito");
+					HeadlessOrNot = true;
+					IncognitoOrNot = true;
+					driver = new FirefoxDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				} else if (Options.contains("Headless")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					driver = new FirefoxDriver();
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				} else if(Options.equalsIgnoreCase("Incognito") && prop.getProperty("Headless").equalsIgnoreCase("No")){
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.addArguments("--incognito");
+					HeadlessOrNot = false;
+					IncognitoOrNot = true;
+					driver = new FirefoxDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				}else if(Options.equalsIgnoreCase("Incognito") && prop.getProperty("Headless").equalsIgnoreCase("Yes")){
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					options.addArguments("--headless", "--incognito");
+					HeadlessOrNot = true;
+					IncognitoOrNot = true;
+					driver = new FirefoxDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				}else {
+					System.setProperty("webdriver.gecko.driver", prop.getProperty("Firefox"));
+					FirefoxOptions options = new FirefoxOptions();
+					Proxy proxy = new Proxy();
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+						options.setCapability(CapabilityType.PROXY, proxy);
+					}
+					driver = new FirefoxDriver();
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}
+			}
+			// To verify through edge browser
+			else if (browser.equalsIgnoreCase("Edge")) {
+				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.edge.driver", prop.getProperty("Edge"));
+					// Initialize the EdgeOptions class
+					EdgeOptions edgeOptions = new EdgeOptions();
+					// edgeOptions.addArguments("headless");
+					driver = new EdgeDriver(edgeOptions);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode");
+				} else {
+					System.setProperty("webdriver.edge.driver", prop.getProperty("Edge"));
+					driver = new EdgeDriver();
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}
+			} else if (browserName.equalsIgnoreCase("Safari")) {
+				if (System.getProperty("os.version").contains("Mac")) {
+					driver = new SafariDriver();
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser is Launched");
+				} else {
+					logFail("Previously SafariDriver was supporting safari browser on Windows machine but recently Apple has decided to remove its support for windows and then execution on safari has become the job of Mac machine. So for the same, we need mac machine where safari browser should be installed.");
+				}
+			} else if (browserName.equalsIgnoreCase("Opera")) {
+				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+					System.setProperty("webdriver.opera.driver", prop.getProperty("Opera"));
+					OperaOptions options = new OperaOptions();
+					options.addArguments("--headless");
+					driver = new OperaDriver(options);
+					logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser Executed in Headless Mode");
+				} else {
+					System.setProperty("webdriver.opera.driver", prop.getProperty("Opera"));
+					driver = new OperaDriver();
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}
+			} else if (browserName.equalsIgnoreCase("HTMLUnitDriver")) {
+				driver = new HtmlUnitDriver();
+			} else if (browserName.equalsIgnoreCase("PhantomJS")) {
+				System.setProperty("phantomjs.binary.path", prop.getProperty("PhantomJS"));
+				//driver = new PhantomJSDriver();
+			}
+		} catch (Exception e) {
+			logFail(e.getMessage());
+		}
+		pageLoad();
+		implicitWait();
+		maximizeWindow();
+	}
+	
 
 	// This method for naming and creating screenshots
 	public String Screenshot(String Sname) {
@@ -347,18 +612,20 @@ public class ProjectBaseOne {
 		property();
 		intializeReport();
 	}
+	boolean isThereWarning = false;
 
-	public void warnings() {
+	public void warningsAndProperties() {
 		try {
 			if (prop.getProperty("ReportName").isEmpty() || prop.getProperty("browserName").isEmpty()
 					|| prop.getProperty("Chrome").isEmpty() || prop.getProperty("Edge").isEmpty()
 					|| prop.getProperty("Firefox").isEmpty() || prop.getProperty("Safari").isEmpty()) {
 				testName("Test Properties and Warnings to be Noted");
-
+				isThereWarning = true;
 				if (prop.getProperty("browserName").isEmpty()) {
 					System.out.println("Please Enter a Browser Name in Settings");
 					logError("Enter a Browser Name in Settings");
 					logSkip("No Browser Name : Execution is Skipped ");
+					isThereWarning = true;
 				}
 				if (prop.getProperty("Chrome").isEmpty() || prop.getProperty("Edge").isEmpty()
 						|| prop.getProperty("Firefox").isEmpty() || prop.getProperty("Safari").isEmpty()) {
@@ -366,14 +633,30 @@ public class ProjectBaseOne {
 							"Chrome | Firefox | Edge | Safari - One or More Driver Path is Missing in Settings");
 					logWarning("Chrome | Firefox | Edge | Safari - One or More Driver Path is Missing in Settings");
 					logWarning("Execution in Different Browsers is not supported until all Driver Path is Given");
+					isThereWarning = true;
 				}
 				if (!prop.getProperty("ProxyAddress").isEmpty()) {
 					logInfo("Proxy Address : " + prop.getProperty("ProxyAddress"));
 				}
-				logInfo("Headless Mode : " + prop.getProperty("Headless"));
-				logInfo("Incognito Mode : " + prop.getProperty("Incognito"));
+				if (HeadlessOrNot == false && IncognitoOrNot == false) {
+					logInfo("Headless Mode : No");
+					logInfo("Incognito Mode : No");
+				} else if (HeadlessOrNot == true && IncognitoOrNot == true) {
+					logInfo("Headless Mode : Yes");
+					logInfo("Incognito Mode : Yes");
+				} else if (HeadlessOrNot == false && IncognitoOrNot == true) {
+					logInfo("Headless Mode : No");
+					logInfo("Incognito Mode : Yes");
+				} else if (HeadlessOrNot == true && IncognitoOrNot == false) {
+					logInfo("Headless Mode : Yes");
+					logInfo("Incognito Mode : No");
+				} else {
+					logInfo("Headless Mode : " + prop.getProperty("Headless"));
+					logInfo("Incognito Mode : " + prop.getProperty("Incognito"));
+				}
 				logInfo("Page Load Time is : " + prop.getProperty("PageLoadTime"));
 				logInfo("Implicit Wait Time is : " + prop.getProperty("ImplicitWait"));
+				isThereWarning = true;
 				reportFlush();
 			}
 		} catch (Exception e) {
@@ -405,6 +688,10 @@ public class ProjectBaseOne {
 	public void navigateBack() {
 		driver.navigate().back();
 	}
+	
+	public String getCurrentURL() {
+		return driver.getCurrentUrl();
+	}
 
 	public void refreshPage() {
 		driver.navigate().refresh();
@@ -421,16 +708,7 @@ public class ProjectBaseOne {
 
 	public void closeBrowser() {
 		driver.close();
-		logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser is Closed");
-	}
-
-	public void quitBrowser(String browser) {
-		try {
-			driver.quit();
-			logPass(browser.toUpperCase() + " " + "Browser is Closed");
-		} catch (Exception e) {
-			logFail(e.getMessage());
-		}
+		//logPass(prop.getProperty("browserName").toUpperCase() + " " + "Browser is Closed");
 	}
 
 	public void reportFlush() {
