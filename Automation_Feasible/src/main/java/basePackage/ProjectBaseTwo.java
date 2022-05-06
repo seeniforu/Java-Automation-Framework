@@ -1820,7 +1820,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	@AfterSuite
 	public void afterSuite() {
-		
 		if(isThereWarning == true) {
 			getResults();
 			openFile();
@@ -1833,8 +1832,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	public String browser;
 	public List<String> readFile = new ArrayList<String>();
 	public String filePath = System.getProperty("user.dir")+"\\";
-	boolean isThereWarning = false;
-	boolean isTestCreated = false;
 
 	@BeforeMethod
 	public void beforeMethod() {

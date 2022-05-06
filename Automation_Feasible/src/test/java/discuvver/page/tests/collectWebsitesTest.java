@@ -9,7 +9,7 @@ import basePackage.ProjectBaseTwo;
 
 public class collectWebsitesTest extends ProjectBaseTwo {
 	
-	int Number_Of_Websites_User_Want = 1;
+	int Number_Of_Websites_User_Want = 2;
 	
 	public static final String RandomButton = "//div[@class='intro']//button";
 	public List<String> URLlist = new ArrayList<String>();
