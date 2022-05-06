@@ -16,6 +16,7 @@ import facebookPagesPackage.locators.xpathMain;
  * Things to be Done:
  * 
  * create Empty Testcase shows all important methods and how to use it.
+ * update readme.
  * Add Methods for linktext, partial link text
  * Add Assertion
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
