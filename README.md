@@ -13,7 +13,8 @@ Creating My own Framework for a Quick Start in Automation with any Working Websi
 
 ## Requirements
 
-- Eclipse is Advisable to Clone or Import this project.
+- Jdk must be Installed and Environment Variables should be done.
+- Eclipse is Advisable because of `Maven Dependencies` to Clone and Import this project.
 - Basic Java and Selenium Knowledge.
 - Knowledge about this Tool and How it Works.
 
@@ -22,15 +23,34 @@ Creating My own Framework for a Quick Start in Automation with any Working Websi
 
 Install My-Project with git clone
 
+- Fork this Repository and Clone from your Github Account for Pull Requests and Contributions.
+- To Use this Framework, Copy the Below Link.
+
+```bash
+https://github.com/seeniforu/Automation-Framework.git
+```
+Use `Latest Version` When Selecting Branch.
+
+- After Copying above link, Open Eclipse -> Window -> Show View -> Other.
+- Expand Git -> Click on Git Repositories.
+- Click Icon `Clone a Git Repository`.
+- Paste Cloned Link and Click Next.
+- Select `Latest Version Branch` from list and Click Finish.
+- After Goto File -> Import.
+- Expand Maven -> Existing Maven Projects.
+- Select the Cloned Repository from your Local system.
+- After Click Finish. Now Project is Imported in Eclipse.
+- Otherwise User can use `Git Bash or CMD` to clone the project and Follow Steps from File -> Import.
 ```bash
 git clone https://github.com/seeniforu/Automation-Framework.git
 ```
-Use Latest Version When Selecting Branch.
+
 ## Things to do After Installation
 
-* Fill All the Mandatory Fields in (`ProjectSettings.properties`) - Driver Path is Exception.
+* Fill All the Mandatory Fields in (`ProjectSettings.properties`) 
+* Anyone Browser's `Driver Path` is must for Execution. Others are Exception. Still Other Browser's Driver Path is Important for their Execution.
 * Modify `URL`, `Report Name`, `Broswer Execution`, `Driver Path` etc., as per User Need.
-* No need to Start from Home or Landing Page. Just Give any URL at any point of Website in Properties File.
+* Give any URL at any point of Website in `WebUrl` field.
 
 
 ## How to Run Existing Testcase
@@ -39,30 +59,30 @@ To Run this project or any Testcase
 
 - Goto `SampleTests.java` file and Try Running Existing Testcase after completeing **Things to do After Installation** Section. 
 
-
-
 ## Create New Testcases and Run
 
 * New Testfile Follows one Major Rule
   * `NewTestFile.java` must  Inherit `ProjectBaseTwo.java` to use Existing Methods.
   * `SampleTests.java` will be a Example for Writing New Testcases.
+
 ## Features
 
-- Tool is **Independent of Website** and also can adopt Major Changes in Webpage or in a Flow. Any Website can be Easily Automated with this Tool.
-- User can Start Automate by Pasting **Direct or Cookie URL**. 
-- User can Start Writing **Own Testcases** using Existing Methods. 
-- It has **Multi-Browser Execution**. Give Driver Path and Name of the Browser to Execute in `ProjectSettings.properties`.
-- It has **HEADLESS MODE** Feature, If enabled in `ProjectSettings.properties`, User cannot see Driver Execution but you'll get all results Once execution is completed. 
-- User Can Run Test in **INCOGNITO MODE** by Enabling It in `ProjectSettings.properties`.
-- User Can Setup their **Own PROXY** for Safe Execution in `ProjectSettings.properties`.
-- Everything is Logged using **Extent Report**, When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
+- Tool is `Independent of Website` and also can adopt Major Changes in Webpage or in a Flow. Any Website can be Easily Automated with this Tool.
+- User can Start Automate by Pasting `Direct or Cookie URL`. 
+- User can Start Writing `Own Testcases` using Existing Methods. 
+- It has `Multi-Browser Execution`. Give Driver Path and Name of the Browser to Execute in `ProjectSettings.properties`.
+- It has `HEADLESS MODE` Feature, If enabled in `ProjectSettings.properties`, User cannot see Driver Execution but you'll get all results Once execution is completed. 
+- User Can Run Test in `INCOGNITO MODE` by Enabling It in `ProjectSettings.properties`.
+- User Can Setup their `Own PROXY` for Safe Execution in `ProjectSettings.properties`.
+- Everything is Logged using `Extent Report`, When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
+- `Element HighLight` during Exceution is available in all methods. The Given Xpath's Element is Highlighted, Useful when Reviewing Screenshots.
 - It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
   - Xpaths, Classname, id's can be Seperated for Easy Maintenance.
-  - These have Arguments like Primary Id or Classname. The method is Configured in a way, If Primary Fails It'll try to access the element using Alternate Xpath.
+  - My Own Methods have Arguments like Primary Id or Classname and Alternate Xpath. The method is Configured in a way, If Primary Fails It'll try to access the element using Alternate Xpath.
   <p align="center">
   <img src="https://user-images.githubusercontent.com/91478125/167070849-1961d47f-2cf0-4f7c-8f68-f0c0dfb87967.png" width= 700/>
   </p>
-- It has a Special Method Where User No Need to Create Xpath. Just Give `Id` or `Any Attribute` as one Parameter and it's `Value` as another Parameter. 
+- It has a Special Method Where User No Need to Create Xpath. Give `Id` or `Any Attribute` as one Parameter and it's `Value` as another Parameter. 
  <p align="center">
   <img src="https://user-images.githubusercontent.com/91478125/167070646-d96ff078-f2f7-4486-aed1-5ae64da0d63e.svg" width=700/>
 </p>
@@ -86,7 +106,7 @@ This Project is Useful for :
 - A **Beginner User Friendly Tool** where **Any one** can Automate and **Any Websites** can be Automated.
 - This tool will be helpful for **Quick Start in Automation**. User can quickly write a flow to Test a website.
 - Quick Automation Test To check the **Stability of Newly Developed or Under Development** Webpage.
-- **Quick Automation Feasibility** also can be done.
+- **Quick Automation Feasibility** can be done.
 
 ## Drawbacks 
 
@@ -96,13 +116,12 @@ This Project is Useful for :
 
 * Not Tested in any Test environments.
 * Case - 3 takes so much time to Execute if More Anchor tags are available. Threads need to included.
+* Switching Frames and Counting elements Takes so much time.
 * Safari Is not Tested. Don't know will work or not.
 * opera has some issues in headless mode and it is also not tested both UI, Headless, Proxy Execution. It needs different selenium version to updated in POM.
 * HtmlUnitDriver also has some issues. Execution is improper. Not working
 * phantomJs driver Pom needs to be updated with jar file. Not working.
 * Edge need to be updated with headless, incognito and Proxy.
-
-
 
 ## Feedback
 
