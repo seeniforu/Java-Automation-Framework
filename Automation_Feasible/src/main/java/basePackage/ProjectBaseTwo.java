@@ -1779,6 +1779,275 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return size;
 	}
+	
+// 	------------------------------------------------------- LinkText Selector ----------------------------------------------
+	
+	public WebElement getElementUsingLinkText(String LinkText) {
+		WebElement element = null;
+		try {
+			element = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(element);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
+	
+	public List<WebElement> getElementsInListUsingLinkText(String LinkText) {
+		List<WebElement> elements = new ArrayList<WebElement>();
+		try {
+			elements = driver.findElements(By.linkText(LinkText));
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return elements;
+	}
+
+	public void clickUsingLinkText(String LinkText) {
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			TempElement.click();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void clickUsingLinkText(String LinkText, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			TempElement.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void clickUsingLinkText(String LinkText, String altXpath, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			TempElement.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altXpath));
+				highLighterMethod(TempElement);
+				TempElement.click();
+				logInfo("Primary Id Failed, Alternate Passed");
+				logPass(LogStatement);
+			} catch (Exception m) {
+				logInfo("Both Primary Id , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+
+	public String getTextUsingLinkText(String LinkText) {
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return Temptext;
+	}
+
+	public String getTextUsingLinkText(String LinkText, String LogStatement) {
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return Temptext;
+	}
+
+	public String getTextUsingLinkText(String LinkText, String altXpath, String LogStatement) {
+		String Temptext = null;
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			Temptext = TempElement.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altXpath));
+				highLighterMethod(TempElement);
+				Temptext = TempElement.getText();
+				logPass(LogStatement);
+			} catch (Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return Temptext;
+	}
+
+	public void sendKeysUsingLinkText(String LinkText, String data) {
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(data);
+		} catch (Exception m) {
+			logError(m.getMessage());
+			m.printStackTrace();
+		}
+	}
+
+	public void sendKeysUsingLinkText(String LinkText, String data, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(data);
+			logPass(LogStatement);
+		} catch (Exception m) {
+			logError(m.getMessage());
+			m.printStackTrace();
+		}
+	}
+
+	public void sendKeysUsingLinkText(String LinkText, String altXpath, String data, String LogStatement) {
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			TempElement.sendKeys(data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altXpath));
+				highLighterMethod(TempElement);
+				TempElement.sendKeys(data);
+				logPass(LogStatement);
+			} catch (Exception m) {
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+
+	public boolean verifyUsingLinkText(String LinkText) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			if (TempElement.isDisplayed()) {
+				value = true;
+			}
+		} catch (Exception m) {
+			logError(m.getMessage());
+			m.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+
+	public boolean verifyUsingLinkText(String LinkText, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			if (TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}
+		} catch (Exception m) {
+			logFail(LogStatementIfFailed);
+			logError(m.getMessage());
+			m.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+
+	public boolean verifyUsingLinkText(String LinkText, String altxpath, String LogPassStatement,
+			String LogStatementIfFailed) {
+		boolean value = true;
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			if (TempElement.isDisplayed()) {
+				logPass(LogPassStatement);
+				value = true;
+			}
+		} catch (Exception e) {
+			try {
+				TempElement = driver.findElement(By.xpath(altxpath));
+				highLighterMethod(TempElement);
+				if (TempElement.isDisplayed()) {
+					logPass(LogPassStatement);
+					value = true;
+				} else {
+					value = false;
+					logFail(LogStatementIfFailed);
+				}
+			} catch (Exception m) {
+				logFail(LogStatementIfFailed);
+				logError(m.getMessage());
+				m.printStackTrace();
+				value = false;
+			}
+		}
+		return value;
+	}
+
+	public String getCssValueUsingLinkText(String LinkText, String Property, String Logstatemment) {
+		String tempText = null;
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			tempText = TempElement.getCssValue(Property);
+			logInfo("The CSS Value of " + Property + " is : " + tempText);
+			logPass(Logstatemment);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return tempText;
+	}
+
+	public Point getLocationUsingLinkText(String LinkText, String Logstatement) {
+		Point location = null;
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			location = TempElement.getLocation();
+			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
+			logPass(Logstatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return location;
+	}
+
+	public Dimension getSizeUsingLinkText(String LinkText, String LogStatement) {
+		Dimension size = null;
+		try {
+			TempElement = driver.findElement(By.linkText(LinkText));
+			highLighterMethod(TempElement);
+			size = TempElement.getSize();
+			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return size;
+	}
 
 	public String getPageSource() {
 		String TempText = null;
@@ -1823,7 +2092,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		if(isThereWarning == true) {
 			getResults();
 			openFile();
-		}else if (isTestCreated == true && isBrowserClosed == true) {
+		}else if (isThereWarning == true || isTestCreated == true && isBrowserClosed == true) {
 			getResults();
 			openFile();
 		}

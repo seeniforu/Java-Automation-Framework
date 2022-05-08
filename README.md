@@ -1,5 +1,5 @@
 # Automation-Framework
-Creating My own Framework for Automation.
+Creating My own Framework for a Quick Start in Automation with any Working Website. 
 
 ## Vision For this Project
 
@@ -17,13 +17,59 @@ Creating My own Framework for Automation.
 - Basic Java and Selenium Knowledge.
 - Knowledge about this Tool and How it Works.
 
-## Features 
 
-- Tool is Independent of Website and also can adopt Major Changes in Webpage or in a Flow. Any Website can be Easily Automated with this Tool.
-- User can Start Automate by Pasting Direct or Cookie URL. No need to Start from Home or Landing Page.
-  - Just Give URL in Properties File. 
-  - **Fill All the Mandatory Fields in ProjectSettings.properties** file to Modify **URL, Report Name, Broswer to Exceute and Driver Path**.
-- Everything is Logged using Extent report, So When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
+## Installation
+
+Install My-Project with git clone
+
+```bash
+git clone https://github.com/seeniforu/Automation-Framework.git
+```
+Use Latest Version When Selecting Branch.
+## Things to do After Installation
+
+* Fill All the Mandatory Fields in (`ProjectSettings.properties`) - Driver Path is Exception.
+* Modify `URL`, `Report Name`, `Broswer Execution`, `Driver Path` etc., as per User Need.
+* No need to Start from Home or Landing Page. Just Give any URL at any point of Website in Properties File.
+
+
+## How to Run Existing Testcase
+
+To Run this project or any Testcase
+
+- Goto `SampleTests.java` file and Try Running Existing Testcase after completeing **Things to do After Installation** Section. 
+
+
+
+## Create New Testcases and Run
+
+* New Testfile Follows one Major Rule
+  * `NewTestFile.java` must  Inherit `ProjectBaseTwo.java` to use Existing Methods.
+  * `SampleTests.java` will be a Example for Writing New Testcases.
+## Features
+
+- Tool is **Independent of Website** and also can adopt Major Changes in Webpage or in a Flow. Any Website can be Easily Automated with this Tool.
+- User can Start Automate by Pasting **Direct or Cookie URL**. 
+- User can Start Writing **Own Testcases** using Existing Methods. 
+- It has **Multi-Browser Execution**. Give Driver Path and Name of the Browser to Execute in `ProjectSettings.properties`.
+- It has **HEADLESS MODE** Feature, If enabled in `ProjectSettings.properties`, User cannot see Driver Execution but you'll get all results Once execution is completed. 
+- User Can Run Test in **INCOGNITO MODE** by Enabling It in `ProjectSettings.properties`.
+- User Can Setup their **Own PROXY** for Safe Execution in `ProjectSettings.properties`.
+- Everything is Logged using **Extent Report**, When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
+- It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
+  - Xpaths, Classname, id's can be Seperated for Easy Maintenance.
+  - These have Arguments like Primary Id or Classname. The method is Configured in a way, If Primary Fails It'll try to access the element using Alternate Xpath.
+  <p align="center">
+  <img src="https://user-images.githubusercontent.com/91478125/167070849-1961d47f-2cf0-4f7c-8f68-f0c0dfb87967.png" width= 700/>
+  </p>
+- It has a Special Method Where User No Need to Create Xpath. Just Give `Id` or `Any Attribute` as one Parameter and it's `Value` as another Parameter. 
+ <p align="center">
+  <img src="https://user-images.githubusercontent.com/91478125/167070646-d96ff078-f2f7-4486-aed1-5ae64da0d63e.svg" width=700/>
+</p>
+
+
+## Additional Existing Methods and it's Features
+
 - It has Some of Existing Testcases Which is Common for all websites like, (All are Independent Testcases)
   - Case 1 - It'll Ensure the Given URL is Working or not, by Checking whether it returns Status code (200).
   - Case 2 - It'll Launch the Given URL and check for Elements of the page, Count All Elements, Classify According to Tags and Logged to Report.
@@ -32,30 +78,21 @@ Creating My own Framework for Automation.
   - Case 5 - It'll Launch the Given URL, If Input Field was found in the Page It'll try to pass Some inputs to the Field (Can be Configured with Positive and Negative values) to do a Noraml Input Field Check.
   - Case 6 - It'll Launch the Given URL, Sort elements according to tag name given.
 
-### Above are some common Default Testcases. Additional Features are,
-
-- User can Start Writing **Own Testcases** using Existing Methods. 
-- It has **Multi-Browser Execution**. All you need to do is Give Driver Path and Name of the Browser User want to Execute in Project Settings File.
-- It has **HEADLESS MODE** Feature, If enabled in Project Settings File, User cannot see Driver Execution but you'll get all results Once execution is completed. 
-- User Can Run Test in **INCOGNITO MODE** by Enabling It in Project Settings File.
-- User Can Setup their **Own PROXY** for Safe Execution.
-- It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
-  - These have Arguments like Primary Id or Classname. The method is Configured in a way, If Primary Fails It'll try to access the element using Alternate Xpath.
-  - Xpaths, Classname, id are Seperated for Easy Maintenance.
-
 ## When, Where and Who can Use this Tool
 
-- A **Beginner User Friendly Tool** where **Any one** can Automate and **Any Websites** can be Automated.
-- This tool will be helpful for Quick Start. User can quickly write a flow to Test a website.
-- Quick Automation Test To check the Stability of Newly Developed Webpage.
-- Quick Automation Feasibility also can be done.
-- A Developer or Tester who works in Multiple Projects, Freelancers will get Benifited for Quick Automation.
+This Project is Useful for :
 
-### Drawbacks 
+- A **Developer** or **Tester** or **Freelancers** who works in Multiple Projects will get Benifited from this Tool.
+- A **Beginner User Friendly Tool** where **Any one** can Automate and **Any Websites** can be Automated.
+- This tool will be helpful for **Quick Start in Automation**. User can quickly write a flow to Test a website.
+- Quick Automation Test To check the **Stability of Newly Developed or Under Development** Webpage.
+- **Quick Automation Feasibility** also can be done.
+
+## Drawbacks 
 
 - If any Errors Notify me Using Issues. Thank you.
 
-### Issues Need to be Resolved
+## Issues Need to be Resolved
 
 * Not Tested in any Test environments.
 * Case - 3 takes so much time to Execute if More Anchor tags are available. Threads need to included.
@@ -64,3 +101,9 @@ Creating My own Framework for Automation.
 * HtmlUnitDriver also has some issues. Execution is improper. Not working
 * phantomJs driver Pom needs to be updated with jar file. Not working.
 * Edge need to be updated with headless, incognito and Proxy.
+
+
+
+## Feedback
+
+If you have any feedback, please reach out to me at srinivasanforu7@gmail.com

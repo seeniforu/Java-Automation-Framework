@@ -17,7 +17,6 @@ import facebookPagesPackage.locators.xpathMain;
  * 
  * create Empty Testcase shows all important methods and how to use it.
  * update readme.
- * Add Methods for linktext, partial link text
  * Add Assertion
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
@@ -304,18 +303,17 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	//@Test
-	public void frameSwitchingCheck() {
-		try {
+	public void frameSwitchingCheck() {                                          // Website specific Testcase for reference.
+		try {																	// Website which contains frames can use DetailedElementsCount();
 			testName("Ensure Frame Switching " + "[" + browser + "]");
 			handleBrowser(browser);
-			openURL("https://www.w3schools.com/html/html_iframe.asp");
-			addAssertionForStringVerification(getTitle(), "HTML Iframe", "Title Verification Done", "Title is Not Matching");
-			//DetailedElementsCount();    // This method is useful when user needs to switch to a Frame in website to count elements inside it.
+			openURL();
+			//addAssertionForStringVerification(getTitle(), "HTML Iframe", "Title Verification Done", "Title is Not Matching");
+			DetailedElementsCount();    // This method is useful when user needs to switch to a Frame in website to count elements inside it.
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		} finally {
-			reportFlush();
 			quitBrowser();
 			warningsAndProperties();
 		}
@@ -332,6 +330,14 @@ public class SampleTests extends ProjectBaseTwo {
 	
 	public void take_H_tag_text() {
 		// after page landing take all text of H1 to h6 and P tag, Store it in text file or log in extent report.
+	}
+	
+	public void pageSpeedInsightsTest() {
+		// pageSpeedInsights or pagelocity in headless mode to generate reports.
+	}
+	
+	public void clickUsingId(String Id, String altAttributeName, String altAttributeValue, String LogStatement) {
+		// Create Methods like this for click, send, get, verify - for classname, xpath etc.,
 	}
 	
 
