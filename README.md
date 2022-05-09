@@ -57,13 +57,15 @@ git clone https://github.com/seeniforu/Automation-Framework.git
 
 To Run this project or any Testcase
 
-- Goto `SampleTests.java` file and Try Running Existing Testcase after completeing **Things to do After Installation** Section. 
+- Goto `src\test\java` --> `testPackage` --> `SampleTests.java` file and Try Running Existing Testcase after completeing **Things to do After Installation** Section. 
 
 ## Create New Testcases and Run
 
+* Users can Create their own Package in `src\test\java` and create a (Eg:`NewTestFile.java`) to write new Testcases. 
 * New Testfile Follows one Major Rule
-  * `NewTestFile.java` must  Inherit `ProjectBaseTwo.java` to use Existing Methods.
+  * `NewTestFile.java` must  Inherit `ProjectBaseTwo.java` or `SampleTests.java` to use Existing Methods and Existing Testcases.
   * `SampleTests.java` will be a Example for Writing New Testcases.
+ 
 
 ## Features
 
