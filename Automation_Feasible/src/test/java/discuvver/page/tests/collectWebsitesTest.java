@@ -6,14 +6,15 @@ import java.util.List;
 import org.testng.annotations.Test;
 
 import basePackage.ProjectBaseTwo;
+import testPackage.SampleTests;
 
-public class collectWebsitesTest extends ProjectBaseTwo {
-	
+public class collectWebsitesTest extends SampleTests {
+
 	int Number_Of_Websites_User_Want = 2;
-	
+
 	public static final String RandomButton = "//div[@class='intro']//button";
 	public List<String> URLlist = new ArrayList<String>();
-	
+
 	@Test
 	public void collectWebsites() {
 		try {
@@ -33,6 +34,19 @@ public class collectWebsitesTest extends ProjectBaseTwo {
 			logError(e.getMessage());
 			e.printStackTrace();
 		} finally {
+			quitBrowser();
+		}
+	}
+	
+	@Test
+	public void SampleTestInheritance() {
+		try {
+			ensureURLWorkingSampleTestcase();
+			ColletingDetailsOfWebpageSampleTest();
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}finally {
 			quitBrowser();
 		}
 	}

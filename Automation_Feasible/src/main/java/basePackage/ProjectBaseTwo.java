@@ -76,6 +76,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			} else {
 				driver.get(URL);
 				int StatusCode = statusCode(driver.getCurrentUrl());
+				statusCodeCount(StatusCode);
 				logPass("[" + driver.getCurrentUrl() + "]" + " - is Launched - " + "Status code : " + StatusCode);
 			}
 		} catch (Exception e) {
@@ -89,6 +90,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		try {
 			URL url = new URL(argUrl);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
 			connection.connect();
 			httpStatusCode = connection.getResponseCode();
 		} catch (Exception e) {

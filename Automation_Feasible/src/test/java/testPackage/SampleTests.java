@@ -16,7 +16,6 @@ import facebookPagesPackage.locators.xpathMain;
  * Things to be Done:
  * 
  * create Empty Testcase shows all important methods and how to use it.
- * update readme.
  * Add Assertion
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
@@ -44,6 +43,7 @@ import facebookPagesPackage.locators.xpathMain;
  * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe
  * http://www.maths.surrey.ac.uk/explore/nigelspages/frame2.htm
  * https://www.w3schools.com/html/html_iframe.asp
+ * https://startup.lwmeta.com/2020/07/17/sap-web-ide-personal-edition-setup-and-create-sapui5-application-for-beginner/ - 503
  */
 
 
@@ -65,7 +65,7 @@ public class SampleTests extends ProjectBaseTwo {
 	 */
 
 	@Test(priority = 0)
-	public void ensureURL() {
+	public void ensureURLWorkingSampleTestcase() {
 		try {
 			warningsAndProperties();
 			testName("Ensure URL Working " + "[" + browser + "]");
@@ -93,13 +93,13 @@ public class SampleTests extends ProjectBaseTwo {
 	 * Purpose : To Catagorize and Log all elements of a webpage in the report.	 */
 	
 	@Test(priority = 1)
-	public void detailsOfWebpage() throws Exception {
+	public void ColletingDetailsOfWebpageSampleTest() throws Exception {
 		try {
 			testName("Details of WebPage " + "[" + browser + "]");
 			handleBrowser(browser);
 			openURL();
 			getTitle();
-			DetailedElementsCount();
+			BasicForEachPageElementsLogDetails();
 			logDetailsPrimaryTags();
 			logDetailsHeadingTag();
 		} catch (Exception e) {
@@ -128,9 +128,9 @@ public class SampleTests extends ProjectBaseTwo {
 	 */
 
 	@Test(priority = 2)
-	public void performOperations() throws Exception {
+	public void performOperationsWithAnchorTagSampleTest() throws Exception {
 		try {
-			testName("List of Anchor Tags " + "[" + browser + "]");
+			testName("List of Anchor Tag Link" + "[" + browser + "]");
 			handleBrowser(browser);
 			openURL();
 			BasicForEachPageElementsLogDetails();
@@ -160,7 +160,7 @@ public class SampleTests extends ProjectBaseTwo {
 	 */
 
 	@Test(priority = 3)
-	public void refreshCheck() throws Exception {
+	public void refreshCheckSampleTestcase() throws Exception {
 		try {
 			testName("Verify No.of Elements when Launched == After Refresh Page" + "[" + browser + "]");
 			handleBrowser(browser);
@@ -198,7 +198,7 @@ public class SampleTests extends ProjectBaseTwo {
 	 */
 
 	@Test(priority = 4)
-	public void inputCheck() throws Exception {
+	public void inputFieldsCheckSampleTestcase() throws Exception {
 		try {
 			testName("Input field Check " + "[" + browser + "]");
 			handleBrowser(browser);
@@ -227,7 +227,7 @@ public class SampleTests extends ProjectBaseTwo {
 	 */
 	
 	@Test(priority = 5)
-	public void sortElementsCheck() throws Exception {
+	public void sortElementsCheckSampleTestcase() throws Exception {
 		try {
 			testName("Sort Elements Check " + "[" + browser + "]");
 			handleBrowser(browser);
@@ -247,7 +247,7 @@ public class SampleTests extends ProjectBaseTwo {
 	// ------------------------------------ Below are Particular Website based testcase for Reference -------------------------------------------------
 	
 	//@Test
-	public void navigate() throws Exception {   // Website specific Testcase for reference.
+	public void navigateUsingDifferentMethodSampleTest() throws Exception {   // Website specific Testcase for reference.
 		try {													// https://www.facebook.com/ - is used.
 			testName("Navigate Check " + "[" + browser + "]");
 			handleBrowser(browser);
@@ -267,9 +267,9 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	//@Test
-	public void ClickElements() throws Exception {                    // Website specific Testcase for reference.										
+	public void ClickElementsUsingAttributeSampleTest() throws Exception {                    // Website specific Testcase for reference.										
 		try {
-			testName("Clicking Elements Test " + "[" + browser + "]");     // https://www.facebook.com/ - is used.
+			testName("Clicking Elements Test Using Attribute" + "[" + browser + "]");     // https://www.facebook.com/ - is used.
 			handleBrowser(browser);
 			openURL();
 			clickElementUsingAttribute("data-testid", "royal_login_button");		//Clicks the element of given attribute or id or class.
@@ -283,7 +283,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	//@Test
-	public void accessingElements() throws Exception {                                 // Website specific Testcase for reference.
+	public void accessingElementsSampleTest() throws Exception {                                 // Website specific Testcase for reference.
 		try {
 			testName("Accessing Elements Test " + "[" + browser + "]");
 			handleBrowser(browser);                         
@@ -303,7 +303,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	//@Test
-	public void frameSwitchingCheck() {                                          // Website specific Testcase for reference.
+	public void frameSwitchingCheckSampleTest() {                                          // Website specific Testcase for reference.
 		try {																	// Website which contains frames can use DetailedElementsCount();
 			testName("Ensure Frame Switching " + "[" + browser + "]");
 			handleBrowser(browser);
