@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>Base</groupId>
-	<artifactId>Automation_Feasible</artifactId>
+	<artifactId>Automation_Framework</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>Automation_Feasible</name>
