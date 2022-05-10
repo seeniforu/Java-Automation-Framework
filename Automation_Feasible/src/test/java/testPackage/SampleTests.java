@@ -24,6 +24,7 @@ import facebookPagesPackage.locators.xpathMain;
  * try adding page speed insights in headless mode.
  * try adding extension and run tests.
  * add scroll webpage
+ * add javascript executor.
  */
 
 
