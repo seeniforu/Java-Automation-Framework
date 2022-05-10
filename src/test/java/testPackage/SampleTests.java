@@ -68,7 +68,6 @@ public class SampleTests extends ProjectBaseTwo {
 	@Test(priority = 0)
 	public void ensureURLWorkingSampleTestcase() {
 		try {
-			warningsAndProperties();
 			testName("Ensure URL Working " + "[" + browser + "]");
 			handleBrowser(browser);
 			openURL();
@@ -77,6 +76,7 @@ public class SampleTests extends ProjectBaseTwo {
 			e.printStackTrace();
 		} finally {
 			quitBrowser();
+			warningsAndProperties();
 		}
 	}
 
