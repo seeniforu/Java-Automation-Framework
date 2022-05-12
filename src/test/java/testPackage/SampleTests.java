@@ -76,7 +76,6 @@ public class SampleTests extends ProjectBaseTwo {
 			e.printStackTrace();
 		} finally {
 			quitBrowser();
-			warningsAndProperties();
 		}
 	}
 
@@ -205,7 +204,7 @@ public class SampleTests extends ProjectBaseTwo {
 			handleBrowser(browser);
 			openURL();
 			BasicForEachPageElementsLogDetails();
-			sendInputData("123@gmail.com"); // Sending Raw input for all input fields in the Loaded page. can send positive and negative values for all input fields.
+			//sendInputData("123@gmail.com"); // Sending Raw input for all input fields in the Loaded page. can send positive and negative values for all input fields.
 			//sendInputUsingId("email", "seeniforu");  // Send input using Locators.
 		}catch(Exception e) {
 			logError(e.getMessage());
@@ -255,7 +254,7 @@ public class SampleTests extends ProjectBaseTwo {
 			openURL();
 			BasicForEachPageElementsLogDetails();
 			//clickUsingClass("a","_8esh");                // Next two lines does same operation with one using class and another using part of URL.
-			goToNextPage("create/");                       // Navigating with help of part of URL.
+			//goToNextPage("create/");                       // Navigating with help of part of URL.
 			BasicForEachPageElementsLogDetails();
 			logDetailsPrimaryTags();
 			clickUsingXpath(xpathMain.CreateClass,"Element is Clicked"); 
@@ -316,7 +315,6 @@ public class SampleTests extends ProjectBaseTwo {
 			e.printStackTrace();
 		} finally {
 			quitBrowser();
-			warningsAndProperties();
 		}
 	}
 	
