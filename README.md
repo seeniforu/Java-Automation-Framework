@@ -48,8 +48,7 @@ git clone https://github.com/seeniforu/Automation-Framework.git
 ## Things to do After Installation
 
 * Fill All the Mandatory Fields in (`ProjectSettings.properties`) 
-* Anyone Browser's `Driver Path` is must for Execution. Others are Exception. Still Other Browser's Driver Path is Important for their Execution.
-* Modify `URL`, `Report Name`, `Broswer Execution`, `Driver Path` etc., as per User Need.
+* Modify `URL`, `Report Name`, `Broswer Execution`, `Headless & Incognito Mode`, `Implicit Wait & Pageload` etc., as per User Need.
 * Give any URL at any point of Website in `WebUrl` field.
 
 
@@ -78,6 +77,7 @@ To Run this project or any Testcase
 - User Can Setup their `Own PROXY` for Safe Execution in `ProjectSettings.properties`.
 - Everything is Logged using `Extent Report`, When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
 - `Element HighLight` during Exceution is available in all methods. The Given Xpath's Element is Highlighted, Useful when Reviewing Screenshots.
+   - User can set `Custom Highlight Colour` in `ProjectSettings.properties`.
 - It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
   - Xpaths, Classname, id's can be Seperated for Easy Maintenance.
   - My Own Methods have Arguments like Primary Id or Classname and Alternate Xpath. The method is Configured in a way, If Primary Fails It'll try to access the element using Alternate Xpath.
