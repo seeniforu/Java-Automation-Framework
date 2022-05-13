@@ -993,7 +993,9 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		try {
 			waitForPageToBeReady();
 			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("arguments[0].setAttribute('style', 'border: 5px solid blue;');", element);
+			String color = prop.getProperty("HighlightElementColor");
+			String arg = "arguments[0].setAttribute('style', 'border: 5px solid "+ color +";');";
+			js.executeScript(arg, element);
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -2235,10 +2237,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	@AfterSuite
 	public void afterSuite() {
 		testProperties();
-		if(isThereWarning == true) {
-			getResults();
-			openFile();
-		}else if (isThereWarning == true || isTestCreated == true && isBrowserClosed == true) {
+		if (isTestCreated == true && isBrowserClosed == true) {
 			getResults();
 			openFile();
 		}

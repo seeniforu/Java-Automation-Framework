@@ -29,7 +29,7 @@ import facebookPagesPackage.locators.xpathMain;
 
 
 /*
- * Websites used to Test this tool and Default Testcases.
+ * Websites used to Test this Framework with Default Testcases.
  * 
  * https://www.facebook.com/
  * https://www.amazon.com/
@@ -272,8 +272,8 @@ public class SampleTests extends ProjectBaseTwo {
 			testName("Clicking Elements Test Using Attribute" + "[" + browser + "]");     // https://www.facebook.com/ - is used.
 			handleBrowser(browser);
 			openURL();
-			clickElementUsingAttribute("data-testid", "royal_login_button");		//Clicks the element of given attribute or id or class.
 			GetElementUsingAttribute("data-testid", "royal_login_button");        // Returns the element of given attribute or id or class.
+			clickElementUsingAttribute("data-testid", "royal_login_button");	//Clicks the element of given attribute or id or class.
 		}catch(Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();

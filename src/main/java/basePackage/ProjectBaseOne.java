@@ -660,6 +660,9 @@ public class ProjectBaseOne {
 		if (prop.getProperty("WebUrl").isEmpty()) {
 			isThereWarning = true;
 		}
+		if (prop.getProperty("HighlightElementColor").isEmpty()) {
+			isThereWarning = true;
+		}
 	}
 	
 	public void logWarnings() {
@@ -680,6 +683,9 @@ public class ProjectBaseOne {
 		if (prop.getProperty("WebUrl").isEmpty()) {
 			System.out.println("Enter URL in ProjectSettings.properties or Pass as Argument");
 			logError("Enter a URL in ProjectSettings.properties or Pass as Argument");
+		}
+		if (prop.getProperty("HighlightElementColor").isEmpty()) {
+			logWarning("Highlight Element Color is Missing in ProjectSettings.properties");
 		}
 	}
 
@@ -714,8 +720,12 @@ public class ProjectBaseOne {
 				logInfo("Headless Mode : " + prop.getProperty("Headless"));
 				logInfo("Incognito Mode : " + prop.getProperty("Incognito"));
 			}
+			if (!prop.getProperty("ProxyAddress").isEmpty()) {
+				logInfo("Proxy Address : " + prop.getProperty("ProxyAddress"));
+			}
 			logInfo("Page Load Time is : " + prop.getProperty("PageLoadTime"));
 			logInfo("Implicit Wait Time is : " + prop.getProperty("ImplicitWait"));
+			logInfo("Highlight Element Color : " + prop.getProperty("HighlightElementColor"));
 			reportFlush();
 		} catch (Exception e) {
 			logError(e.getMessage());
