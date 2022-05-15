@@ -1,5 +1,6 @@
 package FacebookTests;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 import basePackage.ProjectBaseTwo;
@@ -21,10 +22,6 @@ public class FacebookTest extends FacebookPages{
 		openURL();
 		basicThingsForHomepage();
 		quitBrowser();
-	}
-	
-	public void newtest() {
-		
 	}
 
 }

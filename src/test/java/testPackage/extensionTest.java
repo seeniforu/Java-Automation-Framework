@@ -11,7 +11,7 @@ public class extensionTest extends ProjectBaseTwo {
 	
 	@Test
 	public void AllureTest() {
-		clickUsingId("hello");
+		
 	}
 	
 	//@Description("1st Allure")

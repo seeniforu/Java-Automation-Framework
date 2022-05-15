@@ -2263,7 +2263,15 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		try {
 			driver.quit();
 			isBrowserClosed = true;
+			if(prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
+				if(prop.getProperty("browserName").equalsIgnoreCase("chrome")) {
+				logPass(browser.toUpperCase()+ " Mobile Emulation Using "+prop.getProperty("MobileModel")+ " is Closed");
+				}else {
+					logPass(browser.toUpperCase()+ " Mobile Emulation is Closed");
+				}
+			}else {
 			logPass(browser.toUpperCase() + " " + "Browser is Closed");
+			}
 		} catch (Exception e) {
 			logFail(e.getMessage());
 			isBrowserClosed = false;
