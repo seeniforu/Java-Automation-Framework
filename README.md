@@ -74,11 +74,15 @@ To Run this project or any Testcase
 - Tool is `Independent of Website` and also can adopt Major Changes in Webpage or in a Flow. Any Website can be Easily Automated with this Tool.
 - User can Start Automate by Pasting `Direct or Cookie URL`. 
 - User can Start Writing `Own Testcases` using Existing Methods. 
-- It has `Multi-Browser Execution`. Give Driver Path and Name of the Browser to Execute in `ProjectSettings.properties`.
+- It has `Multi-Browser Execution`. Give Name of the Browser in `ProjectSettings.properties`.
+- It has `Mobile View Execution` for Chrome. Give 'Yes' in `ProjectSettings.properties` for `MobileViewExecution` and Name of Mobile Model in `MobileModel`.
 - It has `HEADLESS MODE` Feature, If enabled in `ProjectSettings.properties`, User cannot see Driver Execution but you'll get all results Once execution is completed. 
 - User Can Run Test in `INCOGNITO MODE` by Enabling It in `ProjectSettings.properties`.
 - User Can Setup their `Own PROXY` for Safe Execution in `ProjectSettings.properties`.
 - Everything is Logged using `Extent Report`, When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
+  - `Warnings` - Fields Missed in properties file etc., and `Test Properties` are Logged in Every Report.
+  - It has `Screenshot` Method which Automatically adds screenshots in Reports.
+  - Error Occuring Pages are Captured by Default because it has Screenshot Method inside Log Error Method and Error Message also Logged.
 - `Element HighLight` during Exceution is available in all methods. The Given Xpath's Element is Highlighted, Useful when Reviewing Screenshots.
    - User can set `Custom Highlight Colour` in `ProjectSettings.properties`.
 - It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
@@ -102,6 +106,8 @@ To Run this project or any Testcase
   - Case 4 - It'll Launch the Given URL (Once Completely Loaded) Count the No.of elements and Refreshes the Page. Once Refresh is done Again Count the No.of elements and Verify both Count is Equal or not to Know Stability of Page.
   - Case 5 - It'll Launch the Given URL, If Input Field was found in the Page It'll try to pass Some inputs to the Field (Can be Configured with Positive and Negative values) to do a Noraml Input Field Check.
   - Case 6 - It'll Launch the Given URL, Sort elements according to tag name given.
+ 
+ For these Testcases, Expalnation for Each Line is Given in `SampleTest.java` in `testPackage`.
 
 ## When, Where and Who can Use this Tool
 
