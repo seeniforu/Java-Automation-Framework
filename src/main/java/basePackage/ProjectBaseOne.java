@@ -20,10 +20,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -109,7 +112,7 @@ public class ProjectBaseOne {
 		String msg1 = "<a href='"+msg+"' target='_blank'>"+ msg +" </a>";
 		logger.log(Status.PASS, msg1);
 	}
-
+	
 	public void logSkip(String msg) {
 		logger.log(Status.SKIP, msg);
 	}
@@ -120,7 +123,7 @@ public class ProjectBaseOne {
 	}
 
 	public void logFatal(String msg) {
-		//Screenshot("Fatal Screenshot");
+		Screenshot("Fatal Screenshot");
 		logger.log(Status.FATAL, msg);
 	}
 
@@ -129,8 +132,12 @@ public class ProjectBaseOne {
 	}
 
 	public void logError(String msg) {
-		Screenshot("Error msg");
+		try {
+		//Screenshot("Error msg");
 		logger.log(Status.ERROR, msg);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void logInfo(String info) {
@@ -196,6 +203,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode"
 								+ " + Incognito Mode");
 					}
@@ -219,6 +227,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
 					}
 				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
@@ -241,6 +250,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
 					}
 				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
@@ -262,6 +272,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser is Launched");
 					}
 				} else {
@@ -282,6 +293,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser is Launched");
 					}
 				}
@@ -297,7 +309,7 @@ public class ProjectBaseOne {
 						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
 						options.setCapability(CapabilityType.PROXY, proxy);
 					}
-					options.addArguments("--headless", "--incognito");
+					options.addArguments("--headless", "-private");
 					HeadlessOrNot = true;
 					IncognitoOrNot = true;
 					driver = new FirefoxDriver(options);
@@ -326,7 +338,7 @@ public class ProjectBaseOne {
 						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
 						options.setCapability(CapabilityType.PROXY, proxy);
 					}
-					options.addArguments("--incognito");
+					options.addArguments("-private");
 					HeadlessOrNot = false;
 					IncognitoOrNot = true;
 					driver = new FirefoxDriver(options);
@@ -335,11 +347,13 @@ public class ProjectBaseOne {
 						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
 					WebDriverManager.firefoxdriver().setup();
 					FirefoxOptions options = new FirefoxOptions();
-					Proxy proxy = new Proxy();
-					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
-						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
-						options.setCapability(CapabilityType.PROXY, proxy);
-					}
+//					Proxy proxy = new Proxy();
+//					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+//						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
+//						DesiredCapabilities dc = new DesiredCapabilities();
+//						dc.setCapability(CapabilityType.PROXY, proxy);
+//						options.merge(dc);
+//					}
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
 					driver = new FirefoxDriver(options);
@@ -360,16 +374,67 @@ public class ProjectBaseOne {
 			}
 			// To verify through edge browser
 			else if (browser.equalsIgnoreCase("Edge")) {
-				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
 					WebDriverManager.edgedriver().setup();
-					// Initialize the EdgeOptions class
 					EdgeOptions edgeOptions = new EdgeOptions();
-					// edgeOptions.addArguments("headless");
+					edgeOptions.addArguments("headless","-inprivate");
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					HeadlessOrNot = true;
+					IncognitoOrNot = true;
+					driver = new EdgeDriver(edgeOptions);
+					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless + Incognito Mode");
+				} else if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("no")) {
+					WebDriverManager.edgedriver().setup();
+					EdgeOptions edgeOptions = new EdgeOptions();
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					edgeOptions.addArguments("headless");
+					HeadlessOrNot = true;
+					IncognitoOrNot = false;
 					driver = new EdgeDriver(edgeOptions);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
-				} else {
+				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
 					WebDriverManager.edgedriver().setup();
-					driver = new EdgeDriver();
+					EdgeOptions edgeOptions = new EdgeOptions();
+					edgeOptions.addArguments("-inprivate");
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					HeadlessOrNot = false;
+					IncognitoOrNot = true;
+					driver = new EdgeDriver(edgeOptions);
+					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				}else if (prop.getProperty("Headless").equalsIgnoreCase("No")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					WebDriverManager.edgedriver().setup();
+					EdgeOptions edgeOptions = new EdgeOptions();
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					HeadlessOrNot = false;
+					IncognitoOrNot = false;
+					driver = new EdgeDriver(edgeOptions);
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}else {
+					WebDriverManager.edgedriver().setup();
+					EdgeOptions edgeOptions = new EdgeOptions();
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					HeadlessOrNot = false;
+					IncognitoOrNot = false;
+					driver = new EdgeDriver(edgeOptions);
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
 				}
 			} else if (browserName.equalsIgnoreCase("Safari")) {
@@ -395,8 +460,13 @@ public class ProjectBaseOne {
 				driver = new HtmlUnitDriver();
 				logPass(browser.toUpperCase() + " " + "Browser is Launched");
 			} else if (browserName.equalsIgnoreCase("PhantomJS")) {
-				System.setProperty("phantomjs.binary.path", prop.getProperty("PhantomJS"));
-				//driver = new PhantomJSDriver();
+//				System.setProperty("phantomjs.binary.path", "C:\\Users\\K.Srinivasan\\Downloads\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");		
+//                driver = new PhantomJSDriver();	
+//                DesiredCapabilities capabilities = new DesiredCapabilities();
+//
+//                capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "C:\\Users\\K.Srinivasan\\Downloads\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
+//
+//                driver = new PhantomJSDriver(capabilities);
 			}
 			if(prop.getProperty("browserName").isEmpty()) {
 				extentReport.setSystemInfo("Browser : ", browser);
@@ -438,6 +508,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode"
 								+ " + Incognito Mode");
 					}
@@ -461,6 +532,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
 					}
 				} else if (Options.contains("Headless")
@@ -483,6 +555,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
 					}
 				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
@@ -504,6 +577,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser is Launched");
 					}
 				}else if(Options.equalsIgnoreCase("Incognito") && prop.getProperty("Headless").equalsIgnoreCase("No")) {
@@ -525,6 +599,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
 					}
 					
@@ -547,6 +622,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless + Incognito Mode");
 					}
 				}else {
@@ -567,6 +643,7 @@ public class ProjectBaseOne {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
 					} else {
+						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser is Launched");
 					}
 				}
@@ -582,7 +659,7 @@ public class ProjectBaseOne {
 						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
 						options.setCapability(CapabilityType.PROXY, proxy);
 					}
-					options.addArguments("--headless", "--incognito");
+					options.addArguments("--headless", "-private");
 					HeadlessOrNot = true;
 					IncognitoOrNot = true;
 					driver = new FirefoxDriver(options);
@@ -611,7 +688,7 @@ public class ProjectBaseOne {
 						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
 						options.setCapability(CapabilityType.PROXY, proxy);
 					}
-					options.addArguments("--headless","--incognito");
+					options.addArguments("--headless","-private");
 					HeadlessOrNot = true;
 					IncognitoOrNot = true;
 					driver = new FirefoxDriver(options);
@@ -625,6 +702,9 @@ public class ProjectBaseOne {
 						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
 						options.setCapability(CapabilityType.PROXY, proxy);
 					}
+					options.addArguments("--headless");
+					HeadlessOrNot = true;
+					IncognitoOrNot = false;
 					driver = new FirefoxDriver();
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
 				} else if(Options.equalsIgnoreCase("Incognito") && prop.getProperty("Headless").equalsIgnoreCase("No")){
@@ -635,7 +715,7 @@ public class ProjectBaseOne {
 						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
 						options.setCapability(CapabilityType.PROXY, proxy);
 					}
-					options.addArguments("--incognito");
+					options.addArguments("-private");
 					HeadlessOrNot = false;
 					IncognitoOrNot = true;
 					driver = new FirefoxDriver(options);
@@ -648,7 +728,7 @@ public class ProjectBaseOne {
 						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
 						options.setCapability(CapabilityType.PROXY, proxy);
 					}
-					options.addArguments("--headless", "--incognito");
+					options.addArguments("--headless", "-private");
 					HeadlessOrNot = true;
 					IncognitoOrNot = true;
 					driver = new FirefoxDriver(options);
@@ -667,16 +747,67 @@ public class ProjectBaseOne {
 			}
 			// To verify through edge browser
 			else if (browser.equalsIgnoreCase("Edge")) {
-				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
 					WebDriverManager.edgedriver().setup();
-					// Initialize the EdgeOptions class
 					EdgeOptions edgeOptions = new EdgeOptions();
-					// edgeOptions.addArguments("headless");
+					edgeOptions.addArguments("headless","-inprivate");
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					HeadlessOrNot = true;
+					IncognitoOrNot = true;
+					driver = new EdgeDriver(edgeOptions);
+					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless + Incognito Mode");
+				} else if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("no")) {
+					WebDriverManager.edgedriver().setup();
+					EdgeOptions edgeOptions = new EdgeOptions();
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					edgeOptions.addArguments("headless");
+					HeadlessOrNot = true;
+					IncognitoOrNot = false;
 					driver = new EdgeDriver(edgeOptions);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
-				} else {
+				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
 					WebDriverManager.edgedriver().setup();
-					driver = new EdgeDriver();
+					EdgeOptions edgeOptions = new EdgeOptions();
+					edgeOptions.addArguments("-inprivate");
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					HeadlessOrNot = false;
+					IncognitoOrNot = true;
+					driver = new EdgeDriver(edgeOptions);
+					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
+				}else if (prop.getProperty("Headless").equalsIgnoreCase("No")
+						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					WebDriverManager.edgedriver().setup();
+					EdgeOptions edgeOptions = new EdgeOptions();
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					HeadlessOrNot = false;
+					IncognitoOrNot = false;
+					driver = new EdgeDriver(edgeOptions);
+					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+				}else {
+					WebDriverManager.edgedriver().setup();
+					EdgeOptions edgeOptions = new EdgeOptions();
+					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
+					}
+					HeadlessOrNot = false;
+					IncognitoOrNot = false;
+					driver = new EdgeDriver(edgeOptions);
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
 				}
 			} else if (browserName.equalsIgnoreCase("Safari")) {
@@ -818,7 +949,7 @@ public class ProjectBaseOne {
 				logInfo("Headless Mode : " + prop.getProperty("Headless"));
 				logInfo("Incognito Mode : " + prop.getProperty("Incognito"));
 			}
-			if (!prop.getProperty("ProxyAddress").isEmpty()) {
+			if (!prop.getProperty("ProxyAddress").isEmpty() && prop.getProperty("Proxy").equalsIgnoreCase("yes")) {
 				logInfo("Proxy Address : " + prop.getProperty("ProxyAddress"));
 			}
 			if(prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes") && prop.getProperty("browserName").equalsIgnoreCase("chrome")) {

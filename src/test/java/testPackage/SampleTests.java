@@ -10,15 +10,16 @@ import facebookPagesPackage.locators.xpathMain;
  * 
  * create Empty Testcase shows all important methods and how to use it.
  * Add Assertion 
- * update pom.xml file, fix testng error, phantomjs error, htmldriver error, edge headless error..
+ * update pom.xml file, fix testng error, phantomjs error, htmldriver error, fix issue in proxy firefox browser..
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
  * inputfield(String locator, String type = positive | negative, Total no.of chracters or numbers can be inserted)
- * add Mobile emulation for firefox, edge.
  * try adding page speed insights in headless mode.
  * try adding extension and run tests.
  * add scroll webpage
  * add javascript executor.
+ * add screen recording
+ * add needhighlight = yes or no element in properties if no highlight should be stopped.
  */
 
 /*
@@ -277,7 +278,7 @@ public class SampleTests extends ProjectBaseTwo {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void accessingElementsSampleTest() throws Exception {   
 		/*
 		 *  Website specific Testcase for reference.
@@ -293,6 +294,7 @@ public class SampleTests extends ProjectBaseTwo {
 			getLocationUsingId("email", "Location value is logged");
 			getSizeUsingId("email", "Size of element is Logged");
 			verifyUsingId("email", "Element is Displayed", "Element is Not Displayed");
+			Screenshot("Dummy SS");
 			System.out.println(getPageSource());
 		} catch (Exception e) {
 			logError(e.getMessage());
@@ -333,8 +335,8 @@ public class SampleTests extends ProjectBaseTwo {
 		try {
 			testName("Mobile Execution Test " + "[" + browser + "]");   
 			handleBrowser(browser);
-			openURL();										
-			getElementUsingXpath("//*[@id='m_login_email']");
+			openURL();	
+			//getElementUsingXpath("//*[@id='m_login_email']");
 			Screenshot("Mobile SS");
 		} catch (Exception e) {
 			logError(e.getMessage());

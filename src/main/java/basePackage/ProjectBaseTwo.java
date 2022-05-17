@@ -1,7 +1,5 @@
 package basePackage;
 
-
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,12 +23,15 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 
+import com.aventstack.extentreports.Status;
+
 public class ProjectBaseTwo extends ProjectBaseOne {
 	public List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;
 	public List<String> allElementTagName = new ArrayList<String>();
 	int countofanchor, countofinput, countofbutton, countoflink;
 	int countOfElements = 0;
 	public WebElement TempElement;
+	public List<Integer> countofStatusCodes = new ArrayList<Integer>();
 	int CodeCount200 = 0, CodeCount300 = 0, CodeCount404 = 0, CodeCount500 = 0;
 	public List<WebElement> tempElements;
 	public List<Integer> countofOtherElements = new ArrayList<Integer>();
@@ -361,14 +362,12 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					int code = statusCode(url);
 					if (code == 200) {
 						statusCodeCount(code);
-						logInfo("[" + url + "]" + " Present in Given Webpage - " + code);
-					} else if (code == 404 || code == 500 || code == 503) {
-						int Retrycode = statusCode(anchorTag.get(i).getAttribute("href"));
-						statusCodeCount(Retrycode);
-						logInfo("[" + url + "]" + " Present in Given Webpage - " + Retrycode);
-					} else {
+						logHref(url,code);
+						//logInfo("[" + url + "]" + " Present in Given Webpage - " + code);
+					}  else {
 						statusCodeCount(code);
-						logInfo("[" + url + "] - " + code);
+						logHref(url,code);
+						//logInfo("[" + url + "] - " + code);
 					}
 				} else {
 					logInfo("[" + url + "]" + " - Not Valid");
@@ -386,6 +385,11 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				+ " - client errors");
 		logPass("Count of Status Code 500 - 599 is " + "[" + CodeCount500 + "]" + " Out of " + countofanchor
 				+ " - server errors");
+	}
+
+	public void logHref(String URL, int code) {
+		String msg1 = "[ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] - Status Code - " + code;
+		logger.log(Status.INFO, msg1);
 	}
 
 	public void statusCodeCount(int count) {
