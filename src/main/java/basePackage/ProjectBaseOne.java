@@ -52,6 +52,8 @@ public class ProjectBaseOne {
 	public static ExtentHtmlReporter htmlReport;
 	boolean HeadlessOrNot = false;
 	boolean IncognitoOrNot = false;
+	boolean isThereWarning = false;
+	boolean xpathWarning = false;
 	
 
 	public static ExtentReports getExtentReport() {
@@ -90,7 +92,7 @@ public class ProjectBaseOne {
 		return extentReport;
 	}
 
-	public void intializeReport() {
+	private void intializeReport() {
 		report = getExtentReport();
 	}
 	boolean isTestCreated = false;
@@ -171,7 +173,7 @@ public class ProjectBaseOne {
 	}
 
 	// Loading Properties Files
-	public void property() throws IOException {
+	private void property() throws IOException {
 		// Loading properties file
 		FileReader reader = new FileReader("ProjectSettings.properties");
 		prop = new Properties();
@@ -182,6 +184,11 @@ public class ProjectBaseOne {
 		try {
 			// To verify through chrome browser
 			browserName = browser;
+			if(browserName.isEmpty()) {
+				//Setting Chrome Browser as default When Nothing given in properties and not passed as arguments.
+				browserName = "Chrome";
+				browser = "Chrome";   
+			}
 			if (browser.equalsIgnoreCase("Chrome")) {
 				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
 						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
@@ -487,6 +494,11 @@ public class ProjectBaseOne {
 		try {
 			// To verify through chrome browser
 			browserName = browser;
+			if(browserName.isEmpty()) {
+				//Setting Chrome Browser as default When Nothing given in properties and not passed as arguments.
+				browserName = "Chrome";
+				browser = "Chrome";
+			}
 			if (browser.equalsIgnoreCase("Chrome")) {
 				if (Options.contains("Headless")
 						 && prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
@@ -868,9 +880,9 @@ public class ProjectBaseOne {
 		property();
 		intializeReport();
 	}
-	boolean isThereWarning = false;
 	
-	public void checkWarnings() {
+	
+	private void checkWarnings() {
 		if (prop.getProperty("ReportName").isEmpty()) {
 			isThereWarning = true;
 		}
@@ -889,10 +901,13 @@ public class ProjectBaseOne {
 		if (prop.getProperty("MobileViewExecution").isEmpty() || prop.getProperty("MobileModel").isEmpty()) {
 			isThereWarning = true;
 		}
+		if(prop.getProperty("Proxy").equalsIgnoreCase("Yes") && prop.getProperty("ProxyAddress").isEmpty()) {
+			isThereWarning = true;
+		}
 	}
 	
-	public void logWarnings() {
-		testName("Warnings to be Noted");
+	private void logWarnings() {
+		testName("Warnings needs to be taken care of");
 		if (prop.getProperty("ReportName").isEmpty()) {
 			System.out.println("Please Enter Report Name in ProjectSettings.properties File.");
 			logWarning("Please Enter Report Name in ProjectSettings.properties File.");
@@ -915,6 +930,12 @@ public class ProjectBaseOne {
 		}
 		if (prop.getProperty("MobileViewExecution").isEmpty() || prop.getProperty("MobileModel").isEmpty()) {
 			logWarning("Mobile View Execution OR Mobile Model is Missing in ProjectSettings.properties");
+		}
+		if(prop.getProperty("Proxy").equalsIgnoreCase("Yes") && prop.getProperty("ProxyAddress").isEmpty()) {
+			logWarning("Proxy is Yes, but Proxy Address is Empty in ProjectSettings.properties. Change to 'No' or Give Proxy Address.");
+		}
+		if(prop.getProperty("ImplicitWait").isEmpty() || prop.getProperty("PageLoadTime").isEmpty()) {
+			logWarning("Implicit Wait or Page Load time is Missing in ProjectSettings.properties. Default set to '10' Seconds.");
 		}
 	}
 
@@ -957,7 +978,12 @@ public class ProjectBaseOne {
 			}
 			logInfo("Page Load Time is : " + prop.getProperty("PageLoadTime"));
 			logInfo("Implicit Wait Time is : " + prop.getProperty("ImplicitWait"));
-			logInfo("Highlight Element Color : " + prop.getProperty("HighlightElementColor"));
+			if(prop.getProperty("Need_To_HighLight_Element").equalsIgnoreCase("Yes") && !prop.getProperty("HighlightElementColor").isEmpty()) {
+				logInfo("Highlight Element Color : " + prop.getProperty("HighlightElementColor"));
+			}
+			if(xpathWarning == true) {
+				logWarning("Please Avoid Using Absolute Xpath. Instead Use Relative Xpath.");
+			}
 			reportFlush();
 		} catch (Exception e) {
 			logError(e.getMessage());
@@ -966,14 +992,20 @@ public class ProjectBaseOne {
 	}
 
 	public void pageLoad() {
-		String Sec = prop.getProperty("ImplicitWait");
+		String Sec = prop.getProperty("PageLoadTime");
 		int Seconds = Integer.parseInt(Sec);
+		if(prop.getProperty("PageLoadTime").isEmpty()) {
+			Seconds = 10;
+		}
 		driver.manage().timeouts().pageLoadTimeout(Seconds, TimeUnit.SECONDS);
 	}
 
 	public void implicitWait() {
 		String Sec = prop.getProperty("ImplicitWait");
 		int Seconds = Integer.parseInt(Sec);
+		if(prop.getProperty("ImplicitWait").isEmpty()) {
+			Seconds = 10;
+		}
 		driver.manage().timeouts().implicitlyWait(Seconds, TimeUnit.SECONDS);
 	}
 

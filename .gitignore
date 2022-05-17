@@ -1,6 +1,6 @@
 /test-output/
 /target/
-/ScreenShots
+/ScreenShots/*
 /.classpath
 /.settings
 /Automation_Feasible

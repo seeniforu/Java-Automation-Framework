@@ -26,15 +26,14 @@ import org.testng.annotations.BeforeMethod;
 import com.aventstack.extentreports.Status;
 
 public class ProjectBaseTwo extends ProjectBaseOne {
-	public List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;
-	public List<String> allElementTagName = new ArrayList<String>();
-	int countofanchor, countofinput, countofbutton, countoflink;
-	int countOfElements = 0;
-	public WebElement TempElement;
-	public List<Integer> countofStatusCodes = new ArrayList<Integer>();
-	int CodeCount200 = 0, CodeCount300 = 0, CodeCount404 = 0, CodeCount500 = 0;
-	public List<WebElement> tempElements;
-	public List<Integer> countofOtherElements = new ArrayList<Integer>();
+	private List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;
+	private List<String> allElementTagName = new ArrayList<String>();
+	private int countofanchor, countofinput, countofbutton, countoflink;
+	private int countOfElements = 0;
+	private WebElement TempElement;
+	private List<Integer> countofStatusCodes = new ArrayList<Integer>();
+	private int CodeCount200 = 0, CodeCount300 = 0, CodeCount404 = 0, CodeCount500 = 0;
+	private List<Integer> countofOtherElements = new ArrayList<Integer>();
 	/*
 	 * countofOtherElements tagname with index where all count is stored. -
 	 * countElements("p",1); countElements("div", 2); countElements("h1",3);
@@ -134,7 +133,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	public void countElements(String TagName, int IndexOfCount) {
+	private void countElements(String TagName, int IndexOfCount) {
 		List<WebElement> tempcount = new ArrayList<WebElement>();
 		if (allElementTagName.contains(TagName)) {
 			waitForPageToBeReady();
@@ -145,7 +144,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 	
-	public List<WebElement> frameTag = new ArrayList<WebElement>();
+	private List<WebElement> frameTag = new ArrayList<WebElement>();
 	
 	public void DetailedElementsCount() {
 		int i = 0;
@@ -342,7 +341,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	public static boolean isUrlValid(String url) {
+	private static boolean isUrlValid(String url) {
 		try { // This method is used to validate a URL is valid or Not.
 			URL obj = new URL(url);
 			obj.toURI();
@@ -363,6 +362,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					if (code == 200) {
 						statusCodeCount(code);
 						logHref(url,code);
+						countofStatusCodes.add(i, code);
 						//logInfo("[" + url + "]" + " Present in Given Webpage - " + code);
 					}  else {
 						statusCodeCount(code);
@@ -370,7 +370,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 						//logInfo("[" + url + "] - " + code);
 					}
 				} else {
-					logInfo("[" + url + "]" + " - Not Valid");
+					//logInfo("[" + url + "]" + " - Not Valid");
 				}
 				System.out.println("Verified - " + "[" + url + "]");
 			} catch (Exception e) {
@@ -387,12 +387,12 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				+ " - server errors");
 	}
 
-	public void logHref(String URL, int code) {
+	private void logHref(String URL, int code) {
 		String msg1 = "[ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] - Status Code - " + code;
 		logger.log(Status.INFO, msg1);
 	}
 
-	public void statusCodeCount(int count) {
+	private void statusCodeCount(int count) {
 		if (count >= 200 && count <= 299) {
 			CodeCount200 = CodeCount200 + 1;
 		}
@@ -411,102 +411,102 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	 * Below are created on my own methods without using existing methods
 	 */
 
-//	public void goToNextPage(String nxtpage) {
-//		try {
-//			for (int i = 0; i < anchorTag.size(); i++) {
-//				String nextPageSearch = anchorTag.get(i).getAttribute("href");
-//				if (nextPageSearch.contains(nxtpage)) {
-//					logPass("--------------- After Navigation --------------");
-//					anchorTag.get(i).click();
-//					break;
-//				}
-//			}
-//		} catch (Exception e) {
-//			logFail("Navigation Failed - Method Name : goToNextPage");
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public void clickUsingClass(String tagname, String ClassOfElement) {
-//		try {
-//			if (tagname.equalsIgnoreCase("a")) {
-//				for (int i = 0; i < anchorTag.size(); i++) {
-//					if (anchorTag.get(i).getAttribute("class").contains(ClassOfElement)) {
-//						anchorTag.get(i).click();
-//						break;
-//					}
-//				}
-//			} else if (tagname.equalsIgnoreCase("button")) {
-//				for (int i = 0; i < buttonTag.size(); i++) {
-//					if (buttonTag.get(i).getAttribute("class").contains(ClassOfElement)) {
-//						buttonTag.get(i).click();
-//						break;
-//					}
-//				}
-//			} else {
-////			 If there are more element in a webpage this will sort elements according to tag 
-////			 and find the element using class among the sorted list instead of searching class in all elements.
-//				List<WebElement> useTemp = sortElements(tagname);
-//				for (int i = 0; i < useTemp.size(); i++) {
-//					if (useTemp.get(i).getAttribute("class").contains(ClassOfElement)) {
-//						useTemp.get(i).click();
-//						break;
-//					}
-//				}
-//			}
-//		} catch (Exception e) {
-//			logFail("Failed Using Method Name : clickUsingClass");
-//			e.printStackTrace();
-//			quitBrowser();
-//		}
-//
-//	}
-//
-//	public void clickUsingID(String Id) {
-//		try {
-//			for (int i = 0; i < elements.size(); i++) {
-//				if (elements.get(i).getAttribute("id").contains(Id)) {
-//					elements.get(i).click();
-//					break;
-//				}
-//			}
-//		} catch (Exception e) {
-//			logFail("Failed Using Method Name : clickUsingID");
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public String getTextUsingClass(String ClassOfElement) {
-//		String textOfElement = null;
-//		try {
-//			for (int i = 0; i < elements.size(); i++) {
-//				if (elements.get(i).getAttribute("class").contains(ClassOfElement)) {
-//					textOfElement = elements.get(i).getText();
-//					break;
-//				}
-//			}
-//		} catch (Exception e) {
-//			logFail("Failed Using Method Name : getTextUsingClass");
-//			e.printStackTrace();
-//		}
-//		return textOfElement;
-//	}
-//
-//	public String getTextUsingID(String Id) {
-//		String textOfElement = null;
-//		try {
-//			for (int i = 0; i < elements.size(); i++) {
-//				if (elements.get(i).getAttribute("Id").contains(Id)) {
-//					textOfElement = elements.get(i).getText();
-//					break;
-//				}
-//			}
-//		} catch (Exception e) {
-//			logFail("Failed Using Method Name : getTextUsingId");
-//			e.printStackTrace();
-//		}
-//		return textOfElement;
-//	}
+	public void goToNextPage(String nxtpage) {
+		try {
+			for (int i = 0; i < anchorTag.size(); i++) {
+				String nextPageSearch = anchorTag.get(i).getAttribute("href");
+				if (nextPageSearch.contains(nxtpage)) {
+					logPass("--------------- After Navigation --------------");
+					anchorTag.get(i).click();
+					break;
+				}
+			}
+		} catch (Exception e) {
+			logFail("Navigation Failed - Method Name : goToNextPage");
+			e.printStackTrace();
+		}
+	}
+
+	private void clickUsingClass(String tagname, String ClassOfElement) {
+		try {
+			if (tagname.equalsIgnoreCase("a")) {
+				for (int i = 0; i < anchorTag.size(); i++) {
+					if (anchorTag.get(i).getAttribute("class").contains(ClassOfElement)) {
+						anchorTag.get(i).click();
+						break;
+					}
+				}
+			} else if (tagname.equalsIgnoreCase("button")) {
+				for (int i = 0; i < buttonTag.size(); i++) {
+					if (buttonTag.get(i).getAttribute("class").contains(ClassOfElement)) {
+						buttonTag.get(i).click();
+						break;
+					}
+				}
+			} else {
+//			 If there are more element in a webpage this will sort elements according to tag 
+//			 and find the element using class among the sorted list instead of searching class in all elements.
+				List<WebElement> useTemp = sortElements(tagname);
+				for (int i = 0; i < useTemp.size(); i++) {
+					if (useTemp.get(i).getAttribute("class").contains(ClassOfElement)) {
+						useTemp.get(i).click();
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			logFail("Failed Using Method Name : clickUsingClass");
+			e.printStackTrace();
+			quitBrowser();
+		}
+
+	}
+
+	private void clickUsingID(String Id) {
+		try {
+			for (int i = 0; i < elements.size(); i++) {
+				if (elements.get(i).getAttribute("id").contains(Id)) {
+					elements.get(i).click();
+					break;
+				}
+			}
+		} catch (Exception e) {
+			logFail("Failed Using Method Name : clickUsingID");
+			e.printStackTrace();
+		}
+	}
+
+	private String getTextUsingClass(String ClassOfElement) {
+		String textOfElement = null;
+		try {
+			for (int i = 0; i < elements.size(); i++) {
+				if (elements.get(i).getAttribute("class").contains(ClassOfElement)) {
+					textOfElement = elements.get(i).getText();
+					break;
+				}
+			}
+		} catch (Exception e) {
+			logFail("Failed Using Method Name : getTextUsingClass");
+			e.printStackTrace();
+		}
+		return textOfElement;
+	}
+
+	private String getTextUsingID(String Id) {
+		String textOfElement = null;
+		try {
+			for (int i = 0; i < elements.size(); i++) {
+				if (elements.get(i).getAttribute("Id").contains(Id)) {
+					textOfElement = elements.get(i).getText();
+					break;
+				}
+			}
+		} catch (Exception e) {
+			logFail("Failed Using Method Name : getTextUsingId");
+			e.printStackTrace();
+		}
+		return textOfElement;
+	}
 
 	public List<WebElement> sortElements(String nameoftag) {
 		List<WebElement> temp = new ArrayList<WebElement>();
@@ -696,12 +696,19 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	// -------------------------------------------------------- Xpath
 	// -----------------------------------------------
 	
+	private void xpathWarning(String xPath) {
+		if(xPath.contains("/html") || xPath.contains("/body") || xPath.contains("/div[1]")) {
+			xpathWarning = true;
+		}
+	}
+	
 	public WebElement getElementUsingXpath(String xPath) {
 		WebElement element = null;
 		try {
 			waitForPageToBeReady();
 			element = driver.findElement(By.xpath(xPath));
 			highLighterMethod(element);
+			xpathWarning(xPath);
 		}catch(Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -714,6 +721,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		try {
 			waitForPageToBeReady();
 			elements = driver.findElements(By.xpath(xPath));
+			xpathWarning(xPath);
 		}catch(Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -727,6 +735,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			TempElement.click();
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -740,6 +749,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			highLighterMethod(TempElement);
 			TempElement.click();
 			logPass(LogStatement);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -753,6 +763,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			highLighterMethod(TempElement);
 			TempElement.click();
 			logPass(LogStatement);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			try {
 				waitForPageToBeReady();
@@ -761,6 +772,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				TempElement.click();
 				logPass(LogStatement);
 				logInfo("Primary Xpath Failed, Alternate Passed");
+				xpathWarning(AlternateXpath);
 			} catch (Exception m) {
 				logInfo("Both Primary Xpath , Alternate Failed");
 				logError(m.getMessage());
@@ -775,6 +787,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -788,6 +801,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
 			logPass(LogStatement);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -801,6 +815,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			highLighterMethod(TempElement);
 			TempElement.sendKeys(Data);
 			logPass(LogStatement);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			try {
 				waitForPageToBeReady();
@@ -809,6 +824,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				TempElement.sendKeys(Data);
 				logPass(LogStatement);
 				logInfo("Primary Xpath Failed, Alternate Passed");
+				xpathWarning(AlternateXpath);
 			} catch (Exception m) {
 				logInfo("Both Primary Xpath , Alternate Failed");
 				logError(m.getMessage());
@@ -824,6 +840,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			TempElement = driver.findElement(By.xpath(xPath));
 			highLighterMethod(TempElement);
 			textofelement = TempElement.getText();
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -839,6 +856,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			highLighterMethod(TempElement);
 			textofelement = TempElement.getText();
 			logPass(LogStatement);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -854,6 +872,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			highLighterMethod(TempElement);
 			textofelement = TempElement.getText();
 			logPass(LogStatement);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			try {
 				waitForPageToBeReady();
@@ -862,6 +881,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				textofelement = TempElement.getText();
 				logPass(LogStatement);
 				logInfo("Primary Xpath Failed, Alternate Passed");
+				xpathWarning(AlternateXpath);
 			} catch (Exception m) {
 				logInfo("Both Primary Xpath , Alternate Failed");
 				logError(m.getMessage());
@@ -882,6 +902,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			} else {
 				value = false;
 			}
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -903,6 +924,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				value = false;
 				logFail(LogStatementIfFailed);
 			}
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logFail(LogStatementIfFailed);
 			logError(e.getMessage());
@@ -923,6 +945,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				logPass(LogPassStatement);
 				value = true;
 			}
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			try {
 				waitForPageToBeReady();
@@ -935,6 +958,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					value = false;
 					logFail(LogStatementIfFailed);
 				}
+				xpathWarning(AlternateXpath);
 			} catch (Exception m) {
 				logFail(LogStatementIfFailed);
 				logError(m.getMessage());
@@ -954,6 +978,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			tempText = TempElement.getCssValue(Property);
 			logInfo("The CSS Value of " + Property + " is : " + tempText);
 			logPass(Logstatemment);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -970,6 +995,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			location = TempElement.getLocation();
 			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
 			logPass(Logstatement);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -986,6 +1012,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			size = TempElement.getSize();
 			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
 			logPass(LogStatement);
+			xpathWarning(xPath);
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -995,15 +1022,17 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	public void highLighterMethod(WebElement element) {
 		try {
-			waitForPageToBeReady();
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			String color = prop.getProperty("HighlightElementColor");
-			String arg = "arguments[0].setAttribute('style', 'border: 5px solid "+ color +";');";
-			js.executeScript(arg, element);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			if (prop.getProperty("Need_To_HighLight_Element").equalsIgnoreCase("Yes")) {
+				waitForPageToBeReady();
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				String color = prop.getProperty("HighlightElementColor");
+				String arg = "arguments[0].setAttribute('style', 'border: 5px solid " + color + ";');";
+				js.executeScript(arg, element);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (Exception m) {
 			logError(m.getMessage());
