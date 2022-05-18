@@ -2270,7 +2270,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	@AfterSuite
 	public void afterSuite() {
 		testProperties();
-		if (isTestCreated == true && isBrowserClosed == true) {
+		if (isTestCreated == true || isBrowserClosed == true) {
 			getResults();
 			openFile();
 		}

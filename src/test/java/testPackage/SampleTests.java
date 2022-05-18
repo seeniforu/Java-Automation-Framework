@@ -9,8 +9,10 @@ import facebookPagesPackage.locators.xpathMain;
  * Things to be Done:
  * 
  * create Empty Testcase shows all important methods and how to use it.
+ * Create public methods for testcases in sampleTests without finally block in a way that can be merged with new codes for any website.
  * Add Assertion 
- * phantomjs error, htmldriver error, fix issue in proxy firefox browser..
+ * Add try catch block where ever possible.
+ * phantomjs error, htmldriver error, fix issue in proxy firefox browser.. Setup Opera driver..
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
  * inputfield(String locator, String type = positive | negative, Total no.of chracters or numbers can be inserted)
@@ -19,6 +21,7 @@ import facebookPagesPackage.locators.xpathMain;
  * add scroll webpage
  * add javascript executor.
  * add screen recording
+ * setup Selenium grid
  */
 
 /*
@@ -46,7 +49,7 @@ public class SampleTests extends ProjectBaseTwo {
 	// ------------------------------------ Below Testcases are Website Independent ------------------------------------------------------------------
 
 	@Test(priority = 0)
-	public void ensureURLWorkingSampleTestcase() {
+	private void ensureURLWorkingSampleTestcase() {
 		/*
 		 * Below Testcase Execution order
 		 * TestName is to Identity Uniquely in the Report.
@@ -73,7 +76,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	@Test(priority = 1)
-	public void ColletingDetailsOfWebpageSampleTest() throws Exception {
+	private void ColletingDetailsOfWebpageSampleTest() throws Exception {
 		/*
 		 * Below Testcase Execution order
 		 * TestName is to Identity Uniquely in the Report.
@@ -104,7 +107,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 
 	@Test(priority = 2)
-	public void performOperationsWithAnchorTagSampleTest() throws Exception {
+	private void performOperationsWithAnchorTagSampleTest() throws Exception {
 		/*
 		 * Below Testcase Execution order
 		 * TestName is to Identity Uniquely in the Report.
@@ -136,7 +139,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 
 	@Test(priority = 3)
-	public void refreshCheckSampleTestcase() throws Exception {
+	private void refreshCheckSampleTestcase() throws Exception {
 		/*
 		 * Below Testcase Execution order
 		 * TestName is to Identity Uniquely in the Report.
@@ -176,7 +179,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 
 	@Test(priority = 4)
-	public void inputFieldsCheckSampleTestcase() throws Exception {
+	private void inputFieldsCheckSampleTestcase() throws Exception {
 		/*
 		 * Below Testcase Execution order
 		 * TestName is to Identity Uniquely in the Report.
@@ -205,7 +208,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	@Test(priority = 5)
-	public void sortElementsCheckSampleTestcase() throws Exception {
+	private void sortElementsCheckSampleTestcase() throws Exception {
 		/*
 		 * Below Testcase Execution order
 		 * TestName is to Identity Uniquely in the Report.
@@ -234,7 +237,7 @@ public class SampleTests extends ProjectBaseTwo {
 	// ------------------------------------ Below are Particular Website based testcase for Reference -------------------------------------------------
 	
 	//@Test
-	public void navigateUsingDifferentMethodSampleTest() throws Exception {   
+	private void navigateUsingDifferentMethodSampleTest() throws Exception {   
 		/*
 		 * // Website specific Testcase for reference.
 		 * // https://www.facebook.com/ - is used.
@@ -258,7 +261,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	//@Test
-	public void ClickElementsUsingAttributeSampleTest() throws Exception {    
+	private void ClickElementsUsingAttributeSampleTest() throws Exception {    
 		/*
 		 * Website specific Testcase for reference.	
 		 * https://www.facebook.com/ - is used.									
@@ -278,7 +281,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	@Test
-	public void accessingElementsSampleTest() throws Exception {   
+	private void accessingElementsSampleTest() throws Exception {   
 		/*
 		 *  Website specific Testcase for reference.
 		 *  https://www.facebook.com/ - is used.
@@ -304,7 +307,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	//@Test
-	public void frameSwitchingCheckSampleTest() {  
+	private void frameSwitchingCheckSampleTest() {  
 		/*
 		 *    Website specific Testcase for reference.
 		 *    Website which contains frames can use DetailedElementsCount();
@@ -325,7 +328,7 @@ public class SampleTests extends ProjectBaseTwo {
 	}
 	
 	@Test
-	public void mobileExecutionTest() {   
+	private void mobileExecutionTest() {   
 		/*
 		 * Website specific Testcase for reference.
 		 * Chrome is Used. Only works in chrome. Properties set as "Yes" in MobileExecution and "iPhone SE" in Mobile model.

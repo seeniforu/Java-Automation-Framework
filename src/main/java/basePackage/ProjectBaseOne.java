@@ -205,10 +205,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = true;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode"
@@ -229,10 +234,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = false;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
@@ -252,10 +262,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = true;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
@@ -274,10 +289,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = false;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
+						try {
 						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
 						options.setExperimentalOption("mobileEmulation", mobileEmulation);
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						}catch(Exception d) {
+							logError(d.getMessage());
+							d.printStackTrace();
+						}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser is Launched");
@@ -295,10 +315,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = false;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser is Launched");
@@ -467,12 +492,10 @@ public class ProjectBaseOne {
 				driver = new HtmlUnitDriver();
 				logPass(browser.toUpperCase() + " " + "Browser is Launched");
 			} else if (browserName.equalsIgnoreCase("PhantomJS")) {
-//				System.setProperty("phantomjs.binary.path", "C:\\Users\\K.Srinivasan\\Downloads\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");		
+//				  System.setProperty("phantomjs.binary.path", "C:\\Users\\K.Srinivasan\\Downloads\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");		
 //                driver = new PhantomJSDriver();	
 //                DesiredCapabilities capabilities = new DesiredCapabilities();
-//
 //                capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "C:\\Users\\K.Srinivasan\\Downloads\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
-//
 //                driver = new PhantomJSDriver(capabilities);
 			}
 			if(prop.getProperty("browserName").isEmpty()) {
@@ -480,14 +503,15 @@ public class ProjectBaseOne {
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());
+			e.printStackTrace();
 		}
 		pageLoad();
 		implicitWait();
-		if(prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
-		}
-		else{
-			maximizeWindow();
-		}
+//		if(prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
+//		}
+//		else{
+		maximizeWindow();
+//		}
 	}
 	
 	public void handleBrowser(String browser, String Options) {
@@ -515,10 +539,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = true;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode"
@@ -539,10 +568,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = false;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
@@ -562,10 +596,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = true;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
@@ -584,10 +623,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = false;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser is Launched");
@@ -606,10 +650,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = true;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
@@ -629,10 +678,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = true;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser Executed in Headless + Incognito Mode");
@@ -650,10 +704,15 @@ public class ProjectBaseOne {
 					IncognitoOrNot = false;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<>();
-						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
-						options.setExperimentalOption("mobileEmulation", mobileEmulation);
-						driver = new ChromeDriver(options);
-						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+						try {
+							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+							options.setExperimentalOption("mobileEmulation", mobileEmulation);
+							driver = new ChromeDriver(options);
+							logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel") + " is Launched");
+							}catch(Exception d) {
+								logError(d.getMessage());
+								d.printStackTrace();
+							}
 					} else {
 						driver = new ChromeDriver(options);
 						logPass(browser.toUpperCase() + " " + "Browser is Launched");
@@ -853,6 +912,7 @@ public class ProjectBaseOne {
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());
+			e.printStackTrace();
 		}
 		pageLoad();
 		implicitWait();

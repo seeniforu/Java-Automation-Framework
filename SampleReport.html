@@ -46,7 +46,7 @@
 		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
 			<li>
                 <a href='#!'>
-                    <span class='label suite-start-time blue darken-3'>May 17 - 2022 19:48:02</span>
+                    <span class='label suite-start-time blue darken-3'>May 18 - 2022 21:09:04</span>
 				</a>
 			</li>
 			<li>
@@ -72,7 +72,8 @@
 				</a>
 				<ul id='tests-toggle' class='dropdown-content'>
 											<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
-						<li status='warning'><a href='#!'>Warning <i class='material-icons orange-text'>warning</i></a></li>
+						<li status='fail'><a href='#!'>Fail <i class='material-icons red-text'>cancel</i></a></li>
+						<li status='error'><a href='#!'>Error <i class='material-icons red-text lighten-2'>error</i></a></li>
 					<li class='divider'></li>
 					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
 				</ul>
@@ -123,10 +124,10 @@
 					<canvas id='parent-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='66.667%'><span class='strong'>2</span> test(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='50%'><span class='strong'>1</span> test(s) passed</span>
 				</div>
 				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='33.333%'>1</span> others
+					<span class='strong tooltipped' data-position='top' data-tooltip='50%'>1</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> others
 				</div>
 			</div>
 		</div>
@@ -138,10 +139,10 @@
 					<canvas id='child-analysis' width='100' height='80'></canvas>
 				</div>
 				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='50%'><span class='strong'>8</span> step(s) passed</span>
+					<span class='tooltipped' data-position='top' data-tooltip='0%'><span class='strong'>0</span> step(s) passed</span>
 				</div>
 				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='50%'>8</span> others
+					<span class='strong tooltipped' data-position='top' data-tooltip='11.111%'>1</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='88.889%'>8</span> others
 				</div>
 			</div>
 		</div>
@@ -156,17 +157,17 @@
 			<ul id='test-collection' class='test-collection'>
 				
 				
-				<li class='test displayed active  warning' status='warning' bdd='false' test-id='1'>
+				<li class='test displayed active  fail' status='fail' bdd='false' test-id='1'>
 					<div class='test-heading'>
-						<span class='test-name'>Warnings to be Noted</span>
-						<span class='test-time'>May 17 - 2022 19:48:02</span>
-						<span class='test-status right warning'>warning</span>
+						<span class='test-name'>Mobile Execution Test [Chrome]</span>
+						<span class='test-time'>May 18 - 2022 21:09:05</span>
+						<span class='test-status right fail'>fail</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>May 17 - 2022 19:48:02</span>
-	<span class='label end-time'>May 17 - 2022 19:48:02</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+3ms</span>
+	<span class='label start-time'>May 18 - 2022 21:09:05</span>
+	<span class='label end-time'>May 18 - 2022 21:09:09</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 4s+175ms</span>
 </div>
 	<div class='test-steps'>
 		<table class='bordered table-results'>
@@ -178,10 +179,56 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class='log' status='warning'>
-					<td class='status warning' title='warning' alt='warning'><i class='material-icons'>warning</i></td>
-					<td class='timestamp'>7:48:02 PM</td>
-					<td class='step-details'>Highlight Element Color is Missing in ProjectSettings.properties</td>
+				<tr class='log' status='error'>
+					<td class='status error' title='error' alt='error'><i class='material-icons'>error</i></td>
+					<td class='timestamp'>9:09:09 PM</td>
+					<td class='step-details'>invalid argument: entry 0 of 'firstMatch' is invalid
+from invalid argument: cannot parse capability: goog:chromeOptions
+from invalid argument: cannot parse mobileEmulation
+from invalid argument: 'iPhone 12 Pro' must be a valid device
+from unknown error: must be a valid device
+Build info: version: '4.0.0-alpha-5', revision: 'b3a0d621cc'
+System info: host: 'LAPTOP-80GLBEN5', ip: '192.168.29.241', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.2'
+Driver info: driver.version: ChromeDriver
+remote stacktrace: Backtrace:
+	Ordinal0 [0x00FEB8F3+2406643]
+	Ordinal0 [0x00F7AF31+1945393]
+	Ordinal0 [0x00E6C748+837448]
+	Ordinal0 [0x00E66C64+814180]
+	Ordinal0 [0x00E85401+939009]
+	Ordinal0 [0x00E84B41+936769]
+	Ordinal0 [0x00E85610+939536]
+	Ordinal0 [0x00E82BD6+928726]
+	Ordinal0 [0x00E85610+939536]
+	Ordinal0 [0x00E7F42E+914478]
+	Ordinal0 [0x00EB7F6C+1146732]
+	Ordinal0 [0x00EB79C9+1145289]
+	Ordinal0 [0x00EB8CF5+1150197]
+	Ordinal0 [0x00EB8B3A+1149754]
+	Ordinal0 [0x00EB4096+1130646]
+	Ordinal0 [0x00E8E636+976438]
+	Ordinal0 [0x00E8F546+980294]
+	GetHandleVerifier [0x01259612+2498066]
+	GetHandleVerifier [0x0124C920+2445600]
+	GetHandleVerifier [0x01084F2A+579370]
+	GetHandleVerifier [0x01083D36+574774]
+	Ordinal0 [0x00F81C0B+1973259]
+	Ordinal0 [0x00F86688+1992328]
+	Ordinal0 [0x00F86775+1992565]
+	Ordinal0 [0x00F8F8D1+2029777]
+	BaseThreadInitThunk [0x76526739+25]
+	RtlGetFullPathName_UEx [0x77818FEF+1215]
+	RtlGetFullPathName_UEx [0x77818FBD+1165]</td>
+				</tr>
+				<tr class='log' status='error'>
+					<td class='status error' title='error' alt='error'><i class='material-icons'>error</i></td>
+					<td class='timestamp'>9:09:09 PM</td>
+					<td class='step-details'></td>
+				</tr>
+				<tr class='log' status='fail'>
+					<td class='status fail' title='fail' alt='fail'><i class='material-icons'>cancel</i></td>
+					<td class='timestamp'>9:09:09 PM</td>
+					<td class='step-details'></td>
 				</tr>
 			</tbody>
 		</table>
@@ -192,101 +239,14 @@
 				
 				<li class='test displayed active  pass' status='pass' bdd='false' test-id='2'>
 					<div class='test-heading'>
-						<span class='test-name'>Accessing Elements Test [Chrome]</span>
-						<span class='test-time'>May 17 - 2022 19:48:04</span>
-						<span class='test-status right pass'>pass</span>
-					</div>
-					<div class='test-content hide'>
-<div class='test-time-info'>
-	<span class='label start-time'>May 17 - 2022 19:48:04</span>
-	<span class='label end-time'>May 17 - 2022 19:48:14</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 10s+818ms</span>
-</div>
-	<div class='test-steps'>
-		<table class='bordered table-results'>
-			<thead>
-				<tr>
-					<th>Status</th>
-					<th>Timestamp</th>
-					<th>Details</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>7:48:10 PM</td>
-					<td class='step-details'>CHROME Browser is Launched</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>7:48:12 PM</td>
-					<td class='step-details'>[https://www.facebook.com/] - is Launched - Status code : 200</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>7:48:13 PM</td>
-					<td class='step-details'>Element is Visible</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>7:48:13 PM</td>
-					<td class='step-details'>The CSS Value of font-size is : 17px</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>7:48:13 PM</td>
-					<td class='step-details'>CSS value is Logged</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>7:48:13 PM</td>
-					<td class='step-details'>The Location of X : 865 and Location of Y : 148</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>7:48:13 PM</td>
-					<td class='step-details'>Location value is logged</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>7:48:13 PM</td>
-					<td class='step-details'>Width :364,Height : 52</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>7:48:13 PM</td>
-					<td class='step-details'>Size of element is Logged</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>7:48:13 PM</td>
-					<td class='step-details'>Element is Displayed</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>7:48:14 PM</td>
-					<td class='step-details'>CHROME Browser is Closed</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-							<ul class='screenshots'>
-								<li><img data-featherlight='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\Dummy_SS.png' width='10%' src='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\Dummy_SS.png' data-src='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\Dummy_SS.png'></li>
-							</ul>
-					</div>
-				</li>
-				
-				
-				<li class='test displayed active  pass' status='pass' bdd='false' test-id='3'>
-					<div class='test-heading'>
 						<span class='test-name'>Test Properties</span>
-						<span class='test-time'>May 17 - 2022 19:48:15</span>
+						<span class='test-time'>May 18 - 2022 21:09:10</span>
 						<span class='test-status right pass'>pass</span>
 					</div>
 					<div class='test-content hide'>
 <div class='test-time-info'>
-	<span class='label start-time'>May 17 - 2022 19:48:15</span>
-	<span class='label end-time'>May 17 - 2022 19:48:15</span>
+	<span class='label start-time'>May 18 - 2022 21:09:10</span>
+	<span class='label end-time'>May 18 - 2022 21:09:10</span>
 	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+1ms</span>
 </div>
 	<div class='test-steps'>
@@ -301,23 +261,33 @@
 			<tbody>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>7:48:15 PM</td>
+					<td class='timestamp'>9:09:10 PM</td>
 					<td class='step-details'>Headless Mode : No</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>7:48:15 PM</td>
+					<td class='timestamp'>9:09:10 PM</td>
 					<td class='step-details'>Incognito Mode : No</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>7:48:15 PM</td>
+					<td class='timestamp'>9:09:10 PM</td>
+					<td class='step-details'>Mobile Emulation Using : iPhone 12 Pro</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>9:09:10 PM</td>
 					<td class='step-details'>Page Load Time is : 25</td>
 				</tr>
 				<tr class='log' status='info'>
 					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>7:48:15 PM</td>
+					<td class='timestamp'>9:09:10 PM</td>
 					<td class='step-details'>Implicit Wait Time is : 25</td>
+				</tr>
+				<tr class='log' status='info'>
+					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
+					<td class='timestamp'>9:09:10 PM</td>
+					<td class='step-details'>Highlight Element Color : blue</td>
 				</tr>
 			</tbody>
 		</table>
@@ -359,31 +329,31 @@
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Tests
-					<div class='panel-lead'>3</div>
+					<div class='panel-lead'>2</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Steps
-					<div class='panel-lead'>16</div>
+					<div class='panel-lead'>9</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Start
-					<div class='panel-lead'>May 17 - 2022 19:48:02</div>
+					<div class='panel-lead'>May 18 - 2022 21:09:04</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 			 		End
-			 		<div class='panel-lead'>May 17 - 2022 19:48:15</div>
+			 		<div class='panel-lead'>May 18 - 2022 21:09:10</div>
 				</div>
 			</div>
 			<div class='col s2'>
 				<div class='card-panel r'>
 					Time Taken
-					<div class='panel-lead'>0h 0m 12s+663ms</div>
+					<div class='panel-lead'>0h 0m 5s+796ms</div>
 				</div>
 			</div>
 			<div class='col s4'>
@@ -428,22 +398,22 @@
 
 		<script>
 			var statusGroup = {
-				passParent: 2,
-				failParent: 0,
+				passParent: 1,
+				failParent: 1,
 				fatalParent: 0,
 				errorParent: 0,
-				warningParent: 1,
+				warningParent: 0,
 				skipParent: 0,
 				exceptionsParent: 1,
 				
-				passChild: 8,
-				failChild: 0,
+				passChild: 0,
+				failChild: 1,
 				fatalChild: 0,
-				errorChild: 0,
-				warningChild: 1,
+				errorChild: 2,
+				warningChild: 0,
 				skipChild: 0,
-				infoChild: 7,
-				exceptionsChild: 1,
+				infoChild: 6,
+				exceptionsChild: 3,
 				
 				passGrandChild: 0,
 				failGrandChild: 0,

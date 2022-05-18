@@ -37,17 +37,4 @@ public class collectWebsitesTest extends SampleTests {
 			quitBrowser();
 		}
 	}
-	
-	@Test
-	public void SampleTestInheritance() {
-		try {
-			ensureURLWorkingSampleTestcase();
-			ColletingDetailsOfWebpageSampleTest();
-		}catch(Exception e) {
-			logError(e.getMessage());
-			e.printStackTrace();
-		}finally {
-			quitBrowser();
-		}
-	}
 }
