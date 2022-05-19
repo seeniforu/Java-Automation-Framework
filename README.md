@@ -44,6 +44,7 @@ Use `Latest Version` When Selecting Branch.
 - Select the Cloned Repository from your Local system.
 - After Click Finish. Now Project is Imported in Eclipse.
 - Otherwise User can use `Git Bash or CMD` to clone the project and Follow Steps from File -> Import.
+
 ```bash
 git clone https://github.com/seeniforu/Automation-Framework.git
 ```
@@ -83,7 +84,7 @@ To Run this project or any Testcase
   - `Warnings` - Fields Missed in properties file etc., and `Test Properties` are Logged in Every Report.
   - It has `Screenshot` Method which Automatically adds screenshots in Reports.
   - Error Occuring Pages are Captured by Default because it has Screenshot Method inside Log Error Method and Error Message also Logged.
-- `Element HighLight` during Exceution is available in all methods. The Given Xpath's Element is Highlighted, Useful when Reviewing Screenshots.
+- `Element HighLight` during Execution is available in all methods. The Given Xpath's Element is Highlighted, Useful when Reviewing Screenshots.
    - User can set `Custom Highlight Colour` in `ProjectSettings.properties`.
 - It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
   - Xpaths, Classname, id's can be Seperated for Easy Maintenance.
@@ -114,10 +115,10 @@ To Run this project or any Testcase
 This Project is Useful for :
 
 - A **Developer** or **Tester** or **Freelancers** who works in Multiple Projects will get Benifited from this Tool.
-- A **Beginner User Friendly Tool** where **Any one** can Automate and **Any Websites** can be Automated.
+- A **Beginner User Friendly Framework** where **Any one** can Automate and **Any Websites** can be Automated.
 - This tool will be helpful for **Quick Start in Automation**. User can quickly write a flow to Test a website.
 - Quick Automation Test To check the **Stability of Newly Developed or Under Development** Webpage.
-- **Quick Automation Feasibility** can be done.
+- **End to End Tests** can be done Easily.
 
 ## Drawbacks 
 
@@ -130,9 +131,8 @@ This Project is Useful for :
 * Switching Frames and Counting elements Takes so much time.
 * Safari Is not Tested. Don't know will work or not.
 * opera has some issues in headless mode and it is also not tested both UI, Headless, Proxy Execution. It needs different selenium version to updated in POM.
-* HtmlUnitDriver also has some issues. Execution is improper. Not working
-* phantomJs driver Pom needs to be updated with jar file. Not working.
-* Edge need to be updated with headless, incognito and Proxy.
+* phantomJs Not working.
+* Firefox proxy needs to be fixed.
 
 ## Feedback
 
