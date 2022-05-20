@@ -164,12 +164,18 @@ public class ProjectBaseOne {
 	}
 
 	public void getResults() {
-		System.out.println("******************************************");
+		System.out.println("    ");
+		System.out.println("    ");
 		System.out.println("Below link to Results, Open in a Browser");
+		System.out.println("    ");
+		System.out.println("    ");
 		System.out.println("******************************************");
+		System.out.println("    ");
+		System.out.println("    ");
 		System.out.println(
 				"Results : - " + System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
-		System.out.println("******************************************");
+		System.out.println("    ");
+		System.out.println("    ");
 	}
 
 	// Loading Properties Files
