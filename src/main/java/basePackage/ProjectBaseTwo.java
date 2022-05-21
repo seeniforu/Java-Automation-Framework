@@ -10,18 +10,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 import com.aventstack.extentreports.Status;
 
@@ -170,7 +168,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 		} catch (Exception e) {
 				e.printStackTrace();
-				logFatal(e.getMessage());
+				logError(e.getMessage());
 		}
 	}
 	
@@ -179,7 +177,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			driver.switchTo().frame(element);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logFatal(e.getMessage());
+			logError(e.getMessage());
 		}
 	}
 	
@@ -188,7 +186,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			driver.switchTo().frame(index);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logFatal(e.getMessage());
+			logError(e.getMessage());
 		}
 	}
 	
@@ -197,7 +195,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			driver.switchTo().frame(nameOrId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			logFatal(e.getMessage());
+			logError(e.getMessage());
 		}
 	}
 
@@ -261,7 +259,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			logFatal(e.getMessage());
+			logError(e.getMessage());
 		}
 
 	}
@@ -362,7 +360,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					if (code == 200) {
 						statusCodeCount(code);
 						logHref(url,code);
-						countofStatusCodes.add(i, code);
+						//countofStatusCodes.add(i, code);
 						//logInfo("[" + url + "]" + " Present in Given Webpage - " + code);
 					}  else {
 						statusCodeCount(code);
@@ -389,7 +387,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	private void logHref(String URL, int code) {
 		String msg1 = "[ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] - Status Code - " + code;
-		logger.log(Status.INFO, msg1);
+		test.log(Status.INFO, msg1);
 	}
 
 	private void statusCodeCount(int count) {
@@ -417,6 +415,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				String nextPageSearch = anchorTag.get(i).getAttribute("href");
 				if (nextPageSearch.contains(nxtpage)) {
 					logPass("--------------- After Navigation --------------");
+					highLighterMethod(anchorTag.get(i));
 					anchorTag.get(i).click();
 					break;
 				}
@@ -2260,22 +2259,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	public void backToOriginaFrame() {
 		driver.switchTo().defaultContent();
 	}
-
-	@AfterMethod
-	public void afterMethod() {
-		// closeBrowser();
-		reportFlush();
-	}
-
-	@AfterSuite
-	public void afterSuite() {
-		testProperties();
-		if (isTestCreated == true || isBrowserClosed == true) {
-			getResults();
-			openFile();
-		}
-	}
-
+	
 	public String browser;
 	public List<String> readFile = new ArrayList<String>();
 	public String filePath = System.getProperty("user.dir")+"\\";
@@ -2283,27 +2267,51 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	@BeforeMethod
 	public void beforeMethod() throws IOException {
 		try {
-			setUp();
 			browser = prop.getProperty("browserName");
 			warningsAndProperties();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+	@AfterMethod
+	public void afterMethod() {
+		// closeBrowser();
+	}
 	
+	@BeforeSuite
+	public void beforeSuite() throws IOException {
+		setUp();
+	}
+
+	@AfterSuite
+	public void afterSuite() {
+		testProperties();
+		reportFlush();
+		if (isTestCreated == true || isBrowserClosed == true) {
+			getResults();
+			openFile();
+		}
+		
+	}
+
 	boolean isBrowserClosed = false;
+
 	public void quitBrowser() {
 		try {
 			driver.quit();
 			isBrowserClosed = true;
-			if(prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
-				if(prop.getProperty("browserName").equalsIgnoreCase("chrome")) {
-				logPass(browser.toUpperCase()+ " Mobile Emulation Using "+prop.getProperty("MobileModel")+ " is Closed");
-				}else {
-					logPass(browser.toUpperCase()+ " Mobile Emulation is Closed");
+			if(ifThereisError == true || isBrowserClosed == true) {
+				MyScreenRecorder.stopRecording();
+				ifVideoRecordingDone = true;
+			}
+			if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
+				if (prop.getProperty("browserName").equalsIgnoreCase("chrome")) {
+					logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel")
+							+ " is Closed");
 				}
-			}else {
-			logPass(browser.toUpperCase() + " " + "Browser is Closed");
+			} else {
+				logPass("Browser is Closed");
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());

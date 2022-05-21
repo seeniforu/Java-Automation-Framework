@@ -7,3 +7,5 @@
 /.project
 /allure-results
 !ScreenShots/.gitkeep 
+/spark
+/recordings

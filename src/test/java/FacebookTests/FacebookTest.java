@@ -17,7 +17,7 @@ public class FacebookTest extends FacebookPages{
 	@Test(priority = 0)
 	public void ensureURL() throws Exception {
 		warningsAndProperties();
-		testName("Ensure URL Working " + "[" + browser + "]");
+		testNameWithBrowserName("Ensure URL Working ", browser);
 		handleBrowser(browser); 
 		openURL();
 		basicThingsForHomepage();

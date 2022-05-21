@@ -2,14 +2,13 @@ package basePackage;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.Dimension;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
@@ -20,85 +19,68 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.markuputils.Markup;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.configuration.ChartLocation;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class ProjectBaseOne {
+public class ProjectBaseOne extends Report{
 
 	public WebDriver driver;
-	public static Properties prop;
 	String browserName;
-	public ExtentReports report;
-	public ExtentTest logger;
-	public static ExtentReports extentReport;
-	public static ExtentHtmlReporter htmlReport;
 	boolean HeadlessOrNot = false;
 	boolean IncognitoOrNot = false;
 	boolean isThereWarning = false;
 	boolean xpathWarning = false;
+	boolean ifBrowserLaunched = false;
+	boolean ifThereisError = false;
+	boolean ifVideoRecordingDone = false;
 	
-
-	public static ExtentReports getExtentReport() {
-		try {
-			if (htmlReport == null && extentReport == null) {
-				if (prop.getProperty("ReportName").isEmpty()) {
-					prop.setProperty("ReportName", "Default Report");
-				}
-				htmlReport = new ExtentHtmlReporter(
-						System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
-				extentReport = new ExtentReports();
-				extentReport.attachReporter(htmlReport);
-				htmlReport.config().setDocumentTitle(prop.getProperty("ReportNameDocumentTitle"));
-				htmlReport.config().setReportName(prop.getProperty("ReportName"));
-				htmlReport.config().setTestViewChartLocation(ChartLocation.TOP);
-				htmlReport.config().setTimeStampFormat("MMM dd - yyyy HH:mm:ss");
-
-				extentReport.setSystemInfo("Operating System and Version: ", System.getProperty("os.name"));
-				if (prop.getProperty("browserName").isEmpty()) {
-				} else {
-					if (prop.getProperty("Diff_Browser").equalsIgnoreCase("Yes")) {
-						extentReport.setSystemInfo("Browser : ", "MultiBrowser");
-					} else if (prop.getProperty("Diff_Browser").equalsIgnoreCase("No")) {
-						extentReport.setSystemInfo("Browser : ", prop.getProperty("browserName"));
-					} else {
-						extentReport.setSystemInfo("Browser : ", prop.getProperty("browserName"));
-					}
-				}
-				extentReport.setSystemInfo("Java Version : ", System.getProperty("java.version"));
-				extentReport.setSystemInfo("Java Runtime Version: ", System.getProperty("java.runtime.version"));
-				extentReport.setSystemInfo("Java Class Version: ", System.getProperty("java.class.version"));
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		return extentReport;
-	}
-
 	private void intializeReport() {
-		report = getExtentReport();
+		test = getExtentReportVersion5();
 	}
+	
 	boolean isTestCreated = false;
-	public void testName(String name) {
+	
+	public void testName(String TestName) {
 		try {
-			logger = report.createTest(name);
+			test = extent.createTest(TestName);
+			isTestCreated = true;
+		}catch(Exception e) {
+			isTestCreated = false;
+			e.printStackTrace();
+		}
+	}
+	
+	public void testNameWithBrowserName(String TestName, String BrowserName) {
+		try {
+			test = extent.createTest(TestName).assignDevice(BrowserName);
+			isTestCreated = true;
+		}catch(Exception e) {
+			isTestCreated = false;
+			e.printStackTrace();
+		}
+	}
+	
+	public void testNameWithAssignAuthor(String TestName, String BrowserName, String AuthorName) {
+		try {
+			test = extent.createTest(TestName).assignDevice(BrowserName).assignAuthor(AuthorName);
+			isTestCreated = true;
+		}catch(Exception e) {
+			isTestCreated = false;
+			e.printStackTrace();
+		}
+	}
+	
+	private void testNamePropertiesandWarning(String name) {
+		try {
+			test = extent.createTest(name);
 			isTestCreated = true;
 		}catch(Exception e) {
 			isTestCreated = false;
@@ -107,43 +89,51 @@ public class ProjectBaseOne {
 	}
 
 	public void logPass(String msg) {
-		logger.log(Status.PASS, msg);
+		test.log(Status.PASS, msg);
 	}
 	
 	public void logPassLink(String msg) {
 		String msg1 = "<a href='"+msg+"' target='_blank'>"+ msg +" </a>";
-		logger.log(Status.PASS, msg1);
+		test.log(Status.PASS, msg1);
 	}
 	
 	public void logSkip(String msg) {
-		logger.log(Status.SKIP, msg);
+		test.log(Status.SKIP, msg);
+		ifThereisError = true;
 	}
 
 	public void logFail(String msg) {
-		// Screenshot("Fail msg");
-		logger.log(Status.FAIL, msg);
-	}
-
-	public void logFatal(String msg) {
-		Screenshot("Fatal Screenshot");
-		logger.log(Status.FATAL, msg);
-	}
-
-	public void logWarning(String msg) {
-		logger.log(Status.WARNING, msg);
-	}
-
-	public void logError(String msg) {
 		try {
-		//Screenshot("Error msg");
-		logger.log(Status.ERROR, msg);
-		}catch(Exception e) {
+			test.log(Status.FAIL, new Exception(msg));
+			if (ifBrowserLaunched == true) {
+				ScreenshotError();
+			}
+			ifThereisError = true;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	public void logWarning(String msg) {
+		test.log(Status.WARNING, msg);
+	}
+
+	public void logError(String msg) { // By Using LogError Method We can capture Screenshot by default.
+		try {
+			test.log(Status.FAIL, new Exception(msg));
+			if (ifBrowserLaunched == true) {
+				ScreenshotError();
+			}
+			ifThereisError = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+//		test.fail(new Exception(msg)).addScreenCaptureFromPath(ScreenshotError())
+//				.fail(MediaEntityBuilder.createScreenCaptureFromPath(ScreenshotError()).build());
+	}
+
 	public void logInfo(String info) {
-		logger.log(Status.INFO, info);
+		test.log(Status.INFO, info);
 	}
 
 	public void openFile() {
@@ -165,26 +155,16 @@ public class ProjectBaseOne {
 
 	public void getResults() {
 		System.out.println("    ");
-		System.out.println("    ");
 		System.out.println("Below link to Results, Open in a Browser");
 		System.out.println("    ");
-		System.out.println("    ");
-		System.out.println("******************************************");
-		System.out.println("    ");
+		System.out.println("************************************************************");
 		System.out.println("    ");
 		System.out.println(
 				"Results : - " + System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
 		System.out.println("    ");
-		System.out.println("    ");
 	}
 
-	// Loading Properties Files
-	private void property() throws IOException {
-		// Loading properties file
-		FileReader reader = new FileReader("ProjectSettings.properties");
-		prop = new Properties();
-		prop.load(reader);
-	}
+	
 
 	public void handleBrowser(String browser) {
 		try {
@@ -505,7 +485,7 @@ public class ProjectBaseOne {
 //                driver = new PhantomJSDriver(capabilities);
 			}
 			if(prop.getProperty("browserName").isEmpty()) {
-				extentReport.setSystemInfo("Browser : ", browser);
+				extent.setSystemInfo("Browser  ", browser);
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());
@@ -516,6 +496,16 @@ public class ProjectBaseOne {
 //		if(prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 //		}
 //		else{
+		ifBrowserLaunched = true;
+		if(ifBrowserLaunched == true && prop.getProperty("VideoRecording").equalsIgnoreCase("Yes")) {
+			try {
+				MyScreenRecorder.startRecording("Rec");
+				ifVideoRecordingDone = true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		maximizeWindow();
 //		}
 	}
@@ -914,7 +904,7 @@ public class ProjectBaseOne {
 				//driver = new PhantomJSDriver();
 			}
 			if(prop.getProperty("browserName").isEmpty()) {
-				extentReport.setSystemInfo("Browser : ", browser);
+				extent.setSystemInfo("Browser ", browser);
 			}
 		} catch (Exception e) {
 			logFail(e.getMessage());
@@ -922,6 +912,16 @@ public class ProjectBaseOne {
 		}
 		pageLoad();
 		implicitWait();
+		ifBrowserLaunched = true;
+		if(ifBrowserLaunched == true && prop.getProperty("VideoRecording").equalsIgnoreCase("Yes")) {
+			try {
+				MyScreenRecorder.startRecording("Rec");
+				ifVideoRecordingDone = true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		maximizeWindow();
 	}
 	
@@ -934,13 +934,32 @@ public class ProjectBaseOne {
 		File dest = new File(System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png");
 		try {
 			FileHandler.copy(source, dest);
-			logger.addScreenCaptureFromPath(
-					System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png");
+			String path = System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png";
+			test.addScreenCaptureFromPath(path).pass(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png";
 	}
+	
+	// This method for naming and creating screenshots
+		private String ScreenshotError() {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
+			String currentTimeStamp = dateFormat.format(new Date());
+			String screenShotName = currentTimeStamp;
+			TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
+			File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
+			File dest = new File(System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png");
+			String path = null;
+			try {
+				FileHandler.copy(source, dest);
+				path = System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png";
+				test.addScreenCaptureFromPath(path).fail(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return path;
+		}
 
 	public void setUp() throws IOException {
 		property();
@@ -970,10 +989,19 @@ public class ProjectBaseOne {
 		if(prop.getProperty("Proxy").equalsIgnoreCase("Yes") && prop.getProperty("ProxyAddress").isEmpty()) {
 			isThereWarning = true;
 		}
+		if (prop.getProperty("VideoRecording").isEmpty()) {
+			isThereWarning = true;
+		}
+		if (prop.getProperty("Theme").isEmpty()) {
+			isThereWarning = true;
+		}
+		if (prop.getProperty("MobileViewExecution").isEmpty()) {
+			isThereWarning = true;
+		}
 	}
 	
 	private void logWarnings() {
-		testName("Warnings needs to be taken care of");
+		testNamePropertiesandWarning("Warnings needs to be taken care of");
 		if (prop.getProperty("ReportName").isEmpty()) {
 			System.out.println("Please Enter Report Name in ProjectSettings.properties File.");
 			logWarning("Please Enter Report Name in ProjectSettings.properties File.");
@@ -984,12 +1012,12 @@ public class ProjectBaseOne {
 		}
 		if (prop.getProperty("browserName").isEmpty()) {
 			System.out.println("Please Enter a Browser Name in ProjectSettings.properties File.");
-			logError("Enter a Browser Name in ProjectSettings.properties File.");
+			logWarning("Enter a Browser Name in ProjectSettings.properties File.");
 			logWarning("Not Entering Browser Name may cause Report and Execution Errors.");
 		}
 		if (prop.getProperty("WebUrl").isEmpty()) {
 			System.out.println("Enter URL in ProjectSettings.properties or Pass as Argument");
-			logError("Enter a URL in ProjectSettings.properties or Pass as Argument");
+			logWarning("Enter a URL in ProjectSettings.properties or Pass as Argument");
 		}
 		if (prop.getProperty("HighlightElementColor").isEmpty()) {
 			logWarning("Highlight Element Color is Missing in ProjectSettings.properties");
@@ -1002,6 +1030,12 @@ public class ProjectBaseOne {
 		}
 		if(prop.getProperty("ImplicitWait").isEmpty() || prop.getProperty("PageLoadTime").isEmpty()) {
 			logWarning("Implicit Wait or Page Load time is Missing in ProjectSettings.properties. Default set to '10' Seconds.");
+		}
+		if (prop.getProperty("VideoRecording").isEmpty()) {
+			logWarning("Video Recording Field is Empty. If no video Needed give NO.");
+		}
+		if (prop.getProperty("Theme").isEmpty()) {
+			logWarning("Theme for Extent Report is Empty. Report may not be Generated as You Wish.");
 		}
 	}
 
@@ -1019,7 +1053,7 @@ public class ProjectBaseOne {
 	
 	public void testProperties() {
 		try {
-			testName("Test Properties");
+			testNamePropertiesandWarning("Test Properties");
 			if (HeadlessOrNot == false && IncognitoOrNot == false) {
 				logInfo("Headless Mode : No");
 				logInfo("Incognito Mode : No");
@@ -1049,6 +1083,9 @@ public class ProjectBaseOne {
 			}
 			if(xpathWarning == true) {
 				logWarning("Please Avoid Using Absolute Xpath. Instead Use Relative Xpath.");
+			}
+			if(ifVideoRecordingDone == true && prop.getProperty("VideoRecording").equalsIgnoreCase("Yes")) {
+				logInfo("Video Recording is Done. Refresh The Project and View Inside Recordings.s");
 			}
 			reportFlush();
 		} catch (Exception e) {
@@ -1111,6 +1148,6 @@ public class ProjectBaseOne {
 	}
 
 	public void reportFlush() {
-		report.flush();
+		extent.flush();
 	}
 }

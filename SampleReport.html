@@ -1,416 +1,645 @@
 
+
 <!DOCTYPE html>
 <html>
-
-
 <head>
-	<meta charset='utf-8' /> 
-	<meta name='description' content='' />
-	<meta name='robots' content='noodp, noydir' />
-	<meta name='viewport' content='width=device-width, initial-scale=1' />
-	<meta id="timeStampFormat" name="timeStampFormat" content='MMM dd - yyyy HH:mm:ss'/>
-	
-	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css' />
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-
-		<link href='https://cdn.rawgit.com/anshooarora/extentreports-java/b4a58fcfd1e137bd9287244035a7c80d3d73b3af/dist/css/extent.css' type='text/css' rel='stylesheet' />
-	
-	<title>Execution Results</title>
-
-	<style type='text/css'>
-	</style>
-</head>
-
-	<body class='extent standard default hide-overflow '>
-		<div id='theme-selector' alt='Click to toggle theme. To enable by default, use theme configuration.' title='Click to toggle theme. To enable by default, use theme configuration.'>
-			<span><i class='material-icons'>desktop_windows</i></span>
-		</div>
-
-<nav>
-	<div class="nav-wrapper">
-		<a href="#!" class="brand-logo blue darken-3">Extent</a>
-
-		<!-- slideout menu -->
-		<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
-			<li class='waves-effect active'><a href='#!' view='test-view' onclick="configureView(0);chartsView('test');"><i class='material-icons'>dashboard</i></a></li>
-						<li class='waves-effect'><a href='#!' onclick="configureView(-1);chartsView('dashboard');" view='dashboard-view'><i class='material-icons'>track_changes</i></i></a></li>
-		</ul>
-
-		<!-- report name -->
-		<span class='report-name'>SampleReport</span>
-		
-		<!-- report headline -->
-		<span class='report-headline'></span>
-
-		<!-- nav-right -->
-		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
-			<li>
-                <a href='#!'>
-                    <span class='label suite-start-time blue darken-3'>May 20 - 2022 21:36:23</span>
-				</a>
-			</li>
-			<li>
-                <a href='#!'>
-                    <span class='label blue darken-3'>3.1.5</span>
-				</a>
-			</li>
-		</ul>
-	</div>
-</nav>
-
-		<!-- container -->
-		<div class='container'>
-
-<div id='test-view' class='view'>
-				
-	<section id='controls'>
-		<div class='controls grey lighten-4'>
-			<!-- test toggle -->
-			<div class='chip transparent'>
-				<a class='dropdown-button tests-toggle' data-activates='tests-toggle' data-constrainwidth='true' data-beloworigin='true' data-hover='true' href='#'>
-					<i class='material-icons'>warning</i> Status
-				</a>
-				<ul id='tests-toggle' class='dropdown-content'>
-											<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
-						<li status='error'><a href='#!'>Error <i class='material-icons red-text lighten-2'>error</i></a></li>
-						<li status='skip'><a href='#!'>Skip <i class='material-icons cyan-text'>redo</i></a></li>
-					<li class='divider'></li>
-					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
-				</ul>
-			</div>
-			<!-- test toggle -->
-
-			<!-- category toggle -->
-			<!-- category toggle -->
-
-			<!-- clear filters -->
-			<div class='chip transparent hide'>
-				<a class='' id='clear-filters' alt='Clear Filters' title='Clear Filters'>
-					<i class='material-icons'>close</i> Clear
-				</a>
-			</div>
-			<!-- clear filters -->
-
-			<!-- enable dashboard -->
-			<div id='toggle-test-view-charts' class='chip transparent'>
-				<a class='pink-text' id='enable-dashboard' alt='Enable Dashboard' title='Enable Dashboard'>
-					<i class='material-icons'>track_changes</i> Dashboard
-				</a>
-			</div>
-			<!-- enable dashboard -->
-
-			<!-- search -->
-			<div class='chip transparent' alt='Search Tests' title='Search Tests'>
-				<a href="#" class='search-div'>
-					<i class='material-icons'>search</i> Search
-				</a>
-
-				<div class='input-field left hide'>
-					<input id='search-tests' type='text' class='validate browser-default' placeholder='Search Tests...'>
-				</div>
-				
-			</div>
-			<!-- search -->
-		</div>
-	</section>
-
-
-<div id='test-view-charts' class='subview-full'>
-	<div id='charts-row' class='row nm-v nm-h'>
-		<div class='col s12 m6 l6 np-h'>
-			<div class='card-panel nm-v'>
-				<div class='left panel-name'>Tests</div>
-				<div class='chart-box'>
-					<canvas id='parent-analysis' width='100' height='80'></canvas>
-				</div>
-				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='50%'><span class='strong'>1</span> test(s) passed</span>
-				</div>
-				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> test(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='50%'>1</span> others
-				</div>
-			</div>
-		</div>
-		
-		<div class='col s12 m6 l6 np-h'>
-			<div class='card-panel nm-v'>
-				<div class='left panel-name'>Steps</div>
-				<div class='chart-box'>
-					<canvas id='child-analysis' width='100' height='80'></canvas>
-				</div>
-				<div class='block text-small'>
-					<span class='tooltipped' data-position='top' data-tooltip='20%'><span class='strong'>2</span> step(s) passed</span>
-				</div>
-				<div class='block text-small'>
-					<span class='strong tooltipped' data-position='top' data-tooltip='0%'>0</span> step(s) failed, <span class='strong tooltipped' data-position='top' data-tooltip='80%'>8</span> others
-				</div>
-			</div>
-		</div>
-		
-	</div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>SampleReport</title>
+<link rel="apple-touch-icon" href="spark/logo.png">
+<link rel="shortcut icon" href="spark/logo.png">
+<link rel="stylesheet" href="spark/spark-style.css">
+<link rel="stylesheet" href="spark/font-awesome.min.css">
+<script src="spark/jsontree.js"></script>
+<style type="text/css"></style></head><body class="spa -report dark">
+  <div class="app">
+    <div class="layout">
+<div class="header navbar">
+<div class="vheader">
+<div class="nav-logo">
+<a href="#">
+<div class="logo" style="background-image: url('spark/logo.png')"></div>
+</a>
 </div>
-
-	<div class='subview-left left'>
-		
-		<div class='view-summary'>
-			<h5>Tests</h5>
-			<ul id='test-collection' class='test-collection'>
-				
-				
-				<li class='test displayed active  error' status='error' bdd='false' test-id='1'>
-					<div class='test-heading'>
-						<span class='test-name'>Mobile Execution Test [Chrome]</span>
-						<span class='test-time'>May 20 - 2022 21:36:24</span>
-						<span class='test-status right error'>error</span>
-					</div>
-					<div class='test-content hide'>
-<div class='test-time-info'>
-	<span class='label start-time'>May 20 - 2022 21:36:24</span>
-	<span class='label end-time'>May 20 - 2022 21:37:11</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 47s+23ms</span>
+<ul class="nav-left">
+<li class="search-box">
+<a class="search-toggle" href="#">
+<i class="search-icon fa fa-search"></i>
+<i class="search-icon-close fa fa-close"></i>
+</a>
+</li>
+<li class="search-input"><input id="search-tests" class="form-control" type="text" placeholder="Search..."></li>
+</ul>
+<ul class="nav-right">
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">Execution Results</span></a>
+</li>
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">May 21, 2022 07:32:27 PM</span></a>
+</li>
+</ul>
 </div>
-	<div class='test-steps'>
-		<table class='bordered table-results'>
-			<thead>
-				<tr>
-					<th>Status</th>
-					<th>Timestamp</th>
-					<th>Details</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>9:36:34 PM</td>
-					<td class='step-details'>CHROME Mobile Emulation Using iPhone SE is Launched</td>
-				</tr>
-				<tr class='log' status='skip'>
-					<td class='status skip' title='skip' alt='skip'><i class='material-icons'>redo</i></td>
-					<td class='timestamp'>9:36:41 PM</td>
-					<td class='step-details'>URL Response is Not Applicable - Status code : 503</td>
-				</tr>
-				<tr class='log' status='error'>
-					<td class='status error' title='error' alt='error'><i class='material-icons'>error</i></td>
-					<td class='timestamp'>9:37:06 PM</td>
-					<td class='step-details'>no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id='m_login_email']"}
+</div><div class="side-nav">
+<div class="side-nav-inner">
+<ul class="side-nav-menu">
+<li class="nav-item dropdown" onclick="toggleView('test-view')">
+<a id="nav-test" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('exception-view')">
+<a id="nav-exception" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bug"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('device-view')">
+<a id="nav-device" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-tablet"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
+<a id="nav-dashboard" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bar-chart"></i></span>
+</a>
+</li>
+</ul>
+</div>
+</div>      <div class="vcontainer">
+        <div class="main-content">
+<div class="test-wrapper row view test-view">
+  <div class="test-list">
+    <div class="test-list-tools">
+<ul class="tools pull-left">
+<li><a href="#"><span class="font-size-14">Tests</span></a></li>
+</ul>
+<ul class="tools text-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
+<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
+<a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a>
+<div class="dropdown-divider"></div>
+<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tablet"></i></a>
+<ul id="device-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" href="#">Chrome</a>
+</ul>
+</li>
+</ul>
+</div>    <div class="test-list-wrapper scrollable">
+      <ul class="test-list-item">
+        <li class="test-item"  status="fail" test-id="1"
+          author=""
+          tag=""
+          device="Chrome">
+          <div class="test-detail">
+            <p class="name">Navigate Check </p>
+            <p class="text-sm">
+              <span>7:32:29 PM</span> / <span>00:01:39:426</span>
+              <span class="badge fail-bg log float-right">Fail</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-fail">Navigate Check </h5>
+<span class='badge badge-success'>05.21.2022 7:32:29 PM</span>
+<span class='badge badge-danger'>05.21.2022 7:34:08 PM</span>
+<span class='badge badge-default'>00:01:39:426</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
+</div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Chrome</span></div>
+</div>
+</div>    <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\20220521_19_34_05.png' src="C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\20220521_19_34_05.png">
+    
+    </div></div>
+<div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>7:32:34 PM</td>
+        <td>
+          CHROME Browser is Launched
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>7:32:39 PM</td>
+        <td>
+          [https://www.facebook.com/] - is Launched - Status code : 200
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:32:39 PM</td>
+        <td>
+          The <b>Total Number of Elements Locatable</b> in Given Webpage - [256]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>7:32:42 PM</td>
+        <td>
+          --------------- After Navigation --------------
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:32:46 PM</td>
+        <td>
+          The <b>Total Number of Elements Locatable</b> in Given Webpage - [438]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Anchor Tag in Given Webpage - [9]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Link Tag in Given Webpage - [148]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Input Tag in Given Webpage - [20]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Button Tag in Given Webpage - [5]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Div Tag in Given Webpage - [100]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Span Tag in Given Webpage - [32]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Script Tag in Given Webpage - [79]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Table Tag in Given Webpage - [3]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Table Row [TR] Tag in Given Webpage - [5]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:33:40 PM</td>
+        <td>
+          The Total Number of Table Data [TD] Tag in Given Webpage - [6]
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>7:34:05 PM</td>
+        <td>
+          <textarea readonly class="code-block">java.lang.Exception: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@class='_42ft _4jy0 signup_btn _4jy4 _4jy2 selected _51s']"}
   (Session info: chrome=101.0.4951.67)
 For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
 Build info: version: '4.0.0-alpha-5', revision: 'b3a0d621cc'
 System info: host: 'LAPTOP-80GLBEN5', ip: '192.168.29.241', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.2'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 101.0.4951.67, chrome: {chromedriverVersion: 101.0.4951.41 (93c720db8323..., userDataDir: C:\Users\K5E37~1.SRI\AppDat...}, goog:chromeOptions: {debuggerAddress: localhost:52745}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 40cdfdc136af9ee5c5bbf479890713c7
-*** Element info: {Using=xpath, value=//*[@id='m_login_email']}</td>
-				</tr>
-				<tr class='log' status='pass'>
-					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
-					<td class='timestamp'>9:37:11 PM</td>
-					<td class='step-details'>CHROME Mobile Emulation Using iPhone SE is Closed</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-							<ul class='screenshots'>
-								<li><img data-featherlight='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\Mobile_SS.png' width='10%' src='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\Mobile_SS.png' data-src='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\Mobile_SS.png'></li>
-							</ul>
-					</div>
-				</li>
-				
-				
-				<li class='test displayed active  pass' status='pass' bdd='false' test-id='2'>
-					<div class='test-heading'>
-						<span class='test-name'>Test Properties</span>
-						<span class='test-time'>May 20 - 2022 21:37:12</span>
-						<span class='test-status right pass'>pass</span>
-					</div>
-					<div class='test-content hide'>
-<div class='test-time-info'>
-	<span class='label start-time'>May 20 - 2022 21:37:12</span>
-	<span class='label end-time'>May 20 - 2022 21:37:12</span>
-	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+4ms</span>
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 101.0.4951.67, chrome: {chromedriverVersion: 101.0.4951.41 (93c720db8323..., userDataDir: C:\Users\K5E37~1.SRI\AppDat...}, goog:chromeOptions: {debuggerAddress: localhost:57766}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 19534a8e937794d6b8070cd762c6b6e1
+*** Element info: {Using=xpath, value=//*[@class='_42ft _4jy0 signup_btn _4jy4 _4jy2 selected _51s']}
+	at basePackage.ProjectBaseOne.logError(ProjectBaseOne.java:145)
+	at basePackage.ProjectBaseTwo.clickUsingXpath(ProjectBaseTwo.java:756)
+	at testPackage.SampleTests.navigateUsingDifferentMethodSampleTest(SampleTests.java:256)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:598)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:173)
+	at org.testng.internal.MethodRunner.runInSequence(MethodRunner.java:46)
+	at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:824)
+	at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:146)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)
+	at org.testng.TestRunner.privateRun(TestRunner.java:794)
+	at org.testng.TestRunner.run(TestRunner.java:596)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:377)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:371)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:332)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:276)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1212)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1134)
+	at org.testng.TestNG.runSuites(TestNG.java:1063)
+	at org.testng.TestNG.run(TestNG.java:1031)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+</textarea>
+          
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>7:34:06 PM</td>
+        <td>
+          
+    <div class="row mb-3"><div class="col-md-3">
+<img data-featherlight='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\20220521_19_34_05.png' src="C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\20220521_19_34_05.png">
+    
+    </div></div>
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log pass-bg">Pass</span></td>
+        <td>7:34:08 PM</td>
+        <td>
+          Browser is Closed
+        </td>
+      </tr>
+  </tbody>
+</table>
 </div>
-	<div class='test-steps'>
-		<table class='bordered table-results'>
-			<thead>
-				<tr>
-					<th>Status</th>
-					<th>Timestamp</th>
-					<th>Details</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>9:37:12 PM</td>
-					<td class='step-details'>Headless Mode : No</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>9:37:12 PM</td>
-					<td class='step-details'>Incognito Mode : No</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>9:37:12 PM</td>
-					<td class='step-details'>Mobile Emulation Using : iPhone SE</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>9:37:12 PM</td>
-					<td class='step-details'>Page Load Time is : 25</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>9:37:12 PM</td>
-					<td class='step-details'>Implicit Wait Time is : 25</td>
-				</tr>
-				<tr class='log' status='info'>
-					<td class='status info' title='info' alt='info'><i class='material-icons'>info_outline</i></td>
-					<td class='timestamp'>9:37:12 PM</td>
-					<td class='step-details'>Highlight Element Color : blue</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<!-- subview left -->
-
-	<div class='subview-right left'>
-		<div class='view-summary'>
-			<h5 class='test-name'></h5>
-
-			<div id='step-filters' class="right">
-				<span class="blue-text" status="info" alt="info" title="info"><i class="material-icons">info_outline</i></span>
-				<span class="green-text" status="pass" alt="pass" title="pass"><i class="material-icons">check_circle</i></span>
-				<span class="red-text" status="fail" alt="fail" title="fail"><i class="material-icons">cancel</i></span>
-				<span class="red-text text-darken-4" status="fatal" alt="fatal" title="fatal"><i class="material-icons">cancel</i></span>
-				<span class="pink-text text-lighten-1" status="error" alt="error" title="error"><i class="material-icons">error</i></span>
-				<span class="orange-text" alt="warning" status="warning" title="warning"><i class="material-icons">warning</i></span>
-				<span class="teal-text" status="skip" alt="skip" title="skip"><i class="material-icons">redo</i></span>
-				<span status="clear" alt="Clear filters" title="Clear filters"><i class="material-icons">clear</i></span>
-			</div>
-		</div>
-	</div>
-	<!-- subview right -->
-
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="2"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Test Properties</p>
+            <p class="text-sm">
+              <span>7:34:08 PM</span> / <span>00:00:00:000</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Test Properties</h5>
+<span class='badge badge-success'>05.21.2022 7:34:08 PM</span>
+<span class='badge badge-danger'>05.21.2022 7:34:08 PM</span>
+<span class='badge badge-default'>00:00:00:000</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=2</span>
+<span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
+<span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
 </div>
-<!-- test view -->
-<!-- category view -->
-<!-- exception view -->
-<div id='dashboard-view' class='view hide'>
-	<div class='card-panel transparent np-v'>
-		<h5>Dashboard</h5>
-
-		<div class='row'>
-			<div class='col s2'>
-				<div class='card-panel r'>
-					Tests
-					<div class='panel-lead'>2</div>
-				</div>
-			</div>
-			<div class='col s2'>
-				<div class='card-panel r'>
-					Steps
-					<div class='panel-lead'>10</div>
-				</div>
-			</div>
-			<div class='col s2'>
-				<div class='card-panel r'>
-					Start
-					<div class='panel-lead'>May 20 - 2022 21:36:23</div>
-				</div>
-			</div>
-			<div class='col s2'>
-				<div class='card-panel r'>
-			 		End
-			 		<div class='panel-lead'>May 20 - 2022 21:37:12</div>
-				</div>
-			</div>
-			<div class='col s2'>
-				<div class='card-panel r'>
-					Time Taken
-					<div class='panel-lead'>0h 0m 49s+317ms</div>
-				</div>
-			</div>
-			<div class='col s4'>
-				<div class='card-panel dashboard-environment'>
-					<span class='right label cyan white-text'>Environment</span><p>&nbsp;</p>
-					
-					<table>
-						<tr>
-							<th>Name</th>
-							<th>Value</th>
-						</tr>
-							<tr>
-								<td>Operating System and Version: </td>
-								<td>Windows 10</td>
-							</tr>
-							<tr>
-								<td>Browser : </td>
-								<td>Chrome</td>
-							</tr>
-							<tr>
-								<td>Java Version : </td>
-								<td>11.0.2</td>
-							</tr>
-							<tr>
-								<td>Java Runtime Version: </td>
-								<td>11.0.2+9</td>
-							</tr>
-							<tr>
-								<td>Java Class Version: </td>
-								<td>55.0</td>
-							</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
-<!-- dashboard view -->
-<!-- testrunner-logs view -->
-		</div>
-		<!-- container -->
-
-		<script>
-			var statusGroup = {
-				passParent: 1,
-				failParent: 0,
-				fatalParent: 0,
-				errorParent: 1,
-				warningParent: 0,
-				skipParent: 0,
-				exceptionsParent: 1,
-				
-				passChild: 2,
-				failChild: 0,
-				fatalChild: 0,
-				errorChild: 1,
-				warningChild: 0,
-				skipChild: 1,
-				infoChild: 6,
-				exceptionsChild: 2,
-				
-				passGrandChild: 0,
-				failGrandChild: 0,
-				fatalGrandChild: 0,
-				errorGrandChild: 0,
-				warningGrandChild: 0,
-				skipGrandChild: 0,
-				infoGrandChild: 0,
-				exceptionsGrandChild: 0,
-			};
-		</script>
-		
-			<script src='https://cdn.rawgit.com/anshooarora/extentreports-java/fca20fb7653aade98810546ab96a2a4360e3e712/dist/js/extent.js' type='text/javascript'></script>
-		
-		
- 		<script type='text/javascript'>
- 		</script>
-	</body>
-	
+</div><div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:34:08 PM</td>
+        <td>
+          Headless Mode : No
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:34:08 PM</td>
+        <td>
+          Incognito Mode : No
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:34:08 PM</td>
+        <td>
+          Page Load Time is : 25
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:34:08 PM</td>
+        <td>
+          Implicit Wait Time is : 25
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>7:34:08 PM</td>
+        <td>
+          Highlight Element Color : blue
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div class="test-content scrollable">
+<div class="test-content-tools">
+<ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
+</div>
+<div class="test-content-detail"><div class="detail-body"></div></div>
+</div></div>
+<div class="test-wrapper row view exception-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Exception</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>1</span>
+</span>
+<p class="name">java.lang.Exception</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>java.lang.Exception</h4>
+<span status="fail" class='badge log badge-danger'>1 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>19:32:29 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='1'>Navigate Check </a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="test-wrapper row view device-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Device</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>1</span>
+</span>
+<p class="name">Chrome</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>Chrome</h4>
+<span status="fail" class='badge log badge-danger'>1 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>19:32:29 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='1'>Navigate Check </a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="container-fluid p-4 view dashboard-view">
+<div class="row">
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Started</p>
+<h3>May 21, 2022 07:32:27 PM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Ended</p>
+<h3>May 21, 2022 07:34:08 PM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-pass">Tests Passed</p>
+<h3>1</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-fail">Tests Failed</p>
+<h3>1</h3>
+</div></div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Tests</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='parent-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='50%'>
+<b>1</b> tests passed
+</small>
+</div>
+<div>
+<small data-tooltip='50%'><b>1</b> tests failed,
+<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Log events</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='events-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='17%'><b>4</b> events passed</small></div>
+<div>
+<small data-tooltip='8%'><b>2</b> events failed,
+<b data-tooltip='%'>17</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><div class="col-md-12">
+<div class="card"><div class="card-header"><p>Timeline</p></div>
+<div class="card-body pt-0"><div>
+<canvas id="timeline" height="120"></canvas>
+</div></div>
+</div>
+</div></div>
+<script>
+var timeline = {
+"Navigate Check ":99.426,"Test Properties":0
+};
+</script>
+<div class="row">
+<div class="col-lg-6 col-md-12 device-container">
+<div class="card">
+<div class="card-header"><p>Device</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead>
+<tbody>
+<tr>
+<td>Chrome</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="col-lg-6 col-md-12 sysenv-container">
+<div class="card">
+<div class="card-header"><p>System/Environment</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Value</th></tr></thead>
+<tbody>
+<tr>
+<td>Operating System and Version </td>
+<td>Windows 10</td>
+</tr>
+<tr>
+<td>Browser </td>
+<td>Chrome</td>
+</tr>
+<tr>
+<td>Java Version </td>
+<td>11.0.2</td>
+</tr>
+<tr>
+<td>Java Runtime Version </td>
+<td>11.0.2+9</td>
+</tr>
+<tr>
+<td>Java Class Version </td>
+<td>55.0</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var statusGroup = {
+parentCount: 5,
+passParent: 1,
+failParent: 1,
+warningParent: 0,
+skipParent: 0,
+childCount: 5,
+passChild: 0,
+failChild: 0,
+warningChild: 0,
+skipChild: 0,
+infoChild: 0,
+grandChildCount: 5,
+passGrandChild: 0,
+failGrandChild: 0,
+warningGrandChild: 0,
+skipGrandChild: 0,
+infoGrandChild: 0,
+eventsCount: 5,
+passEvents: 4,
+failEvents: 2,
+warningEvents: 0,
+skipEvents: 0,
+infoEvents: 17
+};
+</script>        </div>
+      </div>
+    </div>
+  </div>
+<script src="spark/spark-script.js"></script>
+<script type="text/javascript"></script></body>
 </html>

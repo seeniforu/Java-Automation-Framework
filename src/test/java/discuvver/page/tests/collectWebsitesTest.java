@@ -18,7 +18,7 @@ public class collectWebsitesTest extends SampleTests {
 	@Test
 	public void collectWebsites() {
 		try {
-			testName("Launching Discuvver, Collecting New Websites" + "[" + browser + "]");
+			testNameWithBrowserName("Launching Discuvver, Collecting New Websites", browser);
 			handleBrowser(browser);
 			openURL("https://www.discuvver.com/");
 			for (int i = 0; i < Number_Of_Websites_User_Want; i++) {

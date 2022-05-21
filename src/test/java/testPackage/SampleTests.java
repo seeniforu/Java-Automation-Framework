@@ -11,6 +11,7 @@ import facebookPagesPackage.locators.xpathMain;
  * create Empty Testcase shows all important methods and how to use it.
  * Create public methods for testcases in sampleTests without finally block in a way that can be merged with new codes for any website.
  * Add Assertion 
+ * seperate mobile execution from handle browser, so when running test suite other cases will run in other browser. mobile emulation will be seperated.
  * Add try catch block where ever possible.
  * phantomjs error, htmldriver error, fix issue in proxy firefox browser.. Setup Opera driver..
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
@@ -20,7 +21,6 @@ import facebookPagesPackage.locators.xpathMain;
  * try adding extension and run tests.
  * add scroll webpage
  * add javascript executor.
- * add screen recording
  * setup Selenium grid
  */
 
@@ -48,7 +48,7 @@ public class SampleTests extends ProjectBaseTwo {
 	
 	// ------------------------------------ Below Testcases are Website Independent ------------------------------------------------------------------
 
-	@Test(priority = 0)
+	@Test(priority = 1)
 	private void ensureURLWorkingSampleTestcase() {
 		/*
 		 * Below Testcase Execution order
@@ -64,8 +64,8 @@ public class SampleTests extends ProjectBaseTwo {
 		 * add screenshot to capture website is launched. Whenever new navigation to next page capture and add to test step.
 		 */
 		try {
-			testName("Ensure URL Working " + "[" + browser + "]");
-			handleBrowser(browser);
+			testNameWithBrowserName("Ensure URL Working ", "Firefox");
+			handleBrowser("Firefox");
 			openURL();
 		} catch (Exception e) {
 			logError(e.getMessage());
@@ -75,7 +75,7 @@ public class SampleTests extends ProjectBaseTwo {
 		}
 	}
 	
-	@Test(priority = 1)
+	@Test(priority = 2)
 	private void ColletingDetailsOfWebpageSampleTest() throws Exception {
 		/*
 		 * Below Testcase Execution order
@@ -91,7 +91,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 * Purpose : To Catagorize and Log all elements of a webpage in the report.	 
 		 */
 		try {
-			testName("Details of WebPage " + "[" + browser + "]");
+			testNameWithBrowserName("Details of WebPage ", browser);
 			handleBrowser(browser);
 			openURL();
 			getTitle();
@@ -125,7 +125,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 * Upgrade with detailed status codes which is very useful when testing a application under development.
 		 */
 		try {
-			testName("List of Anchor Tag Link" + "[" + browser + "]");
+			testNameWithBrowserName("List of Anchor Tag Link", browser);
 			handleBrowser(browser);
 			openURL();
 			BasicForEachPageElementsLogDetails();
@@ -156,7 +156,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 * If it is a Dynamic website and loads everytime according to user data, this testcase may fail.
 		 */
 		try {
-			testName("Verify No.of Elements when Launched == After Refresh Page" + "[" + browser + "]");
+			testNameWithBrowserName("Verify No.of Elements when Launched == After Refresh Page", browser);
 			handleBrowser(browser);
 			openURL();
 			int beforeRefresh = countAllElements();
@@ -178,7 +178,7 @@ public class SampleTests extends ProjectBaseTwo {
 		}
 	}
 
-	@Test(priority = 4)
+	//@Test(priority = 4)
 	private void inputFieldsCheckSampleTestcase() throws Exception {
 		/*
 		 * Below Testcase Execution order
@@ -193,7 +193,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 * Purpose : To send inputs as per User need to verify maximum and minimum characters for all input field in a webpage Launched.
 		 */
 		try {
-			testName("Input field Check " + "[" + browser + "]");
+			testNameWithBrowserName("Input field Check ", browser);
 			handleBrowser(browser);
 			openURL();
 			BasicForEachPageElementsLogDetails();
@@ -221,8 +221,8 @@ public class SampleTests extends ProjectBaseTwo {
 		 * Purpose : To Sort Elements accroding to argument passed by user.
 		 */
 		try {
-			testName("Sort Elements Check " + "[" + browser + "]");
-			handleBrowser(browser);
+			testNameWithBrowserName("Sort Elements Check ", "Edge");
+			handleBrowser("Edge");
 			openURL();
 			BasicForEachPageElementsLogDetails();
 			sortElements("meta");
@@ -236,14 +236,14 @@ public class SampleTests extends ProjectBaseTwo {
 
 	// ------------------------------------ Below are Particular Website based testcase for Reference -------------------------------------------------
 	
-	//@Test
+	@Test
 	private void navigateUsingDifferentMethodSampleTest() throws Exception {   
 		/*
 		 * // Website specific Testcase for reference.
 		 * // https://www.facebook.com/ - is used.
 		 */
 		try {													
-			testName("Navigate Check " + "[" + browser + "]");
+			testNameWithBrowserName("Navigate Check ", browser);
 			handleBrowser(browser);
 			openURL();
 			BasicForEachPageElementsLogDetails();
@@ -267,7 +267,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 * https://www.facebook.com/ - is used.									
 		 */
 		try {
-			testName("Clicking Elements Test Using Attribute" + "[" + browser + "]");     
+			testNameWithBrowserName("Clicking Elements Test Using Attribute", browser);     
 			handleBrowser(browser);
 			openURL();
 			GetElementUsingAttribute("data-testid", "royal_login_button");        // Returns the element of given attribute or id or class.
@@ -280,7 +280,7 @@ public class SampleTests extends ProjectBaseTwo {
 		}
 	}
 	
-	@Test
+	//@Test
 	private void accessingElementsSampleTest() throws Exception {   
 		/*
 		 *  Website specific Testcase for reference.
@@ -288,7 +288,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 *  Does not work in Mobile view as Id changed.
 		 */
 		try {
-			testName("Accessing Elements Test " + "[" + browser + "]");
+			testNameWithBrowserName("Accessing Elements Test ", browser);
 			handleBrowser(browser);                         
 			openURL();                                                             
 			clickOrVerifyWithCssSelector("Verify", "input#email", "Element is Visible", "Element is not Visible");
@@ -314,7 +314,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 *    website used is - https://www.w3schools.com/html/html_iframe.asp
 		 */
 		try {																	
-			testName("Ensure Frame Switching " + "[" + browser + "]");
+			testNameWithBrowserName("Ensure Frame Switching ", browser);
 			handleBrowser(browser);
 			openURL();
 			//addAssertionForStringVerification(getTitle(), "HTML Iframe", "Title Verification Done", "Title is Not Matching");
@@ -335,7 +335,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 * https://www.facebook.com/ - is used.
 		 */
 		try {
-			testName("Mobile Execution Test " + "[" + browser + "]");   
+			testNameWithAssignAuthor("Mobile Execution Test ", prop.getProperty("MobileModel"), "Srinivasan");   
 			handleBrowser(browser);
 			openURL();	
 			getElementUsingXpath("//*[@id='m_login_email']");
