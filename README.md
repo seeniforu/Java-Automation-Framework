@@ -1,6 +1,6 @@
 # Automation-Framework
 
-[![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/Naereen/Strapdown.js/releases) [![Generic badge](https://img.shields.io/badge/Version-1.4-<COLOR>.svg)](https://shields.io/)
+[![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/Naereen/Strapdown.js/releases) [![Generic badge](https://img.shields.io/badge/Version-1.5-<COLOR>.svg)](https://shields.io/)
 
 Creating My own Framework for a Quick Start in Automation with any Working Website. 
 
@@ -82,8 +82,10 @@ To Run this project or any Testcase
 - User Can Setup their `Own PROXY` for Safe Execution in `ProjectSettings.properties`.
 - Everything is Logged using `Extent Report`, When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
   - `Warnings` - Fields Missed in properties file etc., and `Test Properties` are Logged in Every Report.
-  - It has `Screenshot` Method which Automatically adds screenshots in Reports.
-  - Error Occuring Pages are Captured by Default because it has Screenshot Method inside Log Error Method and Error Message also Logged.
+  - It has `Screenshot` Method which Automatically adds screenshots in Reports. Error Occuring Pages are Captured by Default because it has Screenshot Method inside Log Error Method and Error Message also Logged.
+  - User Can Set `Reporting Theme` as Dark and Standard.
+  - Report are `Offline Enabled` So, Results can be Viewed with or without Internet.
+- User can setup `Video Recording` of Execution If needed by giving 'Yes' in ProjectSettings.properties file.
 - `Element HighLight` during Execution is available in all methods. The Given Xpath's Element is Highlighted, Useful when Reviewing Screenshots.
    - User can set `Custom Highlight Colour` in `ProjectSettings.properties`.
 - It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
