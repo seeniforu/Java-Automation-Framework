@@ -1,8 +1,12 @@
 # Automation-Framework
 
-[![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/Naereen/Strapdown.js/releases) [![Generic badge](https://img.shields.io/badge/Version-1.4-<COLOR>.svg)](https://shields.io/)
+ [![Generic badge](https://img.shields.io/badge/Stable-Version-blue.svg)](https://shields.io/) [![Generic badge](https://img.shields.io/badge/Version-1.4-<COLOR>.svg)](https://shields.io/)
 
 Creating My own Framework for a Quick Start in Automation with any Working Website. 
+
+#### Check Readme in 
+
+[![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/Naereen/Strapdown.js/releases)
 
 ## Vision For this Project
 
