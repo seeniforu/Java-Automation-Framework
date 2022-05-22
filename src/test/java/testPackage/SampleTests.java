@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import basePackage.ProjectBaseTwo;
 import facebookPagesPackage.locators.xpathMain;
+import io.qameta.allure.Description;
 
 /*
  * Things to be Done:
@@ -21,7 +22,7 @@ import facebookPagesPackage.locators.xpathMain;
  * try adding extension and run tests.
  * add scroll webpage
  * add javascript executor.
- * setup Selenium grid
+ * setup Selenium grid.
  */
 
 /*
@@ -47,7 +48,8 @@ import facebookPagesPackage.locators.xpathMain;
 public class SampleTests extends ProjectBaseTwo {
 	
 	// ------------------------------------ Below Testcases are Website Independent ------------------------------------------------------------------
-
+	
+	@Description("Test Description: Ensure URL Working")
 	@Test(priority = 1)
 	private void ensureURLWorkingSampleTestcase() {
 		/*
@@ -347,7 +349,6 @@ public class SampleTests extends ProjectBaseTwo {
 			quitBrowser();
 		}
 	}
-	
 	
 	public void alertCheck() {
 		// give a alert to website and handle that alert.

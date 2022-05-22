@@ -29,6 +29,8 @@ import org.openqa.selenium.safari.SafariDriver;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 
 public class ProjectBaseOne extends Report{
 
@@ -48,6 +50,7 @@ public class ProjectBaseOne extends Report{
 	
 	boolean isTestCreated = false;
 	
+	@Description("Test Description: {0}")
 	public void testName(String TestName) {
 		try {
 			test = extent.createTest(TestName);
@@ -58,6 +61,7 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
+	@Description("Test Description: {0}")
 	public void testNameWithBrowserName(String TestName, String BrowserName) {
 		try {
 			test = extent.createTest(TestName).assignDevice(BrowserName);
@@ -68,6 +72,7 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
+	@Description("Test Description: {0}")
 	public void testNameWithAssignAuthor(String TestName, String BrowserName, String AuthorName) {
 		try {
 			test = extent.createTest(TestName).assignDevice(BrowserName).assignAuthor(AuthorName);
@@ -78,6 +83,7 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
+	@Description("Test Description: {0}")
 	private void testNamePropertiesandWarning(String name) {
 		try {
 			test = extent.createTest(name);
@@ -87,9 +93,16 @@ public class ProjectBaseOne extends Report{
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Step("{0}")
 	public void logPass(String msg) {
 		test.log(Status.PASS, msg);
+	}
+	
+	@Step("[ " + "{0}" + "] - Status Code - " + "{1}")
+	protected void logHref(String URL, int code) {
+		String msg1 = "[ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] - Status Code - " + code;
+		test.log(Status.INFO, msg1);
 	}
 	
 	public void logPassLink(String msg) {
@@ -97,11 +110,13 @@ public class ProjectBaseOne extends Report{
 		test.log(Status.PASS, msg1);
 	}
 	
+	@Step("{0}")
 	public void logSkip(String msg) {
 		test.log(Status.SKIP, msg);
 		ifThereisError = true;
 	}
-
+	
+	@Step("{0}")
 	public void logFail(String msg) {
 		try {
 			test.log(Status.FAIL, new Exception(msg));
@@ -113,11 +128,13 @@ public class ProjectBaseOne extends Report{
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Step("{0}")
 	public void logWarning(String msg) {
 		test.log(Status.WARNING, msg);
 	}
-
+	
+	@Step("{0}")
 	public void logError(String msg) { // By Using LogError Method We can capture Screenshot by default.
 		try {
 			test.log(Status.FAIL, new Exception(msg));
@@ -131,7 +148,8 @@ public class ProjectBaseOne extends Report{
 //		test.fail(new Exception(msg)).addScreenCaptureFromPath(ScreenshotError())
 //				.fail(MediaEntityBuilder.createScreenCaptureFromPath(ScreenshotError()).build());
 	}
-
+	
+	@Step("{0}")
 	public void logInfo(String info) {
 		test.log(Status.INFO, info);
 	}
@@ -148,7 +166,17 @@ public class ProjectBaseOne extends Report{
 			Desktop desktop = Desktop.getDesktop();
 			if (file.exists()) // checks file exists or not
 				desktop.open(file); // opens the specified file
+			//executeCMD();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void executeCMD() {
+		try {
+			Process p = Runtime.getRuntime().exec("allure serve "+System.getProperty("user.dir")+"\\allure-results");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

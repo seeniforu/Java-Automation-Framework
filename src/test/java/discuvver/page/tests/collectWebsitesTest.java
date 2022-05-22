@@ -37,4 +37,5 @@ public class collectWebsitesTest extends SampleTests {
 			quitBrowser();
 		}
 	}
+
 }

@@ -23,6 +23,8 @@ import org.testng.annotations.BeforeSuite;
 
 import com.aventstack.extentreports.Status;
 
+import io.qameta.allure.Step;
+
 public class ProjectBaseTwo extends ProjectBaseOne {
 	private List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;
 	private List<String> allElementTagName = new ArrayList<String>();
@@ -383,11 +385,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				+ " - client errors");
 		logPass("Count of Status Code 500 - 599 is " + "[" + CodeCount500 + "]" + " Out of " + countofanchor
 				+ " - server errors");
-	}
-
-	private void logHref(String URL, int code) {
-		String msg1 = "[ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] - Status Code - " + code;
-		test.log(Status.INFO, msg1);
 	}
 
 	private void statusCodeCount(int count) {
@@ -2288,7 +2285,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	public void afterSuite() {
 		testProperties();
 		reportFlush();
-		if (isTestCreated == true || isBrowserClosed == true) {
+		if (isTestCreated == true && isBrowserClosed == true) {
 			getResults();
 			openFile();
 		}
@@ -2301,7 +2298,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		try {
 			driver.quit();
 			isBrowserClosed = true;
-			if(ifThereisError == true || isBrowserClosed == true) {
+			if(prop.getProperty("VideoRecording").equalsIgnoreCase("Yes") && isBrowserClosed == true) {
 				MyScreenRecorder.stopRecording();
 				ifVideoRecordingDone = true;
 			}
