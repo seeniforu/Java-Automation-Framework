@@ -12,9 +12,8 @@ import io.qameta.allure.Description;
  * create Empty Testcase shows all important methods and how to use it.
  * Create public methods for testcases in sampleTests without finally block in a way that can be merged with new codes for any website.
  * Add Assertion 
- * seperate mobile execution from handle browser, so when running test suite other cases will run in other browser. mobile emulation will be seperated.
  * Add try catch block where ever possible.
- * phantomjs error, htmldriver error, fix issue in proxy firefox browser.. Setup Opera driver..
+ * phantomjs error, fix issue in proxy firefox browser.. Setup Opera driver..
  * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
  * inputfield(String locator, String type = positive | negative, Total no.of chracters or numbers can be inserted)
@@ -298,7 +297,7 @@ public class SampleTests extends ProjectBaseTwo {
 			getLocationUsingId("email", "Location value is logged");
 			getSizeUsingId("email", "Size of element is Logged");
 			verifyUsingId("email", "Element is Displayed", "Element is Not Displayed");
-			Screenshot("Dummy SS");
+			screenshotWithCustomName("Dummy SS");
 			System.out.println(getPageSource());
 		} catch (Exception e) {
 			logError(e.getMessage());
@@ -338,10 +337,13 @@ public class SampleTests extends ProjectBaseTwo {
 		 */
 		try {
 			testNameWithAssignAuthor("Mobile Execution Test ", prop.getProperty("MobileModel"), "Srinivasan");   
-			handleBrowser(browser);
+			handleBrowserMobileView(browser);
 			openURL();	
 			getElementUsingXpath("//*[@id='m_login_email']");
-			Screenshot("Mobile SS");
+			verifyUsingXpath("//*[@id='m_login_email']", "Input Field is Verified", "Input Field is Not Verified"); // for Passing Test
+			//verifyUsingXpath("//input[@name='lsd']", "Input Field is Verified", "Input Field is Not Verified");  // for Failing Test
+			sendKeysUsingXpath("//*[@id='m_login_email']","hello");
+			screenshotWithCustomName("Mobile view Screenshot");
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
@@ -350,8 +352,10 @@ public class SampleTests extends ProjectBaseTwo {
 		}
 	}
 	
+
 	public void alertCheck() {
 		// give a alert to website and handle that alert.
+		clickUsingContainsWithAttribute("name", "btn");
 	}
 	
 	public void scrollTillLastElementCheck() {
@@ -368,7 +372,5 @@ public class SampleTests extends ProjectBaseTwo {
 	
 	public void clickUsingId(String Id, String altAttributeName, String altAttributeValue, String LogStatement) {
 		// Create Methods like this for click, send, get, verify - for classname, xpath etc.,
-	}
-	
-
+	}	
 }
