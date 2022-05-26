@@ -69,7 +69,6 @@ public class SampleTests extends ProjectBaseTwo {
 			handleBrowser("Firefox");
 			openURL();
 		} catch (Exception e) {
-			logError(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			quitBrowser();

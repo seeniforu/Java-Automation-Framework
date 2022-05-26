@@ -1,9 +1,7 @@
 package FacebookTests;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-import basePackage.ProjectBaseTwo;
 import facebookPagesPackage.FacebookPages;
 
 /*

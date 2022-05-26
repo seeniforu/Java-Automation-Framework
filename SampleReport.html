@@ -35,7 +35,7 @@
 <a href="#"><span class="badge badge-primary">Execution Results</span></a>
 </li>
 <li class="m-r-10">
-<a href="#"><span class="badge badge-primary">May 24, 2022 10:24:23 AM</span></a>
+<a href="#"><span class="badge badge-primary">May 26, 2022 09:31:51 PM</span></a>
 </li>
 </ul>
 </div>
@@ -55,11 +55,6 @@
 <li class="nav-item dropdown" onclick="toggleView('device-view')">
 <a id="nav-device" class="dropdown-toggle" href="#">
 <span class="ico"><i class="fa fa-tablet"></i></span>
-</a>
-</li>
-<li class="nav-item dropdown" onclick="toggleView('author-view')">
-<a id="nav-author" class="dropdown-toggle" href="#">
-<span class="ico"><i class="fa fa-user"></i></span>
 </a>
 </li>
 <li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
@@ -88,28 +83,22 @@
 </ul>
 </li>
 <li class="dropdown">
-<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i></a>
-<ul id="author-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" href="#">Srinivasan</a>
-</ul>
-</li>
-<li class="dropdown">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tablet"></i></a>
 <ul id="device-toggle" class="dropdown-menu dropdown-md p-v-0">
-<a class="dropdown-item" href="#">iPhoneSE</a>
+<a class="dropdown-item" href="#">Firefox</a>
 </ul>
 </li>
 </ul>
 </div>    <div class="test-list-wrapper scrollable">
       <ul class="test-list-item">
         <li class="test-item"  status="fail" test-id="1"
-          author="Srinivasan"
+          author=""
           tag=""
-          device="iPhoneSE">
+          device="Firefox">
           <div class="test-detail">
-            <p class="name">Mobile Execution Test </p>
+            <p class="name">Ensure URL Working </p>
             <p class="text-sm">
-              <span>10:24:27 AM</span> / <span>00:00:18:695</span>
+              <span>9:31:55 PM</span> / <span>00:00:08:174</span>
               <span class="badge fail-bg log float-right">Fail</span>
             </p>
           </div>
@@ -117,55 +106,32 @@
 <div class="detail-head">
 <div class="p-v-10">
 <div class="info">
-<h5 class="test-status text-fail">Mobile Execution Test </h5>
-<span class='badge badge-success'>05.24.2022 10:24:27 AM</span>
-<span class='badge badge-danger'>05.24.2022 10:24:46 AM</span>
-<span class='badge badge-default'>00:00:18:695</span>
+<h5 class="test-status text-fail">Ensure URL Working </h5>
+<span class='badge badge-success'>05.26.2022 9:31:55 PM</span>
+<span class='badge badge-danger'>05.26.2022 9:32:03 PM</span>
+<span class='badge badge-default'>00:00:08:174</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
 <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
 <span class='badge badge-default pointer float-right ct'><i class="fa fa-chevron-up"></i></span>
 </div>
-<div class="m-t-15"><span class="badge badge-pill badge-default">Srinivasan</span>
-<span class="badge badge-pill badge-default">iPhoneSE</span></div>
+<div class="m-t-15"><span class="badge badge-pill badge-default">Firefox</span></div>
 </div>
-</div>    <div class="row mb-3"><div class="col-md-3">
-<img data-featherlight='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\ErrorScreenShots\20220524_10_24_43.png' src="C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\ErrorScreenShots\20220524_10_24_43.png">
-    
-    </div></div>
-<div class="detail-body mt-4">
+</div><div class="detail-body mt-4">
 <table class="table table-sm">
   <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
   <tbody>
       <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:24:37 AM</td>
-        <td>
-          CHROME Mobile Emulation Using iPhone SE is Launched
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:24:40 AM</td>
-        <td>
-          [https://m.facebook.com/] - is Launched - Status code : 200
-        </td>
-      </tr>
-      <tr class="event-row">
         <td><span class="badge log fail-bg">Fail</span></td>
-        <td>10:24:43 AM</td>
+        <td>9:32:03 PM</td>
         <td>
-          Input Field is Not Verified
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log fail-bg">Fail</span></td>
-        <td>10:24:43 AM</td>
-        <td>
-          <textarea readonly class="code-block">java.lang.Exception: expected [true] but found [false]
-	at basePackage.ProjectBaseOne.logError(ProjectBaseOne.java:152)
-	at basePackage.ProjectBaseTwo.verify(ProjectBaseTwo.java:957)
-	at basePackage.ProjectBaseTwo.verifyUsingXpath(ProjectBaseTwo.java:932)
-	at testPackage.SampleTests.mobileExecutionTest(SampleTests.java:344)
+          <textarea readonly class="code-block">java.lang.Exception: httpProxy must not contain a scheme: http://128.199.214.87:3128
+Build info: version: '4.0.0-alpha-5', revision: 'b3a0d621cc'
+System info: host: 'LAPTOP-80GLBEN5', ip: '192.168.29.241', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.2'
+Driver info: driver.version: FirefoxDriver
+remote stacktrace: 
+	at basePackage.ProjectBaseOne.logFailException(ProjectBaseOne.java:138)
+	at basePackage.ProjectBaseOne.handleBrowser(ProjectBaseOne.java:506)
+	at testPackage.SampleTests.ensureURLWorkingSampleTestcase(SampleTests.java:69)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -200,20 +166,9 @@
       </tr>
       <tr class="event-row">
         <td><span class="badge log fail-bg">Fail</span></td>
-        <td>10:24:43 AM</td>
+        <td>9:32:03 PM</td>
         <td>
           
-    <div class="row mb-3"><div class="col-md-3">
-<img data-featherlight='C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\ErrorScreenShots\20220524_10_24_43.png' src="C:\Users\K.Srinivasan\git\Automation-Framework-version-1.0\ScreenShots\ErrorScreenShots\20220524_10_24_43.png">
-    
-    </div></div>
-        </td>
-      </tr>
-      <tr class="event-row">
-        <td><span class="badge log pass-bg">Pass</span></td>
-        <td>10:24:46 AM</td>
-        <td>
-          CHROME Mobile Emulation Using iPhone SE is Closed
         </td>
       </tr>
   </tbody>
@@ -228,7 +183,7 @@
           <div class="test-detail">
             <p class="name">Test Properties</p>
             <p class="text-sm">
-              <span>10:24:46 AM</span> / <span>00:00:00:000</span>
+              <span>9:32:04 PM</span> / <span>00:00:00:000</span>
               <span class="badge pass-bg log float-right">Pass</span>
             </p>
           </div>
@@ -237,8 +192,8 @@
 <div class="p-v-10">
 <div class="info">
 <h5 class="test-status text-pass">Test Properties</h5>
-<span class='badge badge-success'>05.24.2022 10:24:46 AM</span>
-<span class='badge badge-danger'>05.24.2022 10:24:46 AM</span>
+<span class='badge badge-success'>05.26.2022 9:32:04 PM</span>
+<span class='badge badge-danger'>05.26.2022 9:32:04 PM</span>
 <span class='badge badge-default'>00:00:00:000</span>
 &middot; <span class='uri-anchor badge badge-default'>#test-id=2</span>
 <span class='badge badge-default pointer float-right ml-1 et'><i class="fa fa-chevron-down"></i></span>
@@ -251,42 +206,42 @@
   <tbody>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:24:46 AM</td>
+        <td>9:32:04 PM</td>
         <td>
           Headless Mode : No
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:24:46 AM</td>
+        <td>9:32:04 PM</td>
         <td>
-          Incognito Mode : Yes
+          Incognito Mode : No
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:24:46 AM</td>
+        <td>9:32:04 PM</td>
         <td>
-          Mobile Emulation Using : iPhone SE
+          Proxy Address : http://128.199.214.87:3128
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:24:46 AM</td>
+        <td>9:32:04 PM</td>
         <td>
           Page Load Time is : 25
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:24:46 AM</td>
+        <td>9:32:04 PM</td>
         <td>
           Implicit Wait Time is : 25
         </td>
       </tr>
       <tr class="event-row">
         <td><span class="badge log info-bg">Info</span></td>
-        <td>10:24:46 AM</td>
+        <td>9:32:04 PM</td>
         <td>
           Highlight Element Color : blue
         </td>
@@ -337,9 +292,9 @@
 <tbody>
 <tr class="tag-test-status" status="fail">
 <td><span class="badge log fail-bg">Fail</span></td>
-<td>10:24:27 AM</td>
+<td>21:31:55 PM</td>
 <td>
-<a href="#" class="linked" test-id='1' id='1'>Mobile Execution Test </a>
+<a href="#" class="linked" test-id='1' id='1'>Ensure URL Working </a>
 </td>
 </tr>
 </tbody>
@@ -367,12 +322,12 @@
 <span class="meta">
 <span class='badge log badge-danger'>1</span>
 </span>
-<p class="name">iPhoneSE</p>
+<p class="name">Firefox</p>
 <p class="duration text-sm">1 tests</p>
 </div>
 <div class="test-contents d-none">
 <div class="info">
-<h4>iPhoneSE</h4>
+<h4>Firefox</h4>
 <span status="fail" class='badge log badge-danger'>1 failed</span>
 </div>
 <table class='table table-sm mt-4'>
@@ -386,58 +341,9 @@
 <tbody>
 <tr class="tag-test-status" status="fail">
 <td><span class="badge log fail-bg">Fail</span></td>
-<td>10:24:27 AM</td>
+<td>21:31:55 PM</td>
 <td>
-<a href="#" class="linked" test-id='1' id='1'>Mobile Execution Test </a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="test-content scrollable">
-<div class="test-content-detail">
-<div class="detail-body"></div>
-</div>
-</div>
-</div><div class="test-wrapper row view author-view attributes-view">
-<div class="test-list">
-<div class="test-list-tools">
-<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Author</span></a></li></ul>
-<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
-</div>
-<div class="test-list-wrapper scrollable">
-<ul class="test-list-item">
-<li class="test-item">
-<div class="test-detail">
-<span class="meta">
-<span class='badge log badge-danger'>1</span>
-</span>
-<p class="name">Srinivasan</p>
-<p class="duration text-sm">1 tests</p>
-</div>
-<div class="test-contents d-none">
-<div class="info">
-<h4>Srinivasan</h4>
-<span status="fail" class='badge log badge-danger'>1 failed</span>
-</div>
-<table class='table table-sm mt-4'>
-<thead>
-<tr>
-<th class="status-col">Status</th>
-<th class="timestamp-col">Timestamp</th>
-<th>TestName</th>
-</tr>
-</thead>
-<tbody>
-<tr class="tag-test-status" status="fail">
-<td><span class="badge log fail-bg">Fail</span></td>
-<td>10:24:27 AM</td>
-<td>
-<a href="#" class="linked" test-id='1' id='1'>Mobile Execution Test </a>
+<a href="#" class="linked" test-id='1' id='1'>Ensure URL Working </a>
 </td>
 </tr>
 </tbody>
@@ -457,13 +363,13 @@
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Started</p>
-<h3>May 24, 2022 10:24:23 AM</h3>
+<h3>May 26, 2022 09:31:51 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
 <div class="card"><div class="card-body">
 <p class="m-b-0">Ended</p>
-<h3>May 24, 2022 10:24:46 AM</h3>
+<h3>May 26, 2022 09:32:04 PM</h3>
 </div></div>
 </div>
 <div class="col-md-3">
@@ -514,9 +420,9 @@
 </div>
 </div>
 <div class="card-footer">
-<div><small data-tooltip='25%'><b>3</b> events passed</small></div>
+<div><small data-tooltip='0%'><b>0</b> events passed</small></div>
 <div>
-<small data-tooltip='25%'><b>3</b> events failed,
+<small data-tooltip='25%'><b>2</b> events failed,
 <b data-tooltip='%'>6</b> others
 </small>
 </div>
@@ -533,28 +439,10 @@
 </div></div>
 <script>
 var timeline = {
-"Mobile Execution Test ":18.695,"Test Properties":0
+"Ensure URL Working ":8.174,"Test Properties":0
 };
 </script>
 <div class="row">
-<div class="col-lg-6 col-md-12 author-container">
-<div class="card">
-<div class="card-header"><p>Author</p></div>
-<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
-<thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead>
-<tbody>
-<tr>
-<td>Srinivasan</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0%</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
 <div class="col-lg-6 col-md-12 device-container">
 <div class="card">
 <div class="card-header"><p>Device</p></div>
@@ -562,7 +450,7 @@ var timeline = {
 <thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead>
 <tbody>
 <tr>
-<td>iPhoneSE</td>
+<td>Firefox</td>
 <td>0</td>
 <td>1</td>
 <td>0</td>
@@ -625,8 +513,8 @@ warningGrandChild: 0,
 skipGrandChild: 0,
 infoGrandChild: 0,
 eventsCount: 5,
-passEvents: 3,
-failEvents: 3,
+passEvents: 0,
+failEvents: 2,
 warningEvents: 0,
 skipEvents: 0,
 infoEvents: 6

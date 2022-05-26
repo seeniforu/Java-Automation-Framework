@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import basePackage.ProjectBaseTwo;
+
 import testPackage.SampleTests;
 
 public class collectWebsitesTest extends SampleTests {

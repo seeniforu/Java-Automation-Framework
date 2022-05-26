@@ -21,10 +21,6 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
-import com.aventstack.extentreports.Status;
-
-import io.qameta.allure.Step;
-
 public class ProjectBaseTwo extends ProjectBaseOne {
 	private List<WebElement> elements, anchorTag, inputTag, buttonTag, linkTag;
 	private List<String> allElementTagName = new ArrayList<String>();
@@ -135,12 +131,17 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	private void countElements(String TagName, int IndexOfCount) {
 		List<WebElement> tempcount = new ArrayList<WebElement>();
-		if (allElementTagName.contains(TagName)) {
-			waitForPageToBeReady();
-			tempcount = driver.findElements(By.xpath("//" + TagName));
-			countofOtherElements.add(IndexOfCount, tempcount.size());
-		} else {
-			countofOtherElements.add(IndexOfCount, 0);
+		try {
+			if (allElementTagName.contains(TagName)) {
+				waitForPageToBeReady();
+				tempcount = driver.findElements(By.xpath("//" + TagName));
+				countofOtherElements.add(IndexOfCount, tempcount.size());
+			} else {
+				countofOtherElements.add(IndexOfCount, 0);
+			}
+		} catch (Exception e) {
+			logFailException(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 	
@@ -423,7 +424,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	private void clickUsingClass(String tagname, String ClassOfElement) {
+	protected void clickUsingClass(String tagname, String ClassOfElement) {
 		try {
 			if (tagname.equalsIgnoreCase("a")) {
 				for (int i = 0; i < anchorTag.size(); i++) {
@@ -458,7 +459,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	}
 
-	private void clickUsingID(String Id) {
+	protected void clickUsingID(String Id) {
 		try {
 			for (int i = 0; i < elements.size(); i++) {
 				if (elements.get(i).getAttribute("id").contains(Id)) {
@@ -472,7 +473,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	private String getTextUsingClass(String ClassOfElement) {
+	protected String getTextUsingClass(String ClassOfElement) {
 		String textOfElement = null;
 		try {
 			for (int i = 0; i < elements.size(); i++) {
@@ -488,7 +489,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		return textOfElement;
 	}
 
-	private String getTextUsingID(String Id) {
+	protected String getTextUsingID(String Id) {
 		String textOfElement = null;
 		try {
 			for (int i = 0; i < elements.size(); i++) {
@@ -2527,7 +2528,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			try {
 				myWriter = new FileWriter(filePath+FileName,true);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
+				
 				e1.printStackTrace();
 			}
 			for (String string : ArgumentList) {
@@ -2540,14 +2541,12 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 						myWriter.write(string + "\n");
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 			try {
 				myWriter.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	}
@@ -2559,20 +2558,17 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		try {
 			myWriter = new FileWriter(filePath + FileName, true);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
 			myWriter.write("\n");
 			myWriter.write(Data);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
 			myWriter.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

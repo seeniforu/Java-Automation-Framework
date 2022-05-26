@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
@@ -184,11 +185,46 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
-	private void executeCMD() {
+	protected void executeCMD() {
 		try {
-			Process p = Runtime.getRuntime().exec("allure serve "+System.getProperty("user.dir")+"\\allure-results");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			//Process p = Runtime.getRuntime().exec("allure serve "+System.getProperty("user.dir")+"\\allure-results");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteCookies(Cookie cookie) {
+		try {
+			driver.manage().deleteCookie(cookie);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteAllCookies() {
+		try {
+			driver.manage().deleteAllCookies();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteCookieByName(String cookie) {
+		try {
+			driver.manage().deleteCookieNamed(cookie);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void addCookies(Cookie cookie) {
+		try {
+			driver.manage().addCookie(cookie);
+		} catch (Exception e) {
+			logError(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -301,11 +337,11 @@ public class ProjectBaseOne extends Report{
 						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
 					WebDriverManager.firefoxdriver().setup();
 					FirefoxOptions options = new FirefoxOptions();
-					Proxy proxy = new Proxy();
-					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
-						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
-						options.setCapability(CapabilityType.PROXY, proxy);
-					}
+//					Proxy proxy = new Proxy();
+//					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
+//						 proxy.setProxyType(Proxy.ProxyType.AUTODETECT);
+//						 options.setProxy(proxy);
+//					}
 					options.addArguments("--headless", "-private");
 					HeadlessOrNot = true;
 					IncognitoOrNot = true;
@@ -346,9 +382,7 @@ public class ProjectBaseOne extends Report{
 //					Proxy proxy = new Proxy();
 //					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
 //						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
-//						DesiredCapabilities dc = new DesiredCapabilities();
-//						dc.setCapability(CapabilityType.PROXY, proxy);
-//						options.merge(dc);
+//						options.setCapability("proxy", proxy);
 //					}
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
@@ -477,11 +511,13 @@ public class ProjectBaseOne extends Report{
 				MyScreenRecorder.startRecording("Rec");
 				ifVideoRecordingDone = true;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		maximizeWindow();
+		if(prop.getProperty("ClearCookies").equalsIgnoreCase("Yes")) {
+			deleteAllCookies();
+		}
 	}
 	
 	public void handleBrowserMobileView(String browser) {
@@ -659,6 +695,9 @@ public class ProjectBaseOne extends Report{
 			}
 		}
 		maximizeWindow();
+		if(prop.getProperty("ClearCookies").equalsIgnoreCase("Yes")) {
+			deleteAllCookies();
+		}
 	}
 	
 	public void handleBrowser(String browser, String Options) {
@@ -979,11 +1018,13 @@ public class ProjectBaseOne extends Report{
 				MyScreenRecorder.startRecording("Rec");
 				ifVideoRecordingDone = true;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		maximizeWindow();
+		if(prop.getProperty("ClearCookies").equalsIgnoreCase("Yes")) {
+			deleteAllCookies();
+		}
 	}
 
 	// This method for naming and creating screenshots
@@ -1239,7 +1280,6 @@ public class ProjectBaseOne extends Report{
 		try {
 			Thread.sleep(Seconds);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
