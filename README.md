@@ -17,7 +17,8 @@ Creating My own Framework for a Quick Start in Automation with any Working Websi
 ## Requirements
 
 - Jdk must be Installed and Environment Variables should be done.
-- Eclipse is Advisable because of `Maven Dependencies` to Clone and Import this project.
+- Eclipse is Advisable to Clone and Import this project.
+- User can also use `VS Code Editor` with these [Extensions](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack) Installed, to Import this Project.
 - Basic Java and Selenium Knowledge.
 - Knowledge about this Tool and How it Works.
 
@@ -34,7 +35,8 @@ https://github.com/seeniforu/Automation-Framework.git
 ```
 Use `Latest Version` When Selecting Branch.
 
-- After Copying above link, Open Eclipse -> Window -> Show View -> Other.
+- For VS Code Editor, after Cloning open folder directly inside Editor.
+- For Eclipse, after Copying above link, Open Eclipse -> Window -> Show View -> Other.
 - Expand Git -> Click on Git Repositories.
 - Click Icon `Clone a Git Repository`.
 - Paste Cloned Link and Click Next.
@@ -76,18 +78,19 @@ To Run this project or any Testcase
 - User can Start Automate by Pasting `Direct or Cookie URL`. 
 - User can Start Writing `Own Testcases` using Existing Methods. 
 - It has `Multi-Browser Execution`. Give Name of the Browser in `ProjectSettings.properties`.
-- It has `Mobile View Execution` for Chrome. Give 'Yes' in `ProjectSettings.properties` for `MobileViewExecution` and Name of Mobile Model in `MobileModel`.
-- It has `HEADLESS MODE` Feature, If enabled in `ProjectSettings.properties`, User cannot see Driver Execution but you'll get all results Once execution is completed. 
-- User Can Run Test in `INCOGNITO MODE` by Enabling It in `ProjectSettings.properties`.
-- User Can Setup their `Own PROXY` for Safe Execution in `ProjectSettings.properties`.
+- It has `Mobile View Execution` for Chrome. Give 'Yes' in ProjectSettings.properties for `MobileViewExecution` and Name of Mobile Model in `MobileModel`.
+- It has `HEADLESS MODE` Feature, If enabled in ProjectSettings.properties, User cannot see Driver Execution but you'll get all results Once execution is completed. 
+- User Can Run Test in `INCOGNITO MODE` by Enabling It in ProjectSettings.properties.
+- User Can Setup their `Own PROXY` for Safe Execution in ProjectSettings.properties.
 - Everything is Logged using `Extent Report`, When Execution is Completed It'll Automatically open the Results in HTML Format. (In Console You can Find Path of the Result)
   - `Warnings` - Fields Missed in properties file etc., and `Test Properties` are Logged in Every Report.
   - It has `Screenshot` Method which Automatically adds screenshots in Reports. Error Occuring Pages are Captured by Default because it has Screenshot Method inside Log Error Method and Error Message also Logged.
+  - `Custom Name` Screenshots also can Logged in Report.
   - User Can Set `Reporting Theme` as Dark and Standard.
   - Report are `Offline Enabled` So, Results can be Viewed with or without Internet.
 - User can setup `Video Recording` of Execution If needed by giving 'Yes' in ProjectSettings.properties file.
 - `Element HighLight` during Execution is available in all methods. The Given Xpath's Element is Highlighted, Useful when Reviewing Screenshots.
-   - User can set `Custom Highlight Colour` in `ProjectSettings.properties`.
+   - User can set `Custom Highlight Colour` in ProjectSettings.properties.
 - It has both Selenium based and My own methods of Element accessing using xpath, classname, id etc.,
   - Xpaths, Classname, id's can be Seperated for Easy Maintenance.
   - My Own Methods have Arguments like Primary Id or Classname and Alternate Xpath. The method is Configured in a way, If Primary Fails It'll try to access the element using Alternate Xpath.
