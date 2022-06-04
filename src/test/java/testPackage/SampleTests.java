@@ -10,11 +10,10 @@ import io.qameta.allure.Description;
  * Things to be Done:
  * 
  * create Empty Testcase shows all important methods and how to use it.
- * Create public methods for testcases in sampleTests without finally block in a way that can be merged with new codes for any website.
  * Add Assertion 
+ * Take partial screenshots.
  * Add try catch block where ever possible.
  * phantomjs error, fix issue in proxy firefox browser.. Setup Opera driver..
- * https://en.wikipedia.org/wiki/List_of_HTTP_status_codes - Upgrade with detailed status codes.
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
  * inputfield(String locator, String type = positive | negative, Total no.of chracters or numbers can be inserted)
  * try adding page speed insights in headless mode.
@@ -95,7 +94,7 @@ public class SampleTests extends ProjectBaseTwo {
 			handleBrowser(browser);
 			openURL();
 			getTitle();
-			BasicForEachPageElementsLogDetails();
+			basicForEachPageElements();
 			logDetailsPrimaryTags();
 			logDetailsHeadingTag();
 		} catch (Exception e) {
@@ -104,6 +103,18 @@ public class SampleTests extends ProjectBaseTwo {
 		} finally {
 			quitBrowser();
 		}
+	}
+	
+	public void DetailsOfaPage() {
+		getTitle();
+		basicForEachPageElements();
+		logDetailsPrimaryTags();
+		logDetailsHeadingTag();
+	}
+	
+	public void DetailsOfaPageIncludingFrame() {
+		getTitle();
+		DetailedElementsCount();
 	}
 
 	@Test(priority = 2)
@@ -128,14 +139,20 @@ public class SampleTests extends ProjectBaseTwo {
 			testNameWithBrowserName("List of Anchor Tag Link", browser);
 			handleBrowser(browser);
 			openURL();
-			BasicForEachPageElementsLogDetails();
-			performOperationOnAnchor();
+			basicForEachPageElements();
+			performOperationOnAnchor("Normal");
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		} finally {
 			quitBrowser();
 		}
+	}
+	
+	public void pageAnchorsUrlResponseCheck(String NormalOrDetailed) {
+		basicForEachPageElements();
+		performOperationOnAnchor(NormalOrDetailed);  // when using in another method pass parameter as Normal for basic response code check.
+		//Detailed for all response code check.
 	}
 
 	@Test(priority = 3)
@@ -159,9 +176,20 @@ public class SampleTests extends ProjectBaseTwo {
 			testNameWithBrowserName("Verify No.of Elements when Launched == After Refresh Page", browser);
 			handleBrowser(browser);
 			openURL();
+			pageRefreshCheck();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		} finally {
+			quitBrowser();
+		}
+	}
+	
+	public void pageRefreshCheck() {
+		try {
 			int beforeRefresh = countAllElements();
 			refreshPage();
-			Thread.sleep(2000);
+			waitForPageToBeReady();
 			int afterRefresh = countAllElements();
 			if (beforeRefresh == afterRefresh) {
 				logPass("No.of Elements when Launched - [" + beforeRefresh + "] == After Refresh Page - ["
@@ -173,8 +201,6 @@ public class SampleTests extends ProjectBaseTwo {
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
-		} finally {
-			quitBrowser();
 		}
 	}
 
@@ -196,7 +222,7 @@ public class SampleTests extends ProjectBaseTwo {
 			testNameWithBrowserName("Input field Check ", browser);
 			handleBrowser(browser);
 			openURL();
-			BasicForEachPageElementsLogDetails();
+			basicForEachPageElements();
 			//sendInputData("123@gmail.com"); // Sending Raw input for all input fields in the Loaded page. can send positive and negative values for all input fields.
 			//sendInputUsingId("email", "seeniforu");  // Send input using Locators.
 		}catch(Exception e) {
@@ -204,6 +230,17 @@ public class SampleTests extends ProjectBaseTwo {
 			e.printStackTrace();
 		}finally {
 			quitBrowser();
+		}
+	}
+	
+	protected void dummy() { 
+		try { // Don't use this method.
+			inputFieldsCheckSampleTestcase();
+			ClickElementsUsingAttributeSampleTest();
+			accessingElementsSampleTest();
+			frameSwitchingCheckSampleTest();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -224,7 +261,7 @@ public class SampleTests extends ProjectBaseTwo {
 			testNameWithBrowserName("Sort Elements Check ", "Edge");
 			handleBrowser("Edge");
 			openURL();
-			BasicForEachPageElementsLogDetails();
+			basicForEachPageElements();
 			sortElements("meta");
 		}catch(Exception e) {
 			logError(e.getMessage());
@@ -232,6 +269,11 @@ public class SampleTests extends ProjectBaseTwo {
 		}finally {
 			quitBrowser();
 		}
+	}
+	
+	public void sortElementUsingTagName(String TagName) {
+		basicForEachPageElements();
+		sortElements(TagName);
 	}
 
 	// ------------------------------------ Below are Particular Website based testcase for Reference -------------------------------------------------
@@ -246,10 +288,10 @@ public class SampleTests extends ProjectBaseTwo {
 			testNameWithBrowserName("Navigate Check ", browser);
 			handleBrowser(browser);
 			openURL();
-			BasicForEachPageElementsLogDetails();
+			basicForEachPageElements();
 			//clickUsingClass("a","_8esh");                // Next two lines does same operation with one using class and another using part of URL.
 			goToNextPage("create/");                       // Navigating with help of part of URL.
-			BasicForEachPageElementsLogDetails();
+			basicForEachPageElements();
 			logDetailsPrimaryTags();
 			clickUsingXpath(xpathMain.CreateClass,"Element is Clicked"); 
 			navigateBack();
@@ -357,8 +399,10 @@ public class SampleTests extends ProjectBaseTwo {
 		clickUsingContainsWithAttribute("name", "btn");
 	}
 	
+	@Test
 	public void scrollTillLastElementCheck() {
 		// with help of last element scroll that element
+	
 	}
 	
 	public void take_H_tag_text() {

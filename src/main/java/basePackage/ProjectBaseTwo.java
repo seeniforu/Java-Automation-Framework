@@ -27,8 +27,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	private int countofanchor, countofinput, countofbutton, countoflink;
 	private int countOfElements = 0;
 	private WebElement TempElement;
-	private List<Integer> countofStatusCodes = new ArrayList<Integer>();
-	private int CodeCount200 = 0, CodeCount300 = 0, CodeCount404 = 0, CodeCount500 = 0;
 	private List<Integer> countofOtherElements = new ArrayList<Integer>();
 	/*
 	 * countofOtherElements tagname with index where all count is stored. -
@@ -72,8 +70,11 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			} else {
 				driver.get(URL);
 				int StatusCode = statusCode(driver.getCurrentUrl());
-				statusCodeCount(StatusCode);
-				logPass("[" + driver.getCurrentUrl() + "]" + " - is Launched - " + "Status code : " + StatusCode);
+				if(StatusCode >= 200 && StatusCode <=299) {
+					logPass("[" + driver.getCurrentUrl() + "]" + " - is Launched - " + "Status code : " + StatusCode);
+					}else {
+						logSkip("URL Response is Not Applicable - "+ "Status code : " + StatusCode);
+					}
 			}
 		} catch (Exception e) {
 			logFailException(e.getMessage());
@@ -150,7 +151,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	public void DetailedElementsCount() {
 		int i = 0;
 		try {
-			BasicForEachPageElementsLogDetails();
+			basicForEachPageElements();
 			if (allElementTagName.contains("iframe")) {
 				frameTag = driver.findElements(By.xpath("//iframe"));
 				System.out.println(frameTag.size());
@@ -163,7 +164,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 					frameSwitchWithWebElement(frameTag.get(i));
 					logInfo("Switched to Frame : " + i);
 					System.out.println("Switched to Frame : " + i);
-					BasicForEachPageElementsLogDetails();
+					basicForEachPageElements();
 					logDetailsPrimaryTags();
 					logDetailsHeadingTag();
 					backToOriginaFrame();
@@ -202,7 +203,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	public void BasicForEachPageElementsLogDetails() {
+	public void basicForEachPageElements() {
 		try {
 			countAllElements();
 			logCountAllElements();
@@ -354,52 +355,205 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	public void performOperationOnAnchor() throws InterruptedException {
+	public void performOperationOnAnchor(String NormalOrDetailed) {
 		for (int i = 0; i < anchorTag.size(); i++) {
 			try {
 				String url = anchorTag.get(i).getAttribute("href");
 				if (isUrlValid(url)) {
 					int code = statusCode(url);
+					StatusCodes.add(code);
 					if (code == 200) {
-						statusCodeCount(code);
 						logHref(url,code);
-						//countofStatusCodes.add(i, code);
 						//logInfo("[" + url + "]" + " Present in Given Webpage - " + code);
 					}  else {
-						statusCodeCount(code);
 						logHref(url,code);
 						//logInfo("[" + url + "] - " + code);
 					}
 				} else {
-					//logInfo("[" + url + "]" + " - Not Valid");
+					notValidCount = notValidCount + 1;
+					logInfo("[" + url + "]" + " - Not Valid");
 				}
 				System.out.println("Verified - " + "[" + url + "]");
 			} catch (Exception e) {
 				logFailException(e.getMessage());
 			}
 		}
-		logPass("Count of Status Code 200 - 299 is " + "[" + CodeCount200 + "]" + " Out of " + countofanchor
-				+ " - success");
-		logPass("Count of Status Code 300 - 399 is " + "[" + CodeCount300 + "]" + " Out of " + countofanchor
-				+ " - redirection");
-		logPass("Count of Status Code 400 - 499 is " + "[" + CodeCount404 + "]" + " Out of " + countofanchor
-				+ " - client errors");
-		logPass("Count of Status Code 500 - 599 is " + "[" + CodeCount500 + "]" + " Out of " + countofanchor
-				+ " - server errors");
+		//System.out.println(StatusCodes);
+		countofStatusCodes(NormalOrDetailed);
+		logCountofResponses();
+		logHref("https://en.wikipedia.org/wiki/List_of_HTTP_status_codes");
 	}
-
-	private void statusCodeCount(int count) {
-		if (count >= 200 && count <= 299) {
-			CodeCount200 = CodeCount200 + 1;
+	
+	private List<Integer>StatusCodes = new ArrayList<Integer>();
+	private List<Integer>countofStatusCodes100 = new ArrayList<Integer>();
+	private List<Integer>countofStatusCodes200 = new ArrayList<Integer>();
+	private List<Integer>countofStatusCodes300 = new ArrayList<Integer>();
+	private List<Integer>countofStatusCodes400 = new ArrayList<Integer>();
+	private List<Integer>countofStatusCodes500 = new ArrayList<Integer>();
+	private int notValidCount = 0;
+	
+	private int CodeCountNew(int count) {
+		int tempcount = 0;
+		for(int i=0; i<StatusCodes.size();i++) {
+			if(StatusCodes.get(i) == count) {
+				tempcount = tempcount +1;
+			}
 		}
-		if (count >= 300 && count <= 399) {
-			CodeCount300 = CodeCount300 + 1;
+		return tempcount;
+	}
+	
+	private void countofStatusCodes(String NormalOrDetailed) {
+		if(StatusCodes.contains(100)) {
+		// if contains 1 series {
+		countofStatusCodes100.add(0, CodeCountNew(100));
+		countofStatusCodes100.add(1, CodeCountNew(101));
+		countofStatusCodes100.add(2, CodeCountNew(102));
+		countofStatusCodes100.add(3, CodeCountNew(103));
 		}
-		if (count >= 400 && count <= 499) {
-			CodeCount404 = CodeCount404 + 1;
+		countofStatusCodes200.add(0, CodeCountNew(200));
+		countofStatusCodes200.add(1, CodeCountNew(201));
+		countofStatusCodes200.add(2, CodeCountNew(202));
+		countofStatusCodes200.add(3, CodeCountNew(203));
+		countofStatusCodes200.add(4, CodeCountNew(204));
+		countofStatusCodes200.add(5, CodeCountNew(205));
+		if(NormalOrDetailed.equalsIgnoreCase("Detailed")) {
+		countofStatusCodes200.add(6, CodeCountNew(206));
+		countofStatusCodes200.add(7, CodeCountNew(207));
+		countofStatusCodes200.add(8, CodeCountNew(208));
+		countofStatusCodes200.add(9, CodeCountNew(226));
 		}
-		if (count >= 500 && count <= 599) {
-			CodeCount500 = CodeCount500 + 1;
+		countofStatusCodes300.add(0, CodeCountNew(300));
+		countofStatusCodes300.add(1, CodeCountNew(301));
+		countofStatusCodes300.add(2, CodeCountNew(302));
+		countofStatusCodes300.add(3, CodeCountNew(303));
+		countofStatusCodes300.add(4, CodeCountNew(304));
+		if(NormalOrDetailed.equalsIgnoreCase("Detailed")) {
+		countofStatusCodes300.add(5, CodeCountNew(305));
+		countofStatusCodes300.add(6, CodeCountNew(306));
+		countofStatusCodes300.add(7, CodeCountNew(307));
+		countofStatusCodes300.add(8, CodeCountNew(308));
+		}
+		countofStatusCodes400.add(0, CodeCountNew(400));
+		countofStatusCodes400.add(1, CodeCountNew(401));
+		countofStatusCodes400.add(2, CodeCountNew(402));
+		countofStatusCodes400.add(3, CodeCountNew(403));
+		countofStatusCodes400.add(4, CodeCountNew(404));
+		countofStatusCodes400.add(5, CodeCountNew(405));
+		countofStatusCodes400.add(6, CodeCountNew(406));
+		countofStatusCodes400.add(7, CodeCountNew(407));
+		countofStatusCodes400.add(8, CodeCountNew(408));
+		countofStatusCodes400.add(9, CodeCountNew(409));
+		countofStatusCodes400.add(10, CodeCountNew(410));
+		if(NormalOrDetailed.equalsIgnoreCase("Detailed")) {
+		countofStatusCodes400.add(11, CodeCountNew(411));
+		countofStatusCodes400.add(12, CodeCountNew(412));
+		countofStatusCodes400.add(13, CodeCountNew(413));
+		countofStatusCodes400.add(14, CodeCountNew(414));
+		countofStatusCodes400.add(15, CodeCountNew(415));
+		countofStatusCodes400.add(16, CodeCountNew(416));
+		countofStatusCodes400.add(17, CodeCountNew(417));
+		countofStatusCodes400.add(18, CodeCountNew(418));
+		countofStatusCodes400.add(19, CodeCountNew(421));
+		countofStatusCodes400.add(20, CodeCountNew(422));
+		countofStatusCodes400.add(21, CodeCountNew(423));
+		countofStatusCodes400.add(22, CodeCountNew(424));
+		countofStatusCodes400.add(23, CodeCountNew(425));
+		countofStatusCodes400.add(24, CodeCountNew(426));
+		countofStatusCodes400.add(25, CodeCountNew(428));
+		countofStatusCodes400.add(26, CodeCountNew(429));
+		countofStatusCodes400.add(27, CodeCountNew(431));
+		countofStatusCodes400.add(28, CodeCountNew(451));
+		}
+		countofStatusCodes500.add(0, CodeCountNew(500));
+		countofStatusCodes500.add(1, CodeCountNew(501));
+		countofStatusCodes500.add(2, CodeCountNew(502));
+		countofStatusCodes500.add(3, CodeCountNew(503));
+		countofStatusCodes500.add(4, CodeCountNew(504));
+		if(NormalOrDetailed.equalsIgnoreCase("Detailed")) {
+		countofStatusCodes500.add(5, CodeCountNew(505));
+		countofStatusCodes500.add(6, CodeCountNew(506));
+		countofStatusCodes500.add(7, CodeCountNew(507));
+		countofStatusCodes500.add(8, CodeCountNew(508));
+		countofStatusCodes500.add(9, CodeCountNew(510));
+		countofStatusCodes500.add(10, CodeCountNew(511));
+		}
+	}
+	
+	private void logCountofResponses() {
+		if(countofStatusCodes200.get(0) != 0) {
+			logPass("Count of Status Code 200 is " + "[" + countofStatusCodes200.get(0) + "]" + " Out of " + countofanchor
+				+ " - Success");
+		}
+		if(countofStatusCodes200.get(1) != 0) {
+			logPass("Count of Status Code 201 is " + "[" + countofStatusCodes200.get(1) + "]" + " Out of " + countofanchor
+				+ " - Success");
+		}
+		if(countofStatusCodes200.get(2) != 0) {
+			logPass("Count of Status Code 202 is " + "[" + countofStatusCodes200.get(2) + "]" + " Out of " + countofanchor
+				+ " - Success");
+		}
+		if(countofStatusCodes200.get(4) != 0) {
+			logPass("Count of Status Code 204 is " + "[" + countofStatusCodes200.get(4) + "]" + " Out of " + countofanchor
+				+ " - Success");
+		}
+		if(countofStatusCodes300.get(0) !=0) {
+			logPass("Count of Status Code 300 is " + "[" + countofStatusCodes300.get(0) + "]" + " Out of " + countofanchor
+				+ " - Redirection");
+		}
+		if(countofStatusCodes300.get(1) !=0) {
+			logPass("Count of Status Code 301 is " + "[" + countofStatusCodes300.get(1) + "]" + " Out of " + countofanchor
+				+ " - Redirection");
+		}
+		if(countofStatusCodes300.get(2) !=0) {
+			logPass("Count of Status Code 302 is " + "[" + countofStatusCodes300.get(2) + "]" + " Out of " + countofanchor
+				+ " - Redirection");
+		}
+		if(countofStatusCodes300.get(2) !=0) {
+			logPass("Count of Status Code 304 is " + "[" + countofStatusCodes300.get(4) + "]" + " Out of " + countofanchor
+				+ " - Redirection");
+		}
+		if(countofStatusCodes400.get(0) !=0) {
+			logPass("Count of Status Code 400 is " + "[" + countofStatusCodes400.get(0) + "]" + " Out of " + countofanchor
+				+ " - Client errors");
+		}
+		if(countofStatusCodes400.get(1) !=0) {
+			logPass("Count of Status Code 401 is " + "[" + countofStatusCodes400.get(1) + "]" + " Out of " + countofanchor
+				+ " - Client errors");
+		}
+		if(countofStatusCodes400.get(3) !=0) {
+			logPass("Count of Status Code 403 is " + "[" + countofStatusCodes400.get(3) + "]" + " Out of " + countofanchor
+				+ " - Client errors");
+		}
+		if(countofStatusCodes400.get(4) !=0) {
+			logPass("Count of Status Code 404 is " + "[" + countofStatusCodes400.get(4) + "]" + " Out of " + countofanchor
+				+ " - Client errors");
+		}
+		if(countofStatusCodes400.get(9) !=0) {
+			logPass("Count of Status Code 409 is " + "[" + countofStatusCodes400.get(9) + "]" + " Out of " + countofanchor
+				+ " - Client errors");
+		}
+		if(countofStatusCodes400.get(10) !=0) {
+			logPass("Count of Status Code 410 is " + "[" + countofStatusCodes400.get(10) + "]" + " Out of " + countofanchor
+				+ " - Client errors");
+		}
+		if(countofStatusCodes500.get(0) !=0) {
+			logPass("Count of Status Code 500 is " + "[" + countofStatusCodes500.get(0) + "]" + " Out of " + countofanchor
+					+ " - Server errors");
+		}
+		if(countofStatusCodes500.get(2) !=0) {
+			logPass("Count of Status Code 502 is " + "[" + countofStatusCodes500.get(2) + "]" + " Out of " + countofanchor
+					+ " - Server errors");
+		}
+		if(countofStatusCodes500.get(3) !=0) {
+			logPass("Count of Status Code 503 is " + "[" + countofStatusCodes500.get(3) + "]" + " Out of " + countofanchor
+					+ " - Server errors");
+		}
+		if(countofStatusCodes500.get(4) !=0) {
+			logPass("Count of Status Code 504 is " + "[" + countofStatusCodes500.get(4) + "]" + " Out of " + countofanchor
+					+ " - Server errors");
+		}
+		if(notValidCount >=1) {
+			logPass("Count of Not Valid URL is "+ "[" + notValidCount + "]");
 		}
 	}
 
@@ -424,7 +578,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	protected void clickUsingClass(String tagname, String ClassOfElement) {
+	private void clickUsingClass(String tagname, String ClassOfElement) {
 		try {
 			if (tagname.equalsIgnoreCase("a")) {
 				for (int i = 0; i < anchorTag.size(); i++) {
@@ -459,7 +613,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 
 	}
 
-	protected void clickUsingID(String Id) {
+	private void clickUsingID(String Id) {
 		try {
 			for (int i = 0; i < elements.size(); i++) {
 				if (elements.get(i).getAttribute("id").contains(Id)) {
@@ -473,7 +627,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 
-	protected String getTextUsingClass(String ClassOfElement) {
+	private String getTextUsingClass(String ClassOfElement) {
 		String textOfElement = null;
 		try {
 			for (int i = 0; i < elements.size(); i++) {
@@ -489,7 +643,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		return textOfElement;
 	}
 
-	protected String getTextUsingID(String Id) {
+	private String getTextUsingID(String Id) {
 		String textOfElement = null;
 		try {
 			for (int i = 0; i < elements.size(); i++) {

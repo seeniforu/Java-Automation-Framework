@@ -101,7 +101,13 @@ public class ProjectBaseOne extends Report{
 	
 	@Step("[ " + "{0}" + "] - Status Code - " + "{1}")
 	protected void logHref(String URL, int code) {
-		String msg1 = "[ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] - Status Code - " + code;
+		String msg1 = "[ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] - Response Code : " + code;
+		test.log(Status.INFO, msg1);
+	}
+	
+	@Step("[ " + "{0}" + "] - Status Code - " + "{1}")
+	protected void logHref(String URL) {
+		String msg1 = "Visit here [ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] to know what each Response code Means";
 		test.log(Status.INFO, msg1);
 	}
 	
@@ -180,14 +186,6 @@ public class ProjectBaseOne extends Report{
 			if (file.exists()) // checks file exists or not
 				desktop.open(file); // opens the specified file
 			//executeCMD();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	protected void executeCMD() {
-		try {
-			//Process p = Runtime.getRuntime().exec("allure serve "+System.getProperty("user.dir")+"\\allure-results");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -914,7 +912,7 @@ public class ProjectBaseOne extends Report{
 			}
 			// To verify through edge browser
 			else if (browser.equalsIgnoreCase("Edge")) {
-				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
+				if (Options.equalsIgnoreCase("Headless")
 						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
 					WebDriverManager.edgedriver().setup();
 					EdgeOptions edgeOptions = new EdgeOptions();
@@ -927,7 +925,7 @@ public class ProjectBaseOne extends Report{
 					IncognitoOrNot = true;
 					driver = new EdgeDriver(edgeOptions);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless + Incognito Mode");
-				} else if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
+				} else if (Options.equalsIgnoreCase("Headless")
 						&& prop.getProperty("Incognito").equalsIgnoreCase("no")) {
 					WebDriverManager.edgedriver().setup();
 					EdgeOptions edgeOptions = new EdgeOptions();
@@ -941,7 +939,7 @@ public class ProjectBaseOne extends Report{
 					driver = new EdgeDriver(edgeOptions);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
 				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
-						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
+						&& Options.equalsIgnoreCase("Incognito")) {
 					WebDriverManager.edgedriver().setup();
 					EdgeOptions edgeOptions = new EdgeOptions();
 					edgeOptions.addArguments("-inprivate");
@@ -953,10 +951,11 @@ public class ProjectBaseOne extends Report{
 					IncognitoOrNot = true;
 					driver = new EdgeDriver(edgeOptions);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
-				}else if (prop.getProperty("Headless").equalsIgnoreCase("No")
-						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+				}else if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
+						&& Options.equalsIgnoreCase("Incognito")) {
 					WebDriverManager.edgedriver().setup();
 					EdgeOptions edgeOptions = new EdgeOptions();
+					edgeOptions.addArguments("headless","-inprivate");
 					edgeOptions.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
 						edgeOptions.addArguments("--proxy-server=" + prop.getProperty("ProxyAddress"));
@@ -964,7 +963,7 @@ public class ProjectBaseOne extends Report{
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
 					driver = new EdgeDriver(edgeOptions);
-					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless + Incognito Mode");
 				}else {
 					WebDriverManager.edgedriver().setup();
 					EdgeOptions edgeOptions = new EdgeOptions();
