@@ -19,6 +19,7 @@ import io.qameta.allure.Description;
  * add waitandgetelement, waitandclickelement, waitandverifyelement, waitandgettext method for id,clsname,xpath,csslocator,attribute methods etc.., (By passing as parameter)
  * add methods like findelementandgettext(String Locater), click, getelement,sendkeys, verify, location cssvalue size  - not specific to xpath or class (Refer last method in this page.)
  * add methods verifyusingElement(WebElement element)... clickusingelement.. , gettext.. sendkeys location cssvalue size..
+ * add methods to select from xpath index.
  * properties file EanbleAllNewpageScreenshot - whnever directs to new page capture screenshot option. for logging
  * properties file enableAll element screenshot - capture screenshot of all elements in the testflow or execution for logging
  * Add try catch block where ever possible.
