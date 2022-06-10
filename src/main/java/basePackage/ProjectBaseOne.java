@@ -62,9 +62,7 @@ public class ProjectBaseOne extends Report{
 			isTestCreated = true;
 			TestScreenshotfolderName = TestName;
 			if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-				String currentTimeStamp = dateFormat.format(new Date());
-				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp;
+				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp();
 			}else {
 				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "");
 			}
@@ -91,9 +89,7 @@ public class ProjectBaseOne extends Report{
 			isTestCreated = true;
 			TestScreenshotfolderName = TestName;
 			if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-				String currentTimeStamp = dateFormat.format(new Date());
-				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp;
+				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp();
 			}else {
 				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "");
 			}
@@ -120,9 +116,7 @@ public class ProjectBaseOne extends Report{
 			isTestCreated = true;
 			TestScreenshotfolderName = TestName;
 			if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-				String currentTimeStamp = dateFormat.format(new Date());
-				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp;
+				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp();
 			}else {
 				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "");
 			}
@@ -1111,9 +1105,7 @@ public class ProjectBaseOne extends Report{
 	public String screenshotWithCustomName(String Sname) {
 		String screenShotName;
 		if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-			String currentTimeStamp = dateFormat.format(new Date());
-			screenShotName = Sname.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp;
+			screenShotName = Sname.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp();
 		}else {
 			screenShotName = Sname.replaceAll(" ", "_").replaceAll(":", "");
 		}
@@ -1154,9 +1146,7 @@ public class ProjectBaseOne extends Report{
 				} catch(Exception e){
 				    e.printStackTrace();
 				} 
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-				String currentTimeStamp = dateFormat.format(new Date());
-				String screenShotName = currentTimeStamp;
+				String screenShotName = currentTimeStamp();
 				TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
 				File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
 				File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\VerificationScreenshots\\"
@@ -1195,9 +1185,7 @@ public class ProjectBaseOne extends Report{
 			} catch(Exception e){
 			    e.printStackTrace();
 			} 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
-			String currentTimeStamp = dateFormat.format(new Date());
-			String screenShotName = currentTimeStamp;
+			String screenShotName = currentTimeStamp();
 			TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
 			File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
 			File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\ErrorScreenshots\\"
@@ -1211,17 +1199,80 @@ public class ProjectBaseOne extends Report{
 		return path;
 	}
 	
-	public void capturePartialScreenshotUsingXpath(String XpathLocater) {
+	public String currentTimeStamp() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+		String currentTimeStamp = dateFormat.format(new Date());
+		return currentTimeStamp;
+	}
+	
+	public String capturePartialScreenshotUsingXpath(String XpathLocater) {
+		String path = null;
+		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
+		try{
+		    if(g.mkdir()) { 
+		        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
+		    } else {
+		        System.out.println("Directory is not created or Already Available");
+		    }
+		} catch(Exception e){
+		    e.printStackTrace();
+		}
 		try {
 			WebElement element = driver.findElement(By.xpath(XpathLocater));
 			File f = element.getScreenshotAs(OutputType.FILE);
-	        FileUtils.copyFile(f, new File(System.getProperty("user.dir")+"\\new.png"));
+			path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\PartialScreenshots\\"+currentTimeStamp()+".png";
+	        FileUtils.copyFile(f, new File(path));
+	    	test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return path;
 	}
 	
-	public void capturePartialScreenshotUsingElement(String XpathLocater) {
-		
+	public String capturePartialScreenshotUsingElement(WebElement Element) {
+		String path = null;
+		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
+		try{
+		    if(g.mkdir()) { 
+		        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
+		    } else {
+		        System.out.println("Directory is not created or Already Available");
+		    }
+		} catch(Exception e){
+		    e.printStackTrace();
+		}
+		try {
+			File f = Element.getScreenshotAs(OutputType.FILE);
+			path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\PartialScreenshots\\"+currentTimeStamp()+".png";
+	        FileUtils.copyFile(f, new File(path));
+	    	test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return path;
+	}
+	
+	public String takeScreenshotOfElement(WebElement Element) {
+		String path = null;
+		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
+		try{
+		    if(g.mkdir()) { 
+		        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
+		    } else {
+		        System.out.println("Directory is not created or Already Available");
+		    }
+		} catch(Exception e){
+		    e.printStackTrace();
+		}
+		try {
+			File f = Element.getScreenshotAs(OutputType.FILE);
+			path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\PartialScreenshots\\"+currentTimeStamp()+".png";
+	        FileUtils.copyFile(f, new File(path));
+	    	test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return path;
 	}
 
 	public void setUp() throws IOException {

@@ -13,7 +13,6 @@ import io.qameta.allure.Description;
  * 
  * create Empty Testcase shows all important methods and how to use it.
  * Add Assertion 
- * Take partial screenshots. add method like takeScreenshotOfElement(WebElement Element).
  * all browser proxy needs to be fixed.
  * Add explicit or fluent wait for all methods by default 3 seconds.
  * add waitandgetelement, waitandclickelement, waitandverifyelement, waitandgettext method for id,clsname,xpath,csslocator,attribute methods etc.., (By passing as parameter)
@@ -21,7 +20,6 @@ import io.qameta.allure.Description;
  * add methods verifyusingElement(WebElement element)... clickusingelement.. , gettext.. sendkeys location cssvalue size..
  * add methods to select from xpath index.
  * properties file EanbleAllNewpageScreenshot - whnever directs to new page capture screenshot option. for logging
- * properties file enableAll element screenshot - capture screenshot of all elements in the testflow or execution for logging
  * Add try catch block where ever possible.
  * phantomjs error, fix issue in proxy firefox browser.. Setup Opera driver..
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
@@ -395,6 +393,7 @@ public class SampleTests extends ProjectBaseTwo {
 			//verifyUsingXpath("//input[@name='lsd']", "Input Field is Verified", "Input Field is Not Verified");  // for Failing Test
 			sendKeysUsingXpath("//*[@id='m_login_email']","hello");
 			screenshotWithCustomName("Mobile view Screenshot");
+			capturePartialScreenshotUsingElement(findElement("//*[@id='signup-button']")); // User can use getElementUsing id,classname etc.. to capture particular element.
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();

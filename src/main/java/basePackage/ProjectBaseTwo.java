@@ -863,6 +863,19 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 	}
 	
+	public WebElement findElement(String xPath) {
+		WebElement element = null;
+		try {
+			waitForPageToBeReady();
+			element = driver.findElement(By.xpath(xPath));
+			xpathWarning(xPath);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
+	
 	public WebElement getElementUsingXpath(String xPath) {
 		WebElement element = null;
 		try {
@@ -1191,7 +1204,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return size;
 	}
-
+	
 	public void highLighterMethod(WebElement element) {
 		try {
 			if (prop.getProperty("Need_To_HighLight_Element").equalsIgnoreCase("Yes")) {
@@ -1205,6 +1218,9 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+			}
+			if(prop.getProperty("CaptureAllElementScreenshot").equalsIgnoreCase("Yes")) {
+				takeScreenshotOfElement(element);
 			}
 		} catch (Exception m) {
 			logError(m.getMessage());
