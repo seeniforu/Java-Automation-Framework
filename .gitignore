@@ -1,6 +1,6 @@
 /test-output/
 /target/
-/ScreenShots/*
+/Screenshots/
 /.classpath
 /.settings
 /Automation_Feasible
@@ -11,3 +11,5 @@
 /recordings
 /.apt_generated/
 /.apt_generated_tests/
+/Results
+/WebsitesList.txt

@@ -1,5 +1,7 @@
 package testPackage;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import basePackage.ProjectBaseTwo;
@@ -11,7 +13,14 @@ import io.qameta.allure.Description;
  * 
  * create Empty Testcase shows all important methods and how to use it.
  * Add Assertion 
- * Take partial screenshots.
+ * Take partial screenshots. add method like takeScreenshotOfElement(WebElement Element).
+ * all browser proxy needs to be fixed.
+ * Add explicit or fluent wait for all methods by default 3 seconds.
+ * add waitandgetelement, waitandclickelement, waitandverifyelement, waitandgettext method for id,clsname,xpath,csslocator,attribute methods etc.., (By passing as parameter)
+ * add methods like findelementandgettext(String Locater), click, getelement,sendkeys, verify, location cssvalue size  - not specific to xpath or class (Refer last method in this page.)
+ * add methods verifyusingElement(WebElement element)... clickusingelement.. , gettext.. sendkeys location cssvalue size..
+ * properties file EanbleAllNewpageScreenshot - whnever directs to new page capture screenshot option. for logging
+ * properties file enableAll element screenshot - capture screenshot of all elements in the testflow or execution for logging
  * Add try catch block where ever possible.
  * phantomjs error, fix issue in proxy firefox browser.. Setup Opera driver..
  * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
@@ -377,7 +386,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 * https://www.facebook.com/ - is used.
 		 */
 		try {
-			testNameWithAssignAuthor("Mobile Execution Test ", prop.getProperty("MobileModel"), "Srinivasan");   
+			testNameWithAssignAuthor("Mobile Execution Test", prop.getProperty("MobileModel"), "Srinivasan");   
 			handleBrowserMobileView(browser);
 			openURL();	
 			getElementUsingXpath("//*[@id='m_login_email']");
@@ -416,4 +425,25 @@ public class SampleTests extends ProjectBaseTwo {
 	public void clickUsingId(String Id, String altAttributeName, String altAttributeValue, String LogStatement) {
 		// Create Methods like this for click, send, get, verify - for classname, xpath etc.,
 	}	
+	
+	@Test
+	public void findelement() {
+		String Locater = "email";            //Working, 1st catch and 2nd catch are slow
+		WebElement element = null;
+		testNameWithBrowserName("Find Element Try ", browser);
+		handleBrowser(browser);
+		openURL();
+		try {
+			element = driver.findElement(By.id(Locater));
+			highLighterMethod(element);
+		} catch (Exception e) {
+			try {
+			element = driver.findElement(By.className(Locater));
+			highLighterMethod(element);
+			}catch(Exception r) {
+				element = driver.findElement(By.xpath(Locater));
+				highLighterMethod(element);
+			}
+		}
+	}
 }

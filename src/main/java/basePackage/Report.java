@@ -1,7 +1,10 @@
 package basePackage;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Properties;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -17,7 +20,7 @@ public class Report {
 //	public static ExtentHtmlReporter htmlReport;
 //	
 	public static Properties prop;
-	
+	String EditedTestScreenshotfolderName;
 	// Loading Properties Files
 		protected void property() throws IOException {
 			// Loading properties file
@@ -65,12 +68,29 @@ public class Report {
 	public ExtentSparkReporter spark;
 	public ExtentReports extent;
 	public ExtentTest test;
-	
+	public String Reportpath = null;
 	public ExtentTest getExtentReportVersion5() {
 		try {
 			extent = new ExtentReports();
-			spark = new ExtentSparkReporter(
-					System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+			String currentTimeStamp = dateFormat.format(new Date());
+			File g = new File(System.getProperty("user.dir") + "\\Results\\");
+			try{
+			    if(g.mkdir()) { 
+			        System.out.println("Directory is Created for Storing Results Seperately.");
+			    } else {
+			        System.out.println("Directory is not created or Already Available");
+			    }
+			} catch(Exception e){
+			    e.printStackTrace();
+			}
+			if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
+				Reportpath = System.getProperty("user.dir") + "\\Results\\" + prop.getProperty("ReportName") +"_"+currentTimeStamp +".html";
+			spark = new ExtentSparkReporter(Reportpath);
+			}else {
+				Reportpath = System.getProperty("user.dir") + "\\Results\\" + prop.getProperty("ReportName") + ".html";
+				spark = new ExtentSparkReporter(Reportpath);
+			}
 			if (prop.getProperty("ReportNameDocumentTitle").isEmpty()) {
 				spark.config().setReportName("Execution Results");
 			}

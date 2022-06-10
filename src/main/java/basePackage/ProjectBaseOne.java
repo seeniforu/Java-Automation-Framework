@@ -4,16 +4,19 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -44,7 +47,8 @@ public class ProjectBaseOne extends Report{
 	boolean ifBrowserLaunched = false;
 	boolean ifThereisError = false;
 	boolean ifVideoRecordingDone = false;
-	
+	String TestScreenshotfolderName = null;
+
 	private void intializeReport() {
 		test = getExtentReportVersion5();
 	}
@@ -56,6 +60,24 @@ public class ProjectBaseOne extends Report{
 		try {
 			test = extent.createTest(TestName);
 			isTestCreated = true;
+			TestScreenshotfolderName = TestName;
+			if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+				String currentTimeStamp = dateFormat.format(new Date());
+				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp;
+			}else {
+				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "");
+			}
+			File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
+			try{
+			    if(g.mkdir()) { 
+			        System.out.println("Directory is Created for Storing Screenshots Seperately.");
+			    } else {
+			        System.out.println("Directory is not created or Already Available");
+			    }
+			} catch(Exception e){
+			    e.printStackTrace();
+			}
 		}catch(Exception e) {
 			isTestCreated = false;
 			e.printStackTrace();
@@ -67,6 +89,24 @@ public class ProjectBaseOne extends Report{
 		try {
 			test = extent.createTest(TestName).assignDevice(BrowserName);
 			isTestCreated = true;
+			TestScreenshotfolderName = TestName;
+			if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+				String currentTimeStamp = dateFormat.format(new Date());
+				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp;
+			}else {
+				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "");
+			}
+			File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
+			try{
+			    if(g.mkdir()) { 
+			        System.out.println("Directory is Created for Storing Screenshots Seperately.");
+			    } else {
+			        System.out.println("Directory is not created or Already Available");
+			    }
+			} catch(Exception e){
+			    e.printStackTrace();
+			}
 		}catch(Exception e) {
 			isTestCreated = false;
 			e.printStackTrace();
@@ -78,6 +118,24 @@ public class ProjectBaseOne extends Report{
 		try {
 			test = extent.createTest(TestName).assignDevice(BrowserName).assignAuthor(AuthorName);
 			isTestCreated = true;
+			TestScreenshotfolderName = TestName;
+			if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+				String currentTimeStamp = dateFormat.format(new Date());
+				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp;
+			}else {
+				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "");
+			}
+			File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
+			try{
+			    if(g.mkdir()) { 
+			        System.out.println("Directory is Created for Storing Screenshots Seperately.");
+			    } else {
+			        System.out.println("Directory is not created or Already Available");
+			    }
+			} catch(Exception e){
+			    e.printStackTrace();
+			}
 		}catch(Exception e) {
 			isTestCreated = false;
 			e.printStackTrace();
@@ -176,7 +234,7 @@ public class ProjectBaseOne extends Report{
 	public void openFile() {
 		try {
 			// constructor of file class having file as argument
-			File file = new File(System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
+			File file = new File(Reportpath);
 			if (!Desktop.isDesktopSupported())// check if Desktop is supported by Platform or not
 			{
 				System.out.println("not supported");
@@ -234,7 +292,7 @@ public class ProjectBaseOne extends Report{
 		System.out.println("************************************************************");
 		System.out.println("    ");
 		System.out.println(
-				"Results : - " + System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
+				"Results : - " + Reportpath);
 		System.out.println("    ");
 	}
 
@@ -253,6 +311,7 @@ public class ProjectBaseOne extends Report{
 			if (browser.equalsIgnoreCase("Chrome")) {
 				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
 						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
+					try {
 					WebDriverManager.chromedriver().setup();
 					ChromeOptions options = new ChromeOptions();
 					Proxy proxy = new Proxy();
@@ -266,8 +325,13 @@ public class ProjectBaseOne extends Report{
 					IncognitoOrNot = true;
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode" + " + Incognito Mode");
+					}catch(Exception e) {
+						logFailException(e.getMessage());
+						e.printStackTrace();
+					}
 				} else if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
 						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					try {
 					WebDriverManager.chromedriver().setup();
 					ChromeOptions options = new ChromeOptions();
 					Proxy proxy = new Proxy();
@@ -279,11 +343,15 @@ public class ProjectBaseOne extends Report{
 					options.addArguments("--headless");
 					HeadlessOrNot = true;
 					IncognitoOrNot = false;
-
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
+					}catch(Exception e) {
+						logFailException(e.getMessage());
+						e.printStackTrace();
+					}
 				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
 						&& prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
+					try {
 					WebDriverManager.chromedriver().setup();
 					ChromeOptions options = new ChromeOptions();
 					Proxy proxy = new Proxy();
@@ -295,25 +363,34 @@ public class ProjectBaseOne extends Report{
 					options.addArguments("--incognito");
 					HeadlessOrNot = false;
 					IncognitoOrNot = true;
-
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
+					}catch(Exception e) {
+						logFailException(e.getMessage());
+						e.printStackTrace();
+					}
 				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
 						&& prop.getProperty("Incognito").equalsIgnoreCase("No")) {
+					try {
 					WebDriverManager.chromedriver().setup();
 					ChromeOptions options = new ChromeOptions();
 					Proxy proxy = new Proxy();
 					if (prop.getProperty("Proxy").equalsIgnoreCase("Yes")) {
 						proxy.setHttpProxy(prop.getProperty("ProxyAddress"));
-						options.setCapability(CapabilityType.PROXY, proxy);
+						options.setCapability("proxy", proxy);
+						//options.addArguments("--proxy-server=http://" + prop.getProperty("ProxyAddress"));
 					}
 					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
-
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+					}catch(Exception e) {
+						logFailException(e.getMessage());
+						e.printStackTrace();
+					}
 				} else {
+					try {
 					WebDriverManager.chromedriver().setup();
 					ChromeOptions options = new ChromeOptions();
 					Proxy proxy = new Proxy();
@@ -327,6 +404,10 @@ public class ProjectBaseOne extends Report{
 
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
+					}catch(Exception e) {
+						logFailException(e.getMessage());
+						e.printStackTrace();
+					}
 				}
 			}
 			// To verify through firefox browser
@@ -1026,45 +1107,62 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 
-	// This method for naming and creating screenshots
+	// This method for naming and creating Screenshots
 	public String screenshotWithCustomName(String Sname) {
-		String screenShotName = Sname.replaceAll(" ", "_").replaceAll(":", "");
+		String screenShotName;
+		if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+			String currentTimeStamp = dateFormat.format(new Date());
+			screenShotName = Sname.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp;
+		}else {
+			screenShotName = Sname.replaceAll(" ", "_").replaceAll(":", "");
+		}
 		TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
 		File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
-		File dest = new File(System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png");
+		File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\"+ screenShotName + ".png");
 		try {
 			FileHandler.copy(source, dest);
-			String path = System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png";
+			String path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\"+screenShotName + ".png";
 			test.addScreenCaptureFromPath(path).pass(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return System.getProperty("user.dir") + "\\ScreenShots\\" + screenShotName + ".png";
+		return System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\"+ screenShotName + ".png";
 	}
 	
-	// This method for naming and creating screenshots
+	// This method for naming and creating Screenshots
 		protected String screenshotVerification() {
 			String path = null;
 			try {
-				File f = new File(System.getProperty("user.dir") + "\\ScreenShots\\" + "VerificationScreenShots\\");
+				File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\");
 				try{
-				    if(f.mkdir()) { 
-				        System.out.println("Directory is Created for Storing VerificationScreenShots Seperately.");
+				    if(g.mkdir()) { 
+				        System.out.println("Directory is Created for Storing "+ EditedTestScreenshotfolderName +" Seperately.");
 				    } else {
 				        System.out.println("Directory is not created or Already Available");
 				    }
 				} catch(Exception e){
 				    e.printStackTrace();
 				} 
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
+				File f = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\VerificationScreenshots\\");
+				try{
+				    if(f.mkdir()) { 
+				        System.out.println("Directory is Created for Storing VerificationScreenshots Seperately.");
+				    } else {
+				        System.out.println("Directory is not created or Already Available");
+				    }
+				} catch(Exception e){
+				    e.printStackTrace();
+				} 
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 				String currentTimeStamp = dateFormat.format(new Date());
 				String screenShotName = currentTimeStamp;
 				TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
 				File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
-				File dest = new File(System.getProperty("user.dir") + "\\ScreenShots\\" + "VerificationScreenShots\\"
+				File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\VerificationScreenshots\\"
 						+ screenShotName + ".png");
 				FileHandler.copy(source, dest);
-				path = System.getProperty("user.dir") + "\\ScreenShots\\" + "VerificationScreenShots\\" + screenShotName + ".png";
+				path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\VerificationScreenshots\\" + screenShotName + ".png";
 				test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -1077,30 +1175,53 @@ public class ProjectBaseOne extends Report{
 	private String ScreenshotError() {
 		String path = null;
 		try {
-			File f = new File(System.getProperty("user.dir") + "\\ScreenShots\\" + "ErrorScreenShots\\");
+			File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\");
+			try{
+			    if(g.mkdir()) { 
+			        System.out.println("Directory is Created for Storing "+ EditedTestScreenshotfolderName +" Seperately.");
+			    } else {
+			        System.out.println("Directory is not created or Already Available");
+			    }
+			} catch(Exception e){
+			    e.printStackTrace();
+			}
+			File f = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName +"\\ErrorScreenshots\\");
 			try{
 			    if(f.mkdir()) { 
-			        System.out.println("Directory is Created for Storing ErrorScreenShots Seperately.");
+			        System.out.println("Directory is Created for Storing ErrorScreenshots Seperately.");
 			    } else {
 			        System.out.println("Directory is not created or Already Available");
 			    }
 			} catch(Exception e){
 			    e.printStackTrace();
 			} 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HH_mm_ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 			String currentTimeStamp = dateFormat.format(new Date());
 			String screenShotName = currentTimeStamp;
 			TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
 			File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
-			File dest = new File(System.getProperty("user.dir") + "\\ScreenShots\\" + "ErrorScreenShots\\"
+			File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\ErrorScreenshots\\"
 					+ screenShotName + ".png");
 			FileHandler.copy(source, dest);
-			path = System.getProperty("user.dir") + "\\ScreenShots\\" + "ErrorScreenShots\\" + screenShotName + ".png";
+			path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\ErrorScreenshots\\" + screenShotName + ".png";
 			test.addScreenCaptureFromPath(path).fail(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return path;
+	}
+	
+	public void capturePartialScreenshotUsingXpath(String XpathLocater) {
+		try {
+			WebElement element = driver.findElement(By.xpath(XpathLocater));
+			File f = element.getScreenshotAs(OutputType.FILE);
+	        FileUtils.copyFile(f, new File(System.getProperty("user.dir")+"\\new.png"));
+		} catch (Exception e) {
+		}
+	}
+	
+	public void capturePartialScreenshotUsingElement(String XpathLocater) {
+		
 	}
 
 	public void setUp() throws IOException {
@@ -1242,7 +1363,7 @@ public class ProjectBaseOne extends Report{
 		if(prop.getProperty("PageLoadTime").isEmpty()) {
 			Seconds = 10;
 		}
-		driver.manage().timeouts().pageLoadTimeout(Seconds, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(Seconds));
 	}
 
 	public void implicitWait() {
@@ -1251,7 +1372,7 @@ public class ProjectBaseOne extends Report{
 		if(prop.getProperty("ImplicitWait").isEmpty()) {
 			Seconds = 10;
 		}
-		driver.manage().timeouts().implicitlyWait(Seconds, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Seconds));
 	}
 
 	// To maximize the window
