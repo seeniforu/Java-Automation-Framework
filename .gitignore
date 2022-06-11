@@ -3,10 +3,8 @@
 /Screenshots/
 /.classpath
 /.settings
-/Automation_Feasible
 /.project
 /allure-results
-!ScreenShots/.gitkeep 
 /spark
 /recordings
 /.apt_generated/

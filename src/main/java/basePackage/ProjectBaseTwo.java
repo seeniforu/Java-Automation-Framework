@@ -2662,7 +2662,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				MyScreenRecorder.stopRecording();
 				ifVideoRecordingDone = true;
 			}
-			if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
+			if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes") && isMobileViewExecuted == true) {
 				if (prop.getProperty("browserName").equalsIgnoreCase("chrome")) {
 					logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel")
 							+ " is Closed");

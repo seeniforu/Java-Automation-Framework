@@ -13,7 +13,7 @@ import io.qameta.allure.Description;
  * 
  * create Empty Testcase shows all important methods and how to use it.
  * Add Assertion 
- * all browser proxy needs to be fixed.
+ * all browser proxy needs to be fixed. https://ipleak.net and www.lagado.com/proxy-test
  * Add explicit or fluent wait for all methods by default 3 seconds.
  * add waitandgetelement, waitandclickelement, waitandverifyelement, waitandgettext method for id,clsname,xpath,csslocator,attribute methods etc.., (By passing as parameter)
  * add methods like findelementandgettext(String Locater), click, getelement,sendkeys, verify, location cssvalue size  - not specific to xpath or class (Refer last method in this page.)

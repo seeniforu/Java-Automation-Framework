@@ -758,6 +758,7 @@ public class ProjectBaseOne extends Report{
 		pageLoad();
 		implicitWait();
 		ifBrowserLaunched = true;
+		isMobileViewExecuted = true;
 		if (ifBrowserLaunched == true && prop.getProperty("VideoRecording").equalsIgnoreCase("Yes")) {
 			try {
 				MyScreenRecorder.startRecording("Rec");
@@ -772,6 +773,8 @@ public class ProjectBaseOne extends Report{
 			deleteAllCookies();
 		}
 	}
+	
+	public boolean isMobileViewExecuted = false;
 	
 	public void handleBrowser(String browser, String Options) {
 		try {
