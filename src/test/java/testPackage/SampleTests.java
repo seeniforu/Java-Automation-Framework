@@ -14,10 +14,7 @@ import io.qameta.allure.Description;
  * create Empty Testcase shows all important methods and how to use it.
  * Add Assertion 
  * all browser proxy needs to be fixed. https://ipleak.net and www.lagado.com/proxy-test
- * Add explicit or fluent wait for all methods by default 3 seconds.
- * add waitandgetelement, waitandclickelement, waitandverifyelement, waitandgettext method for id,clsname,xpath,csslocator,attribute methods etc.., (By passing as parameter)
- * add methods like findelementandgettext(String Locater), click, getelement,sendkeys, verify, location cssvalue size  - not specific to xpath or class (Refer last method in this page.)
- * add methods verifyusingElement(WebElement element)... clickusingelement.. , gettext.. sendkeys location cssvalue size..
+ * add waits for attribute methods etc.., (By passing as parameter)
  * add methods to select from xpath index.
  * properties file EanbleAllNewpageScreenshot - whnever directs to new page capture screenshot option. for logging
  * Add try catch block where ever possible.
@@ -52,7 +49,7 @@ import io.qameta.allure.Description;
 
 
 public class SampleTests extends ProjectBaseTwo {
-	
+
 	// ------------------------------------ Below Testcases are Website Independent ------------------------------------------------------------------
 	
 	@Description("Test Description: Ensure URL Working")
@@ -247,6 +244,7 @@ public class SampleTests extends ProjectBaseTwo {
 			ClickElementsUsingAttributeSampleTest();
 			accessingElementsSampleTest();
 			frameSwitchingCheckSampleTest();
+			byLocatersTest();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -393,11 +391,35 @@ public class SampleTests extends ProjectBaseTwo {
 			//verifyUsingXpath("//input[@name='lsd']", "Input Field is Verified", "Input Field is Not Verified");  // for Failing Test
 			sendKeysUsingXpath("//*[@id='m_login_email']","hello");
 			screenshotWithCustomName("Mobile view Screenshot");
-			capturePartialScreenshotUsingElement(findElement("//*[@id='signup-button']")); // User can use getElementUsing id,classname etc.. to capture particular element.
+			//capturePartialScreenshotUsingElement(findElement("//*[@id='signup-button']")); // User can use getElementUsing id,classname etc.. to capture particular element.
 		} catch (Exception e) {
 			logError(e.getMessage());
 			e.printStackTrace();
 		} finally {
+			quitBrowser();
+		}
+	}
+	
+	public static final By locater = By.xpath("//*[@id='email']");
+	
+	//@Test
+	private void byLocatersTest() {   // facebook is used to test By Locaters with waits.
+		WebElement element = null;
+		testNameWithBrowserName("Find Element Try ", browser);
+		handleBrowser(browser);
+		openURL();
+		try {
+			element = getElement(locater);
+			highLighterMethod(element);
+			element = findElement(locater,3);
+			highLighterMethod(element);
+			sendKeys(element, "seeniforu");
+			verifyElement(locater,8, "Element verfied", "not Verified");
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		finally {
 			quitBrowser();
 		}
 	}
@@ -411,7 +433,6 @@ public class SampleTests extends ProjectBaseTwo {
 	@Test
 	public void scrollTillLastElementCheck() {
 		// with help of last element scroll that element
-	
 	}
 	
 	public void take_H_tag_text() {
@@ -428,22 +449,25 @@ public class SampleTests extends ProjectBaseTwo {
 	
 	@Test
 	public void findelement() {
-		String Locater = "email";            //Working, 1st catch and 2nd catch are slow
+		            //Working, 1st catch and 2nd catch are slow
 		WebElement element = null;
 		testNameWithBrowserName("Find Element Try ", browser);
 		handleBrowser(browser);
 		openURL();
 		try {
-			element = driver.findElement(By.id(Locater));
+			element = getElement(locater);
 			highLighterMethod(element);
 		} catch (Exception e) {
 			try {
-			element = driver.findElement(By.className(Locater));
+			element = getElement(locater,4);
 			highLighterMethod(element);
 			}catch(Exception r) {
-				element = driver.findElement(By.xpath(Locater));
+				element = findElement(locater);
 				highLighterMethod(element);
 			}
+		}
+		finally {
+			quitBrowser();
 		}
 	}
 }

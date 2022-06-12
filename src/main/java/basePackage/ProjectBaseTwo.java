@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,6 +16,8 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -853,6 +856,1173 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		System.out.println(path+parent()+followingSibling()+"div"); //*[contains(@name,'btn')] - path will be generated 
 		// create xpath methods for get text and element, elements, click, verify, size, location etc..
 	}
+	
+	// ------------------------------------------------------ By Locaters ----------------------------------------------------
+	
+	public WebElement findElement(By Locater) {
+		WebElement element = null;
+		try {
+			waitForPageToBeReady();
+			element = driver.findElement(Locater);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
+	
+	public WebElement getElement(By Locater) {
+		WebElement element = null;
+		try {
+			waitForPageToBeReady();
+			element = driver.findElement(Locater);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
+	
+	public List<WebElement> getElements(By Locater) {
+		List<WebElement> elements = new ArrayList<WebElement>();
+		try {
+			waitForPageToBeReady();
+			elements = driver.findElements(Locater);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return elements;
+	}
+	
+	public void clickElement(By Locater) {
+		WebElement element = null;
+		try {
+			waitForPageToBeReady();
+			element = driver.findElement(Locater);
+			highLighterMethod(element);
+			element.click();
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickElement(By Locater, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickElement(By Locater, By AlternateLocater, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				TempElement = driver.findElement(AlternateLocater);
+				highLighterMethod(TempElement);
+				TempElement.click();
+				logPass(LogStatement);
+				logInfo("Primary Locater Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary, Alternate Locater Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public void sendKeys(By Locater, String Data) {
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.clear();
+			TempElement.sendKeys(Data);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void sendKeys(By Locater, String Data, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.clear();
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void sendKeys(By Locater, By AlternateLocater, String Data, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.clear();
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				TempElement = driver.findElement(AlternateLocater);
+				highLighterMethod(TempElement);
+				TempElement.clear();
+				TempElement.sendKeys(Data);
+				logPass(LogStatement);
+				logInfo("Primary Failed, Alternate Locater Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public String getText(By Locater) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			textofelement = TempElement.getText();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+
+	public String getText(By Locater, String LogStatement) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			textofelement = TempElement.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+
+	public String getText(By Locater, By AlternateLocater, String LogStatement) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			textofelement = TempElement.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				TempElement = driver.findElement(AlternateLocater);
+				highLighterMethod(TempElement);
+				textofelement = TempElement.getText();
+				logPass(LogStatement);
+				logInfo("Primary Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return textofelement;
+	}
+	
+	public boolean verifyElement(By Locater) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			if (TempElement.isDisplayed()) {
+				screenshotVerification();
+				value = true;
+			} else {
+				screenshotVerification();
+				value = false;
+			}
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+
+	public boolean verifyElement(By Locater, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			value = verify(LogPassStatement, LogStatementIfFailed);
+		} catch (Exception e) {
+			logFail(LogStatementIfFailed);
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+	
+	public boolean verifyElement(By Locater, By AlternateLocater, String LogPassStatement,
+			String LogStatementIfFailed) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			value = verify(LogPassStatement, LogStatementIfFailed);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				TempElement = driver.findElement(AlternateLocater);
+				highLighterMethod(TempElement);
+				value = verify(LogPassStatement, LogStatementIfFailed);
+			} catch (Exception m) {
+				logFail(LogStatementIfFailed);
+				logError(m.getMessage());
+				m.printStackTrace();
+				value = false;
+			}
+		}
+		return value;
+	}
+	
+	public String getCssValue(By Locater, String Property, String Logstatemment) {
+		String tempText = null;
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			tempText = TempElement.getCssValue(Property);
+			logInfo("The CSS Value of " + Property + " is : " + tempText);
+			logPass(Logstatemment);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return tempText;
+	}
+
+	public Point getLocation(By Locater, String Logstatement) {
+		Point location = null;
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			location = TempElement.getLocation();
+			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
+			logPass(Logstatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return location;
+	}
+
+	public Dimension getSize(By Locater, String LogStatement) {
+		Dimension size = null;
+		try {
+			waitForPageToBeReady();
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			size = TempElement.getSize();
+			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return size;
+	}
+	
+	// --------------------------------- waits -------------------------------------
+	
+	private void waitForClickableElements(By Locator, int Seconds) {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(Seconds));
+			wait.until(ExpectedConditions.elementToBeClickable(Locator));
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	private void waitForVisibilityOfElement(By Locator, int Seconds) {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(Seconds));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(Locator));
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	private void waitForVisibilityOfElement(WebElement Element, int Seconds) {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(Seconds));
+			wait.until(ExpectedConditions.visibilityOf(Element));
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	// ----------------------------------------------------- Locater with waits -------------------------------
+	
+	public WebElement findElement(By Locater, int Seconds) {
+		WebElement element = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			element = driver.findElement(Locater);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
+	
+	public WebElement getElement(By Locater, int Seconds) {
+		WebElement element = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			element = driver.findElement(Locater);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return element;
+	}
+	
+	public List<WebElement> getElements(By Locater, int Seconds) {
+		List<WebElement> elements = new ArrayList<WebElement>();
+		try {
+			waitForPageToBeReady();
+			elements = driver.findElements(Locater);
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return elements;
+	}
+	
+	public void clickElement(By Locater, int Seconds) {
+		WebElement element = null;
+		try {
+			waitForPageToBeReady();
+			waitForClickableElements(Locater, Seconds);
+			element = driver.findElement(Locater);
+			highLighterMethod(element);
+			element.click();
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickElement(By Locater, int Seconds, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			waitForClickableElements(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickElement(By Locater, By AlternateLocater, int Seconds, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			waitForClickableElements(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				waitForClickableElements(AlternateLocater, Seconds);
+				TempElement = driver.findElement(AlternateLocater);
+				highLighterMethod(TempElement);
+				TempElement.click();
+				logPass(LogStatement);
+				logInfo("Primary Locater Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary, Alternate Locater Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public void sendKeys(By Locater, int Seconds, String Data) {
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.clear();
+			TempElement.sendKeys(Data);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void sendKeys(By Locater, int Seconds, String Data, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.clear();
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void sendKeys(By Locater, By AlternateLocater, int Seconds, String Data, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			TempElement.clear();
+			TempElement.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				waitForVisibilityOfElement(Locater, Seconds);
+				TempElement = driver.findElement(AlternateLocater);
+				highLighterMethod(TempElement);
+				TempElement.clear();
+				TempElement.sendKeys(Data);
+				logPass(LogStatement);
+				logInfo("Primary Failed, Alternate Locater Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public String getText(By Locater, int Seconds) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			textofelement = TempElement.getText();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+
+	public String getText(By Locater, int Seconds, String LogStatement) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			textofelement = TempElement.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+
+	public String getText(By Locater, By AlternateLocater, int Seconds, String LogStatement) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			textofelement = TempElement.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				waitForVisibilityOfElement(Locater, Seconds);
+				TempElement = driver.findElement(AlternateLocater);
+				highLighterMethod(TempElement);
+				textofelement = TempElement.getText();
+				logPass(LogStatement);
+				logInfo("Primary Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return textofelement;
+	}
+	
+	public boolean verifyElement(By Locater, int Seconds) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			if (TempElement.isDisplayed()) {
+				screenshotVerification();
+				value = true;
+			} else {
+				screenshotVerification();
+				value = false;
+			}
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+
+	public boolean verifyElement(By Locater, int Seconds, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			value = verify(LogPassStatement, LogStatementIfFailed);
+		} catch (Exception e) {
+			logFail(LogStatementIfFailed);
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+	
+	public boolean verifyElement(By Locater, By AlternateLocater, int Seconds, String LogPassStatement,
+			String LogStatementIfFailed) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			value = verify(LogPassStatement, LogStatementIfFailed);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				TempElement = driver.findElement(AlternateLocater);
+				highLighterMethod(TempElement);
+				value = verify(LogPassStatement, LogStatementIfFailed);
+			} catch (Exception m) {
+				logFail(LogStatementIfFailed);
+				logError(m.getMessage());
+				m.printStackTrace();
+				value = false;
+			}
+		}
+		return value;
+	}
+	
+	public String getCssValue(By Locater, int Seconds, String Property, String Logstatemment) {
+		String tempText = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			tempText = TempElement.getCssValue(Property);
+			logInfo("The CSS Value of " + Property + " is : " + tempText);
+			logPass(Logstatemment);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return tempText;
+	}
+
+	public Point getLocation(By Locater, int Seconds, String Logstatement) {
+		Point location = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			location = TempElement.getLocation();
+			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
+			logPass(Logstatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return location;
+	}
+
+	public Dimension getSize(By Locater, int Seconds, String LogStatement) {
+		Dimension size = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Locater, Seconds);
+			TempElement = driver.findElement(Locater);
+			highLighterMethod(TempElement);
+			size = TempElement.getSize();
+			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return size;
+	}
+	
+	// -------------------------------------------------- Actions by elements -------------------------------------
+	
+	public void clickElement(WebElement Element) {
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			Element.click();
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickElement(WebElement Element, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			Element.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickElement(WebElement Element, WebElement AlternateElement, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			Element.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				highLighterMethod(AlternateElement);
+				AlternateElement.click();
+				logPass(LogStatement);
+				logInfo("Primary Locater Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary, Alternate Locater Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public void sendKeys(WebElement Element, String Data) {
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			Element.clear();
+			Element.sendKeys(Data);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void sendKeys(WebElement Element, String Data, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			Element.clear();
+			Element.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void sendKeys(WebElement Element, WebElement AlternateElement, String Data, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			Element.clear();
+			Element.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				highLighterMethod(AlternateElement);
+				AlternateElement.clear();
+				AlternateElement.sendKeys(Data);
+				logPass(LogStatement);
+				logInfo("Primary Failed, Alternate Locater Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public String getText(WebElement Element) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			textofelement = Element.getText();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+
+	public String getText(WebElement Element, String LogStatement) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			textofelement = Element.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+
+	public String getText(WebElement Element, WebElement AlternateElement, String LogStatement) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			textofelement = Element.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				highLighterMethod(AlternateElement);
+				textofelement = AlternateElement.getText();
+				logPass(LogStatement);
+				logInfo("Primary Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return textofelement;
+	}
+	
+	public boolean verifyElement(WebElement Element) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			if (Element.isDisplayed()) {
+				screenshotVerification();
+				value = true;
+			} else {
+				screenshotVerification();
+				value = false;
+			}
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+
+	public boolean verifyElement(WebElement Element, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			value = verificationElement(Element, LogPassStatement, LogStatementIfFailed);
+		} catch (Exception e) {
+			logFail(LogStatementIfFailed);
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+	
+	public boolean verifyElement(WebElement Element, WebElement AlternateElement, String LogPassStatement,
+			String LogStatementIfFailed) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			value = verificationElement(Element, LogPassStatement, LogStatementIfFailed);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				highLighterMethod(AlternateElement);
+				value = verificationElement(AlternateElement, LogPassStatement, LogStatementIfFailed);
+			} catch (Exception m) {
+				logFail(LogStatementIfFailed);
+				logError(m.getMessage());
+				m.printStackTrace();
+				value = false;
+			}
+		}
+		return value;
+	}
+	
+	public String getCssValue(WebElement Element, String Property, String Logstatemment) {
+		String tempText = null;
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			tempText = Element.getCssValue(Property);
+			logInfo("The CSS Value of " + Property + " is : " + tempText);
+			logPass(Logstatemment);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return tempText;
+	}
+
+	public Point getLocation(WebElement Element, String Logstatement) {
+		Point location = null;
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			location = Element.getLocation();
+			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
+			logPass(Logstatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return location;
+	}
+
+	public Dimension getSize(WebElement Element, String LogStatement) {
+		Dimension size = null;
+		try {
+			waitForPageToBeReady();
+			highLighterMethod(Element);
+			size = Element.getSize();
+			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return size;
+	}
+	
+	// ------------------------------------------------ Action by Elements with wait -----------------------------------------------
+	
+	public void clickElement(WebElement Element, int Seconds) {
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			Element.click();
+		}catch(Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickElement(WebElement Element, int Seconds, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			Element.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+	
+	public void clickElement(WebElement Element, WebElement AlternateElement, int Seconds, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			Element.click();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				waitForVisibilityOfElement(AlternateElement, Seconds);
+				highLighterMethod(AlternateElement);
+				AlternateElement.click();
+				logPass(LogStatement);
+				logInfo("Primary Locater Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary, Alternate Locater Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public void sendKeys(WebElement Element, int Seconds, String Data) {
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			Element.clear();
+			Element.sendKeys(Data);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void sendKeys(WebElement Element, int Seconds, String Data, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			Element.clear();
+			Element.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	public void sendKeys(WebElement Element, WebElement AlternateElement, int Seconds, String Data, String LogStatement) {
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			Element.clear();
+			Element.sendKeys(Data);
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				waitForVisibilityOfElement(AlternateElement, Seconds);
+				highLighterMethod(AlternateElement);
+				AlternateElement.clear();
+				AlternateElement.sendKeys(Data);
+				logPass(LogStatement);
+				logInfo("Primary Failed, Alternate Locater Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+	}
+	
+	public String getText(WebElement Element, int Seconds) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			textofelement = Element.getText();
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+
+	public String getText(WebElement Element,  int Seconds, String LogStatement) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			textofelement = Element.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return textofelement;
+	}
+
+	public String getText(WebElement Element, WebElement AlternateElement, int Seconds, String LogStatement) {
+		String textofelement = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			textofelement = Element.getText();
+			logPass(LogStatement);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				waitForVisibilityOfElement(AlternateElement, Seconds);
+				highLighterMethod(AlternateElement);
+				textofelement = AlternateElement.getText();
+				logPass(LogStatement);
+				logInfo("Primary Failed, Alternate Passed");
+			} catch (Exception m) {
+				logInfo("Both Primary Xpath , Alternate Failed");
+				logError(m.getMessage());
+				m.printStackTrace();
+			}
+		}
+		return textofelement;
+	}
+	
+	public boolean verifyElement(WebElement Element, int Seconds) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			if (Element.isDisplayed()) {
+				screenshotVerification();
+				value = true;
+			} else {
+				screenshotVerification();
+				value = false;
+			}
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+
+	public boolean verifyElement(WebElement Element, int Seconds, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			value = verificationElement(Element, LogPassStatement, LogStatementIfFailed);
+		} catch (Exception e) {
+			logFail(LogStatementIfFailed);
+			logError(e.getMessage());
+			e.printStackTrace();
+			value = false;
+		}
+		return value;
+	}
+	
+	public boolean verifyElement(WebElement Element, WebElement AlternateElement, int Seconds, String LogPassStatement,
+			String LogStatementIfFailed) {
+		boolean value = false;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			value = verificationElement(Element, LogPassStatement, LogStatementIfFailed);
+		} catch (Exception e) {
+			try {
+				waitForPageToBeReady();
+				waitForVisibilityOfElement(AlternateElement, Seconds);
+				highLighterMethod(AlternateElement);
+				value = verificationElement(AlternateElement, LogPassStatement, LogStatementIfFailed);
+			} catch (Exception m) {
+				logFail(LogStatementIfFailed);
+				logError(m.getMessage());
+				m.printStackTrace();
+				value = false;
+			}
+		}
+		return value;
+	}
+	
+	public String getCssValue(WebElement Element, int Seconds, String Property, String Logstatemment) {
+		String tempText = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			tempText = Element.getCssValue(Property);
+			logInfo("The CSS Value of " + Property + " is : " + tempText);
+			logPass(Logstatemment);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return tempText;
+	}
+
+	public Point getLocation(WebElement Element, int Seconds, String Logstatement) {
+		Point location = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			location = Element.getLocation();
+			logInfo("The Location of X : " + location.getX() + " and Location of Y : " + location.getY());
+			logPass(Logstatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return location;
+	}
+
+	public Dimension getSize(WebElement Element, int Seconds, String LogStatement) {
+		Dimension size = null;
+		try {
+			waitForPageToBeReady();
+			waitForVisibilityOfElement(Element, Seconds);
+			highLighterMethod(Element);
+			size = Element.getSize();
+			logInfo("Width :" + size.getWidth() + "," + "Height : " + size.getHeight());
+			logPass(LogStatement);
+		} catch (Exception e) {
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return size;
+	}
 
 	// -------------------------------------------------------- Xpath
 	// -----------------------------------------------
@@ -1127,6 +2297,26 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		}
 		return value;
 	}
+	
+	private boolean verificationElement(WebElement Element, String LogPassStatement, String LogStatementIfFailed) {
+		boolean value = false;
+		try {
+			if (Element.isDisplayed()) {
+				value = true;
+				Assert.assertTrue(value);
+				logPass(LogPassStatement);
+				screenshotVerification();
+			} else {
+				value = false;
+				Assert.assertTrue(value);
+			}
+		} catch (AssertionError e) {
+			logFail(LogStatementIfFailed);
+			logError(e.getMessage());
+			e.printStackTrace();
+		}
+		return value;
+	}
 
 	public boolean verifyUsingXpath(String xPath, String AlternateXpath, String LogPassStatement,
 			String LogStatementIfFailed) {
@@ -1218,6 +2408,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				js.executeScript("arguments[0].style.border='0px solid blue'", element);
 			}
 			if(prop.getProperty("CaptureAllElementScreenshot").equalsIgnoreCase("Yes")) {
 				takeScreenshotOfElement(element);
@@ -2601,7 +3792,6 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	
 	public void gotoTab(int TabNumber) {
 		try {
-			waitForPageToBeReady();
 			tabs = new ArrayList<String> (driver.getWindowHandles());
 		    driver.switchTo().window(tabs.get(TabNumber));
 		} catch (Exception e) {
