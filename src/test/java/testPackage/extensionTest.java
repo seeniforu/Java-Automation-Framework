@@ -1,8 +1,17 @@
 package testPackage;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 
-public class extensionTest extends SampleTests {
+import basePackage.ProjectBaseTwo;
+import facebookPagesPackage.FacebookPages;
+
+public class extensionTest extends ProjectBaseTwo{
 	
-	public void test1() {
+	static WebDriver driver;
+	FacebookPages base;
+	
+	public void initElements() {
+		base = PageFactory.initElements(driver, FacebookPages.class);
 	}
 }

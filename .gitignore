@@ -10,3 +10,6 @@
 /.apt_generated/
 /.apt_generated_tests/
 /Results
+/src/main/java/facebookPagesPackage
+/src/test/java/FacebookTests
+/src/test/java/testPackage/extensionTest.java
