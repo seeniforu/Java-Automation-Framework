@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import basePackage.ProjectBaseTwo;
-import facebookPagesPackage.locators.xpathMain;
 import io.qameta.allure.Description;
 
 /*
@@ -300,7 +299,7 @@ public class SampleTests extends ProjectBaseTwo {
 			goToNextPage("create/");                       // Navigating with help of part of URL.
 			basicForEachPageElements();
 			logDetailsPrimaryTags();
-			clickUsingXpath(xpathMain.CreateClass,"Element is Clicked"); 
+			//clickUsingXpath(xpathMain.CreateClass,"Element is Clicked"); 
 			navigateBack();
 		} catch (Exception e) {
 			logError(e.getMessage());
