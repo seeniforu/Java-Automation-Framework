@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -3810,7 +3811,16 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	
 	public String browser;
 	public List<String> readFile = new ArrayList<String>();
-	public String filePath = System.getProperty("user.dir")+"\\";
+	
+	public String filePath() {
+		String tempPath = null;
+		if(osNameisWindows == true) {
+			tempPath = System.getProperty("user.dir")+"\\";
+		}else {
+			tempPath = System.getProperty("user.dir")+"/";
+		}
+		return tempPath;
+	}
 
 	@BeforeMethod
 	public void beforeMethod() throws IOException {
@@ -3868,7 +3878,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	
 	public void createFile(String Filename) {
 		try {
-		      File myObj = new File(filePath+Filename);
+		      File myObj = new File(filePath()+Filename);
 		      if (myObj.createNewFile()) {
 		        System.out.println("File created: " + myObj.getName());
 		      } else {
@@ -3886,7 +3896,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		readFile(FileName);
 		FileWriter myWriter = null;
 			try {
-				myWriter = new FileWriter(filePath+FileName,true);
+				myWriter = new FileWriter(filePath()+FileName,true);
 			} catch (IOException e1) {
 				
 				e1.printStackTrace();
@@ -3916,7 +3926,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		readFile(FileName);
 		FileWriter myWriter = null;
 		try {
-			myWriter = new FileWriter(filePath + FileName, true);
+			myWriter = new FileWriter(filePath() + FileName, true);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -3935,7 +3945,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	
 	public void readFile(String FileName) {
 		 try {
-		      File myObj = new File(filePath+FileName);
+		      File myObj = new File(filePath()+FileName);
 		      Scanner myReader = new Scanner(myObj);
 		      while (myReader.hasNextLine()) {
 		        String data = myReader.nextLine();

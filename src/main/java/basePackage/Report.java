@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
@@ -69,27 +68,54 @@ public class Report {
 	public ExtentReports extent;
 	public ExtentTest test;
 	public String Reportpath = null;
+	public boolean osNameisWindows = false;
+	
 	public ExtentTest getExtentReportVersion5() {
 		try {
 			extent = new ExtentReports();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
 			String currentTimeStamp = dateFormat.format(new Date());
-			File g = new File(System.getProperty("user.dir") + "\\Results\\");
-			try{
-			    if(g.mkdir()) { 
-			        System.out.println("Directory is Created for Storing Results Seperately.");
-			    } else {
-			        System.out.println("Directory is not created or Already Available");
-			    }
-			} catch(Exception e){
-			    e.printStackTrace();
-			}
-			if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
-				Reportpath = System.getProperty("user.dir") + "\\Results\\" + prop.getProperty("ReportName") +"_"+currentTimeStamp +".html";
-			spark = new ExtentSparkReporter(Reportpath);
+			if (System.getProperty("os.name").contains("Windows")) {
+				File g = new File(System.getProperty("user.dir") + "\\Results\\");
+				try{
+				    if(g.mkdir()) { 
+				        System.out.println("Directory is Created for Storing Results Seperately.");
+				    } else {
+				        System.out.println("Directory is not created or Already Available");
+				    }
+				} catch(Exception e){
+				    e.printStackTrace();
+				}
+				osNameisWindows = true;
+				if (prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
+					Reportpath = System.getProperty("user.dir") + "\\Results\\" + prop.getProperty("ReportName") + "_"
+							+ currentTimeStamp + ".html";
+					spark = new ExtentSparkReporter(Reportpath);
+				} else {
+					Reportpath = System.getProperty("user.dir") + "\\Results\\" + prop.getProperty("ReportName")
+							+ ".html";
+					spark = new ExtentSparkReporter(Reportpath);
+				}
 			}else {
-				Reportpath = System.getProperty("user.dir") + "\\Results\\" + prop.getProperty("ReportName") + ".html";
-				spark = new ExtentSparkReporter(Reportpath);
+				File g = new File(System.getProperty("user.dir") + "/Results/");
+				try{
+				    if(g.mkdir()) { 
+				        System.out.println("Directory is Created for Storing Results Seperately.");
+				    } else {
+				        System.out.println("Directory is not created or Already Available");
+				    }
+				} catch(Exception e){
+				    e.printStackTrace();
+				}
+				if (prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
+					Reportpath = System.getProperty("user.dir") + "/Results/" + prop.getProperty("ReportName") + "_"
+							+ currentTimeStamp + ".html";
+					spark = new ExtentSparkReporter(Reportpath);
+				} else {
+					Reportpath = System.getProperty("user.dir") + "/Results/" + prop.getProperty("ReportName")
+							+ ".html";
+					spark = new ExtentSparkReporter(Reportpath);
+				}
 			}
 			if (prop.getProperty("ReportNameDocumentTitle").isEmpty()) {
 				spark.config().setReportName("Execution Results");

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,7 @@ import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
@@ -66,15 +68,28 @@ public class ProjectBaseOne extends Report{
 			}else {
 				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "");
 			}
-			File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
-			try{
-			    if(g.mkdir()) { 
-			        System.out.println("Directory is Created for Storing Screenshots Seperately.");
-			    } else {
-			        System.out.println("Directory is not created or Already Available");
-			    }
-			} catch(Exception e){
-			    e.printStackTrace();
+			if (osNameisWindows == true) {
+				File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
+				try {
+					if (g.mkdir()) {
+						System.out.println("Directory is Created for Storing Screenshots Seperately.");
+					} else {
+						System.out.println("Directory is not created or Already Available");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else {
+				File g = new File(System.getProperty("user.dir") + "/Screenshots/");
+				try {
+					if (g.mkdir()) {
+						System.out.println("Directory is Created for Storing Screenshots Seperately.");
+					} else {
+						System.out.println("Directory is not created or Already Available");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}catch(Exception e) {
 			isTestCreated = false;
@@ -93,15 +108,28 @@ public class ProjectBaseOne extends Report{
 			}else {
 				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "");
 			}
-			File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
-			try{
-			    if(g.mkdir()) { 
-			        System.out.println("Directory is Created for Storing Screenshots Seperately.");
-			    } else {
-			        System.out.println("Directory is not created or Already Available");
-			    }
-			} catch(Exception e){
-			    e.printStackTrace();
+			if (osNameisWindows == true) {
+				File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
+				try {
+					if (g.mkdir()) {
+						System.out.println("Directory is Created for Storing Screenshots Seperately.");
+					} else {
+						System.out.println("Directory is not created or Already Available");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else {
+				File g = new File(System.getProperty("user.dir") + "/Screenshots/");
+				try {
+					if (g.mkdir()) {
+						System.out.println("Directory is Created for Storing Screenshots Seperately.");
+					} else {
+						System.out.println("Directory is not created or Already Available");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}catch(Exception e) {
 			isTestCreated = false;
@@ -120,15 +148,28 @@ public class ProjectBaseOne extends Report{
 			}else {
 				EditedTestScreenshotfolderName = TestScreenshotfolderName.replaceAll(" ", "_").replaceAll(":", "");
 			}
-			File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
-			try{
-			    if(g.mkdir()) { 
-			        System.out.println("Directory is Created for Storing Screenshots Seperately.");
-			    } else {
-			        System.out.println("Directory is not created or Already Available");
-			    }
-			} catch(Exception e){
-			    e.printStackTrace();
+			if (osNameisWindows == true) {
+				File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
+				try {
+					if (g.mkdir()) {
+						System.out.println("Directory is Created for Storing Screenshots Seperately.");
+					} else {
+						System.out.println("Directory is not created or Already Available");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}else {
+				File g = new File(System.getProperty("user.dir") + "/Screenshots/");
+				try {
+					if (g.mkdir()) {
+						System.out.println("Directory is Created for Storing Screenshots Seperately.");
+					} else {
+						System.out.println("Directory is not created or Already Available");
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}catch(Exception e) {
 			isTestCreated = false;
@@ -237,6 +278,7 @@ public class ProjectBaseOne extends Report{
 			Desktop desktop = Desktop.getDesktop();
 			if (file.exists()) // checks file exists or not
 				desktop.open(file); // opens the specified file
+				//desktop.browseFileDirectory(file);
 			//executeCMD();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1107,6 +1149,7 @@ public class ProjectBaseOne extends Report{
 	// This method for naming and creating Screenshots
 	public String screenshotWithCustomName(String Sname) {
 		String screenShotName;
+		String path = null;
 		if(prop.getProperty("UniqueOrReplace").equalsIgnoreCase("Unique")) {
 			screenShotName = Sname.replaceAll(" ", "_").replaceAll(":", "")+"_"+currentTimeStamp();
 		}else {
@@ -1114,49 +1157,105 @@ public class ProjectBaseOne extends Report{
 		}
 		TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
 		File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
-		File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\"+ screenShotName + ".png");
-		try {
-			FileHandler.copy(source, dest);
-			String path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\"+screenShotName + ".png";
-			test.addScreenCaptureFromPath(path).pass(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (osNameisWindows == true) {
+			File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName
+					+ "\\" + screenShotName + ".png");
+			try {
+				FileHandler.copy(source, dest);
+				path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\"
+						+ screenShotName + ".png";
+				test.addScreenCaptureFromPath(path).pass(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			File dest = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName
+					+ "\\" + screenShotName + ".png");
+			try {
+				FileHandler.copy(source, dest);
+				path = System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/"
+						+ screenShotName + ".png";
+				test.addScreenCaptureFromPath(path).pass(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		return System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\"+ screenShotName + ".png";
+		return path;
 	}
 	
 	// This method for naming and creating Screenshots
 		protected String screenshotVerification() {
 			String path = null;
 			try {
-				File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\");
-				try{
-				    if(g.mkdir()) { 
-				        System.out.println("Directory is Created for Storing "+ EditedTestScreenshotfolderName +" Seperately.");
-				    } else {
-				        System.out.println("Directory is not created or Already Available");
-				    }
-				} catch(Exception e){
-				    e.printStackTrace();
-				} 
-				File f = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\VerificationScreenshots\\");
-				try{
-				    if(f.mkdir()) { 
-				        System.out.println("Directory is Created for Storing VerificationScreenshots Seperately.");
-				    } else {
-				        System.out.println("Directory is not created or Already Available");
-				    }
-				} catch(Exception e){
-				    e.printStackTrace();
-				} 
-				String screenShotName = currentTimeStamp();
-				TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
-				File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
-				File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\VerificationScreenshots\\"
-						+ screenShotName + ".png");
-				FileHandler.copy(source, dest);
-				path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\VerificationScreenshots\\" + screenShotName + ".png";
-				test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+				if (osNameisWindows == true) {
+					File g = new File(
+							System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\");
+					try {
+						if (g.mkdir()) {
+							System.out.println("Directory is Created for Storing " + EditedTestScreenshotfolderName
+									+ " Seperately.");
+						} else {
+							System.out.println("Directory is not created or Already Available");
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					File f = new File(System.getProperty("user.dir") + "\\Screenshots\\"
+							+ EditedTestScreenshotfolderName + "\\VerificationScreenshots\\");
+					try {
+						if (f.mkdir()) {
+							System.out.println("Directory is Created for Storing VerificationScreenshots Seperately.");
+						} else {
+							System.out.println("Directory is not created or Already Available");
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					String screenShotName = currentTimeStamp();
+					TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
+					File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
+					File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\"
+							+ EditedTestScreenshotfolderName + "\\VerificationScreenshots\\" + screenShotName + ".png");
+					FileHandler.copy(source, dest);
+					path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName
+							+ "\\VerificationScreenshots\\" + screenShotName + ".png";
+					test.addScreenCaptureFromPath(path)
+							.info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+				} else {
+					File g = new File(
+							System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/");
+					try {
+						if (g.mkdir()) {
+							System.out.println("Directory is Created for Storing " + EditedTestScreenshotfolderName
+									+ " Seperately.");
+						} else {
+							System.out.println("Directory is not created or Already Available");
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					File f = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName
+							+ "/VerificationScreenshots/");
+					try {
+						if (f.mkdir()) {
+							System.out.println("Directory is Created for Storing VerificationScreenshots Seperately.");
+						} else {
+							System.out.println("Directory is not created or Already Available");
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					String screenShotName = currentTimeStamp();
+					TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
+					File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
+					File dest = new File(System.getProperty("user.dir") + "/Screenshots/"
+							+ EditedTestScreenshotfolderName + "/VerificationScreenshots/" + screenShotName + ".png");
+					FileHandler.copy(source, dest);
+					path = System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName
+							+ "/VerificationScreenshots/" + screenShotName + ".png";
+					test.addScreenCaptureFromPath(path)
+							.info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -1168,6 +1267,7 @@ public class ProjectBaseOne extends Report{
 	private String ScreenshotError() {
 		String path = null;
 		try {
+			if(osNameisWindows == true) {
 			File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\");
 			try{
 			    if(g.mkdir()) { 
@@ -1196,6 +1296,36 @@ public class ProjectBaseOne extends Report{
 			FileHandler.copy(source, dest);
 			path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\ErrorScreenshots\\" + screenShotName + ".png";
 			test.addScreenCaptureFromPath(path).fail(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			}else {
+				File g = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName+ "/");
+				try{
+				    if(g.mkdir()) { 
+				        System.out.println("Directory is Created for Storing "+ EditedTestScreenshotfolderName +" Seperately.");
+				    } else {
+				        System.out.println("Directory is not created or Already Available");
+				    }
+				} catch(Exception e){
+				    e.printStackTrace();
+				}
+				File f = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName +"/ErrorScreenshots/");
+				try{
+				    if(f.mkdir()) { 
+				        System.out.println("Directory is Created for Storing ErrorScreenshots Seperately.");
+				    } else {
+				        System.out.println("Directory is not created or Already Available");
+				    }
+				} catch(Exception e){
+				    e.printStackTrace();
+				} 
+				String screenShotName = currentTimeStamp();
+				TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
+				File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
+				File dest = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/ErrorScreenshots/"
+						+ screenShotName + ".png");
+				FileHandler.copy(source, dest);
+				path = System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/ErrorScreenshots/" + screenShotName + ".png";
+				test.addScreenCaptureFromPath(path).fail(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1210,6 +1340,7 @@ public class ProjectBaseOne extends Report{
 	
 	public String capturePartialScreenshotUsingXpath(String XpathLocater) {
 		String path = null;
+		if(osNameisWindows == true) {
 		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
 		try{
 		    if(g.mkdir()) { 
@@ -1229,11 +1360,33 @@ public class ProjectBaseOne extends Report{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		}else {
+			File g = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName+ "/PartialScreenshots/");
+			try{
+			    if(g.mkdir()) { 
+			        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
+			    } else {
+			        System.out.println("Directory is not created or Already Available");
+			    }
+			} catch(Exception e){
+			    e.printStackTrace();
+			}
+			try {
+				WebElement element = driver.findElement(By.xpath(XpathLocater));
+				File f = element.getScreenshotAs(OutputType.FILE);
+				path = System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/PartialScreenshots/"+currentTimeStamp()+".png";
+		        FileUtils.copyFile(f, new File(path));
+		    	test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return path;
 	}
 	
 	public String capturePartialScreenshotUsingElement(WebElement Element) {
 		String path = null;
+		if(osNameisWindows == true) {
 		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
 		try{
 		    if(g.mkdir()) { 
@@ -1251,12 +1404,33 @@ public class ProjectBaseOne extends Report{
 	    	test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		}else {
+			File g = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName+ "/PartialScreenshots/");
+			try{
+			    if(g.mkdir()) { 
+			        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
+			    } else {
+			        System.out.println("Directory is not created or Already Available");
+			    }
+			} catch(Exception e){
+			    e.printStackTrace();
+			}
+			try {
+				File f = Element.getScreenshotAs(OutputType.FILE);
+				path = System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/PartialScreenshots/"+currentTimeStamp()+".png";
+		        FileUtils.copyFile(f, new File(path));
+		    	test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return path;
 	}
 	
 	public String takeScreenshotOfElement(WebElement Element) {
 		String path = null;
+		if(osNameisWindows == true) {
 		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
 		try{
 		    if(g.mkdir()) { 
@@ -1274,6 +1448,26 @@ public class ProjectBaseOne extends Report{
 	    	test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		}else {
+			File g = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName+ "/PartialScreenshots/");
+			try{
+			    if(g.mkdir()) { 
+			        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
+			    } else {
+			        System.out.println("Directory is not created or Already Available");
+			    }
+			} catch(Exception e){
+			    e.printStackTrace();
+			}
+			try {
+				File f = Element.getScreenshotAs(OutputType.FILE);
+				path = System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/PartialScreenshots/"+currentTimeStamp()+".png";
+		        FileUtils.copyFile(f, new File(path));
+		    	test.addScreenCaptureFromPath(path).info(MediaEntityBuilder.createScreenCaptureFromPath(path).build());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return path;
 	}
