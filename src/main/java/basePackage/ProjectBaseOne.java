@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +28,6 @@ import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.aventstack.extentreports.MediaEntityBuilder;
@@ -590,12 +588,12 @@ public class ProjectBaseOne extends Report{
 					logFail("Previously SafariDriver was supporting safari browser on Windows machine but recently Apple has decided to remove its support for windows and then execution on safari has become the job of Mac machine. So for the same, we need mac machine where safari browser should be installed.");
 				}
 			} else if (browserName.equalsIgnoreCase("Opera")) {
-				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+				if (prop.getProperty("Incognito").equalsIgnoreCase("Yes")) {
 					WebDriverManager.operadriver().setup();
 					OperaOptions options = new OperaOptions();
-					options.addArguments("--headless");
+					options.addArguments("private");
 					driver = new OperaDriver(options);
-					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
+					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
 				} else {
 					WebDriverManager.operadriver().setup();
 					driver = new OperaDriver();
@@ -663,7 +661,7 @@ public class ProjectBaseOne extends Report{
 					HeadlessOrNot = true;
 					IncognitoOrNot = true;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
-						Map<String, String> mobileEmulation = new HashMap<>();
+						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {
 							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
 							options.setExperimentalOption("mobileEmulation", mobileEmulation);
@@ -692,7 +690,7 @@ public class ProjectBaseOne extends Report{
 					HeadlessOrNot = true;
 					IncognitoOrNot = false;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
-						Map<String, String> mobileEmulation = new HashMap<>();
+						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {
 							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
 							options.setExperimentalOption("mobileEmulation", mobileEmulation);
@@ -721,7 +719,7 @@ public class ProjectBaseOne extends Report{
 					HeadlessOrNot = false;
 					IncognitoOrNot = true;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
-						Map<String, String> mobileEmulation = new HashMap<>();
+						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {
 							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
 							options.setExperimentalOption("mobileEmulation", mobileEmulation);
@@ -749,7 +747,7 @@ public class ProjectBaseOne extends Report{
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
-						Map<String, String> mobileEmulation = new HashMap<>();
+						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {
 							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
 							options.setExperimentalOption("mobileEmulation", mobileEmulation);
@@ -776,7 +774,7 @@ public class ProjectBaseOne extends Report{
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
-						Map<String, String> mobileEmulation = new HashMap<>();
+						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {
 							mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
 							options.setExperimentalOption("mobileEmulation", mobileEmulation);
@@ -791,6 +789,28 @@ public class ProjectBaseOne extends Report{
 						logWarning("Mobile Execution is "+prop.getProperty("MobileViewExecution")+" in ProjectSettings.properties. Give Yes to use this Method.");
 						System.out.println("Mobile Execution is "+prop.getProperty("MobileViewExecution")+" in ProjectSettings.properties. Give Yes to use this Method.");
 					}
+				}
+			}else if(browser.equalsIgnoreCase("Opera")) {
+				WebDriverManager.operadriver().setup();
+				OperaOptions options = new OperaOptions();
+				options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
+				HeadlessOrNot = false;
+				IncognitoOrNot = false;
+				if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
+//					Map<String, String> mobileEmulation = new HashMap<String, String>();
+					try {
+//						mobileEmulation.put("deviceName", prop.getProperty("MobileModel"));
+//						options.setExperimentalOption("mobileEmulation", mobileEmulation);
+						driver = new OperaDriver(options);
+						logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel")
+								+ " is Launched");
+					} catch (Exception d) {
+						logError(d.getMessage());
+						d.printStackTrace();
+					}
+				}else {
+					logWarning("Mobile Execution is "+prop.getProperty("MobileViewExecution")+" in ProjectSettings.properties. Give Yes to use this Method.");
+					System.out.println("Mobile Execution is "+prop.getProperty("MobileViewExecution")+" in ProjectSettings.properties. Give Yes to use this Method.");
 				}
 			}
 		} catch (Exception e) {
@@ -887,7 +907,7 @@ public class ProjectBaseOne extends Report{
 					IncognitoOrNot = false;
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
-				} else if (Options.equalsIgnoreCase("Incognito")
+				} else if (Options.equalsIgnoreCase("Incognito") || Options.equalsIgnoreCase("Private")
 						&& prop.getProperty("Headless").equalsIgnoreCase("No")) {
 					WebDriverManager.chromedriver().setup();
 					ChromeOptions options = new ChromeOptions();
@@ -903,7 +923,7 @@ public class ProjectBaseOne extends Report{
 
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
-				} else if (Options.equalsIgnoreCase("Incognito")
+				} else if (Options.equalsIgnoreCase("Incognito") || Options.equalsIgnoreCase("Private")
 						&& prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
 					WebDriverManager.chromedriver().setup();
 					ChromeOptions options = new ChromeOptions();
@@ -992,7 +1012,7 @@ public class ProjectBaseOne extends Report{
 					IncognitoOrNot = false;
 					driver = new FirefoxDriver();
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
-				} else if(Options.equalsIgnoreCase("Incognito") && prop.getProperty("Headless").equalsIgnoreCase("No")){
+				} else if(Options.equalsIgnoreCase("Incognito") || Options.equalsIgnoreCase("Private") && prop.getProperty("Headless").equalsIgnoreCase("No")){
 					WebDriverManager.firefoxdriver().setup();
 					FirefoxOptions options = new FirefoxOptions();
 					Proxy proxy = new Proxy();
@@ -1005,7 +1025,7 @@ public class ProjectBaseOne extends Report{
 					IncognitoOrNot = true;
 					driver = new FirefoxDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
-				}else if(Options.equalsIgnoreCase("Incognito") && prop.getProperty("Headless").equalsIgnoreCase("Yes")){
+				}else if(Options.equalsIgnoreCase("Incognito") || Options.equalsIgnoreCase("Private") && prop.getProperty("Headless").equalsIgnoreCase("Yes")){
 					WebDriverManager.firefoxdriver().setup();
 					FirefoxOptions options = new FirefoxOptions();
 					Proxy proxy = new Proxy();
@@ -1059,7 +1079,7 @@ public class ProjectBaseOne extends Report{
 					driver = new EdgeDriver(edgeOptions);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
 				} else if (prop.getProperty("Headless").equalsIgnoreCase("No")
-						&& Options.equalsIgnoreCase("Incognito")) {
+						&& Options.equalsIgnoreCase("Incognito") || Options.equalsIgnoreCase("Private")) {
 					WebDriverManager.edgedriver().setup();
 					EdgeOptions edgeOptions = new EdgeOptions();
 					edgeOptions.addArguments("-inprivate");
@@ -1072,7 +1092,7 @@ public class ProjectBaseOne extends Report{
 					driver = new EdgeDriver(edgeOptions);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
 				}else if (prop.getProperty("Headless").equalsIgnoreCase("Yes")
-						&& Options.equalsIgnoreCase("Incognito")) {
+						&& Options.equalsIgnoreCase("Incognito") || Options.equalsIgnoreCase("Private")) {
 					WebDriverManager.edgedriver().setup();
 					EdgeOptions edgeOptions = new EdgeOptions();
 					edgeOptions.addArguments("headless","-inprivate");
@@ -1104,12 +1124,12 @@ public class ProjectBaseOne extends Report{
 					logFail("Previously SafariDriver was supporting safari browser on Windows machine but recently Apple has decided to remove its support for windows and then execution on safari has become the job of Mac machine. So for the same, we need mac machine where safari browser should be installed.");
 				}
 			} else if (browserName.equalsIgnoreCase("Opera")) {
-				if (prop.getProperty("Headless").equalsIgnoreCase("Yes")) {
+				if (prop.getProperty("Incognito").equalsIgnoreCase("Yes") || Options.equalsIgnoreCase("Incognito") || Options.equalsIgnoreCase("Private")) {
 					WebDriverManager.operadriver().setup();
 					OperaOptions options = new OperaOptions();
-					options.addArguments("--headless");
+					options.addArguments("private");
 					driver = new OperaDriver(options);
-					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
+					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
 				} else {
 					WebDriverManager.operadriver().setup();
 					driver = new OperaDriver();
@@ -1428,7 +1448,7 @@ public class ProjectBaseOne extends Report{
 		return path;
 	}
 	
-	public String takeScreenshotOfElement(WebElement Element) {
+	public String takeScreenshotOfElement(By Locater) {
 		String path = null;
 		if(osNameisWindows == true) {
 		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
@@ -1442,6 +1462,7 @@ public class ProjectBaseOne extends Report{
 		    e.printStackTrace();
 		}
 		try {
+			WebElement Element = driver.findElement(Locater);
 			File f = Element.getScreenshotAs(OutputType.FILE);
 			path = System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\PartialScreenshots\\"+currentTimeStamp()+".png";
 	        FileUtils.copyFile(f, new File(path));
@@ -1461,6 +1482,7 @@ public class ProjectBaseOne extends Report{
 			    e.printStackTrace();
 			}
 			try {
+				WebElement Element = driver.findElement(Locater);
 				File f = Element.getScreenshotAs(OutputType.FILE);
 				path = System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/PartialScreenshots/"+currentTimeStamp()+".png";
 		        FileUtils.copyFile(f, new File(path));
@@ -1482,7 +1504,7 @@ public class ProjectBaseOne extends Report{
 		if (prop.getProperty("ReportName").isEmpty()) {
 			isThereWarning = true;
 		}
-		if (prop.getProperty("ReportNameDocumentTitle").isBlank()) {
+		if (prop.getProperty("ReportNameDocumentTitle").isEmpty()) {
 			isThereWarning = true;
 		}
 		if (prop.getProperty("browserName").isEmpty()) {
@@ -1517,7 +1539,7 @@ public class ProjectBaseOne extends Report{
 			System.out.println("Please Enter Report Name in ProjectSettings.properties File.");
 			logWarning("Please Enter Report Name in ProjectSettings.properties File.");
 		}
-		if (prop.getProperty("ReportNameDocumentTitle").isBlank()) {
+		if (prop.getProperty("ReportNameDocumentTitle").isEmpty()) {
 			System.out.println("Please Enter Report Name Document Title");
 			logWarning("Enter Report Name Document Title in ProjectSettings.properties File.");
 		}
@@ -1584,7 +1606,8 @@ public class ProjectBaseOne extends Report{
 			if (!prop.getProperty("ProxyAddress").isEmpty() && prop.getProperty("Proxy").equalsIgnoreCase("yes")) {
 				logInfo("Proxy Address : " + prop.getProperty("ProxyAddress"));
 			}
-			if(prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes") && prop.getProperty("browserName").equalsIgnoreCase("chrome")) {
+			if(prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes") && prop.getProperty("browserName").equalsIgnoreCase("chrome")
+					&& isMobileViewExecuted == true) {
 				logInfo("Mobile Emulation Using : "+prop.getProperty("MobileModel"));
 			}
 			logInfo("Page Load Time is : " + prop.getProperty("PageLoadTime"));

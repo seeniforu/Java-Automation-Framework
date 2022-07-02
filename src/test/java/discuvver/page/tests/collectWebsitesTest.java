@@ -18,8 +18,8 @@ public class collectWebsitesTest extends SampleTests {
 	@Test
 	public void collectWebsites() {
 		try {
-			testNameWithBrowserName("Launching Discuvver, Collecting New Websites", browser);
-			handleBrowser(browser);
+			testNameWithBrowserName("Launching Discuvver, Collecting New Websites", useBrowserSpecifiedInProperties);
+			handleBrowser(useBrowserSpecifiedInProperties);
 			openURL("https://www.discuvver.com/");
 			for (int i = 0; i < Number_Of_Websites_User_Want; i++) {
 				clickUsingXpath(RandomButton);

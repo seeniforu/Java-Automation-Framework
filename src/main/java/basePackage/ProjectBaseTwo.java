@@ -2411,9 +2411,9 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				}
 				js.executeScript("arguments[0].style.border='0px solid blue'", element);
 			}
-			if(prop.getProperty("CaptureAllElementScreenshot").equalsIgnoreCase("Yes")) {
-				takeScreenshotOfElement(element);
-			}
+//			if(prop.getProperty("CaptureAllElementScreenshot").equalsIgnoreCase("Yes")) {
+//				takeScreenshotOfElement(element);
+//			}
 		} catch (Exception m) {
 			logError(m.getMessage());
 			m.printStackTrace();
@@ -3809,7 +3809,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 		driver.switchTo().defaultContent();
 	}
 	
-	public String browser;
+	public String useBrowserSpecifiedInProperties;
 	public List<String> readFile = new ArrayList<String>();
 	
 	public String filePath() {
@@ -3825,7 +3825,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 	@BeforeMethod
 	public void beforeMethod() throws IOException {
 		try {
-			browser = prop.getProperty("browserName");
+			useBrowserSpecifiedInProperties = prop.getProperty("browserName");
 			warningsAndProperties();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -3864,7 +3864,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			}
 			if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes") && isMobileViewExecuted == true) {
 				if (prop.getProperty("browserName").equalsIgnoreCase("chrome")) {
-					logPass(browser.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel")
+					logPass(useBrowserSpecifiedInProperties.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel")
 							+ " is Closed");
 				}
 			} else {
