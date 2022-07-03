@@ -291,7 +291,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 * Purpose : To send inputs as per User need to verify maximum and minimum characters for all input field in a webpage Launched.
 		 */
 		try {
-			testNameWithBrowserName("Input field Check ", useBrowserSpecifiedInProperties);
+			testNameWithBrowserName("Input field Check", useBrowserSpecifiedInProperties);
 			handleBrowser(useBrowserSpecifiedInProperties);
 			openURL();
 			basicForEachPageElements();
@@ -331,7 +331,7 @@ public class SampleTests extends ProjectBaseTwo {
 		 * Purpose : To Sort Elements accroding to argument passed by user.
 		 */
 		try {
-			testNameWithBrowserName("Sort Elements Check ", "Edge");
+			testNameWithBrowserName("Sort Elements Check", "Edge");
 			handleBrowser("Edge");
 			openURL();
 			basicForEachPageElements();
@@ -516,7 +516,7 @@ public class SampleTests extends ProjectBaseTwo {
 		// Create Methods like this for click, send, get, verify - for classname, xpath etc.,
 	}	
 	
-	@Test
+	//@Test
 	public void findelement() {
 		            //Working, 1st catch and 2nd catch are slow
 		WebElement element = null;
