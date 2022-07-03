@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -341,6 +342,8 @@ public class ProjectBaseOne extends Report{
 					options.addArguments("--headless", "--incognito");
 					HeadlessOrNot = true;
 					IncognitoOrNot = true;
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode" + " + Incognito Mode");
 					}catch(Exception e) {
@@ -361,6 +364,8 @@ public class ProjectBaseOne extends Report{
 					options.addArguments("--headless");
 					HeadlessOrNot = true;
 					IncognitoOrNot = false;
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Headless Mode");
 					}catch(Exception e) {
@@ -381,6 +386,8 @@ public class ProjectBaseOne extends Report{
 					options.addArguments("--incognito");
 					HeadlessOrNot = false;
 					IncognitoOrNot = true;
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser Executed in Incognito Mode");
 					}catch(Exception e) {
@@ -401,6 +408,8 @@ public class ProjectBaseOne extends Report{
 					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
 					}catch(Exception e) {
@@ -419,7 +428,8 @@ public class ProjectBaseOne extends Report{
 					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
-
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					driver = new ChromeDriver(options);
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
 					}catch(Exception e) {
@@ -644,6 +654,8 @@ public class ProjectBaseOne extends Report{
 					options.addArguments("--headless", "--incognito");
 					HeadlessOrNot = true;
 					IncognitoOrNot = true;
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {
@@ -673,6 +685,8 @@ public class ProjectBaseOne extends Report{
 					options.addArguments("--headless");
 					HeadlessOrNot = true;
 					IncognitoOrNot = false;
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {
@@ -702,6 +716,8 @@ public class ProjectBaseOne extends Report{
 					options.addArguments("--incognito");
 					HeadlessOrNot = false;
 					IncognitoOrNot = true;
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {
@@ -730,6 +746,8 @@ public class ProjectBaseOne extends Report{
 					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {
@@ -757,6 +775,8 @@ public class ProjectBaseOne extends Report{
 					options.setExperimentalOption("excludeSwitches", new String[] { "enable-automation" });
 					HeadlessOrNot = false;
 					IncognitoOrNot = false;
+					System.setProperty("webdriver.chrome.silentOutput", "true");
+					java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.SEVERE);
 					if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes")) {
 						Map<String, String> mobileEmulation = new HashMap<String, String>();
 						try {

@@ -3862,14 +3862,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 				//MyScreenRecorder.stopRecording();
 				ifVideoRecordingDone = true;
 			}
-			if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes") && isMobileViewExecuted == true) {
-				if (prop.getProperty("browserName").equalsIgnoreCase("chrome")) {
-					logPass(useBrowserSpecifiedInProperties.toUpperCase() + " Mobile Emulation Using " + prop.getProperty("MobileModel")
-							+ " is Closed");
-				}
-			} else {
-				logPass("Browser is Closed");
-			}
+			logPass("Browser is Closed");
 		} catch (Exception e) {
 			logFail(e.getMessage());
 			isBrowserClosed = false;
