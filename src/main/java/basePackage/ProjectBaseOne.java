@@ -23,7 +23,6 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.opera.OperaOptions;
@@ -33,8 +32,6 @@ import org.openqa.selenium.safari.SafariDriver;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 
 public class ProjectBaseOne extends Report{
 
@@ -55,7 +52,6 @@ public class ProjectBaseOne extends Report{
 	
 	boolean isTestCreated = false;
 	
-	@Description("Test Description: {0}")
 	public void testName(String TestName) {
 		try {
 			test = extent.createTest(TestName);
@@ -95,7 +91,6 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
-	@Description("Test Description: {0}")
 	public void testNameWithBrowserName(String TestName, String BrowserName) {
 		try {
 			test = extent.createTest(TestName).assignDevice(BrowserName);
@@ -135,7 +130,6 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
-	@Description("Test Description: {0}")
 	public void testNameWithAssignAuthor(String TestName, String BrowserName, String AuthorName) {
 		try {
 			test = extent.createTest(TestName).assignDevice(BrowserName).assignAuthor(AuthorName);
@@ -175,7 +169,6 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
-	@Description("Test Description: {0}")
 	private void testNamePropertiesandWarning(String name) {
 		try {
 			test = extent.createTest(name);
@@ -185,18 +178,15 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
-	@Step("{0}")
 	public void logPass(String msg) {
 		test.log(Status.PASS, msg);
 	}
 	
-	@Step("[ " + "{0}" + "] - Status Code - " + "{1}")
 	protected void logHref(String URL, int code) {
 		String msg1 = "[ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] - Response Code : " + code;
 		test.log(Status.INFO, msg1);
 	}
 	
-	@Step("[ " + "{0}" + "] - Status Code - " + "{1}")
 	protected void logHref(String URL) {
 		String msg1 = "Visit here [ " + "<a href='" + URL + "' target='_blank'>" + URL + " </a>" + "] to know what each Response code Means";
 		test.log(Status.INFO, msg1);
@@ -207,13 +197,11 @@ public class ProjectBaseOne extends Report{
 		test.log(Status.PASS, msg1);
 	}
 	
-	@Step("{0}")
 	public void logSkip(String msg) {
 		test.log(Status.SKIP, msg);
 		ifThereisError = true;
 	}
 	
-	@Step("{0}")
 	public void logFail(String msg) {
 		try {
 			test.log(Status.FAIL, msg);
@@ -226,7 +214,6 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
-	@Step("{0}")
 	public void logFailException(String msg) {
 		try {
 			test.log(Status.FAIL, new Exception(msg));
@@ -239,12 +226,10 @@ public class ProjectBaseOne extends Report{
 		}
 	}
 	
-	@Step("{0}")
 	public void logWarning(String msg) {
 		test.log(Status.WARNING, msg);
 	}
 	
-	@Step("{0}")
 	public void logError(String msg) { // By Using LogError Method We can capture Screenshot by default.
 		try {
 			test.log(Status.FAIL, new Exception(msg));
@@ -259,7 +244,6 @@ public class ProjectBaseOne extends Report{
 //				.fail(MediaEntityBuilder.createScreenCaptureFromPath(ScreenshotError()).build());
 	}
 	
-	@Step("{0}")
 	public void logInfo(String info) {
 		test.log(Status.INFO, info);
 	}
@@ -600,7 +584,7 @@ public class ProjectBaseOne extends Report{
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
 				}
 			} else if (browserName.equalsIgnoreCase("HTMLUnitDriver")) {
-				driver = new HtmlUnitDriver();
+				//driver = new HtmlUnitDriver();
 				logPass(browser.toUpperCase() + " " + "Browser is Launched");
 			} else if (browserName.equalsIgnoreCase("PhantomJS")) {
 //				  System.setProperty("phantomjs.binary.path", "C:\\Users\\K.Srinivasan\\Downloads\\phantomjs-2.1.1-windows\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");		
@@ -621,7 +605,7 @@ public class ProjectBaseOne extends Report{
 		ifBrowserLaunched = true;
 		if (ifBrowserLaunched == true && prop.getProperty("VideoRecording").equalsIgnoreCase("Yes")) {
 			try {
-				MyScreenRecorder.startRecording("Rec");
+			//	MyScreenRecorder.startRecording("Rec");
 				ifVideoRecordingDone = true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -823,7 +807,7 @@ public class ProjectBaseOne extends Report{
 		isMobileViewExecuted = true;
 		if (ifBrowserLaunched == true && prop.getProperty("VideoRecording").equalsIgnoreCase("Yes")) {
 			try {
-				MyScreenRecorder.startRecording("Rec");
+				//MyScreenRecorder.startRecording("Rec");
 				ifVideoRecordingDone = true;
 			} catch (Exception e) {
 				logFailException(e.getMessage());
@@ -1136,7 +1120,7 @@ public class ProjectBaseOne extends Report{
 					logPass(browser.toUpperCase() + " " + "Browser is Launched");
 				}
 			} else if (browserName.equalsIgnoreCase("HTMLUnitDriver")) {
-				driver = new HtmlUnitDriver();
+				//driver = new HtmlUnitDriver();
 				logPass(browser.toUpperCase() + " " + "Browser is Launched");
 			} else if (browserName.equalsIgnoreCase("PhantomJS")) {
 				System.setProperty("phantomjs.binary.path", prop.getProperty("PhantomJS"));
@@ -1154,7 +1138,7 @@ public class ProjectBaseOne extends Report{
 		ifBrowserLaunched = true;
 		if(ifBrowserLaunched == true && prop.getProperty("VideoRecording").equalsIgnoreCase("Yes")) {
 			try {
-				MyScreenRecorder.startRecording("Rec");
+				//MyScreenRecorder.startRecording("Rec");
 				ifVideoRecordingDone = true;
 			} catch (Exception e) {
 				e.printStackTrace();

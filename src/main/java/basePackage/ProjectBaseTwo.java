@@ -3859,7 +3859,7 @@ public class ProjectBaseTwo extends ProjectBaseOne {
 			driver.quit();
 			isBrowserClosed = true;
 			if(prop.getProperty("VideoRecording").equalsIgnoreCase("Yes") && isBrowserClosed == true) {
-				MyScreenRecorder.stopRecording();
+				//MyScreenRecorder.stopRecording();
 				ifVideoRecordingDone = true;
 			}
 			if (prop.getProperty("MobileViewExecution").equalsIgnoreCase("Yes") && isMobileViewExecuted == true) {

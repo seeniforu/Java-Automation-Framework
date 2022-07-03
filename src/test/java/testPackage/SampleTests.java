@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import basePackage.ProjectBaseTwo;
-import io.qameta.allure.Description;
 
 /*
  * Things to be Done:
@@ -137,7 +136,6 @@ public class SampleTests extends ProjectBaseTwo {
 
 	// ------------------------------------ Below Testcases are Website Independent ------------------------------------------------------------------
 	
-	@Description("Test Description: Ensure URL Working")
 	@Test(priority = 1)
 	private void ensureURLWorkingSampleTestcase() {
 		/*
