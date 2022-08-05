@@ -8,24 +8,6 @@ import basePackage.ProjectBaseTwo;
 import io.qameta.allure.Description;
 
 /*
- * Things to be Done:
- * 
- * need to update methods for opera browser.
- * Add Assertion 
- * all browser proxy needs to be fixed. https://ipleak.net and www.lagado.com/proxy-test
- * add waits for attribute methods etc.., (By passing as parameter)
- * add methods to select from xpath index.
- * properties file EanbleAllNewpageScreenshot - whnever directs to new page capture screenshot option. for logging
- * phantomjs error, fix issue in proxy firefox browser..
- * Input field positive and negative check. // if possible send valid data/ invalid data Eg: more than character limit.
- * inputfield(String locator, String type = positive | negative, Total no.of chracters or numbers can be inserted)
- * try adding page speed insights in headless mode.
- * try adding extension and run tests.
- * add scroll webpage
- * add javascript executor.
- */
-
-/*
  * Websites used to Test this Framework with Default Testcases.
  * 
  * https://www.facebook.com/
@@ -515,9 +497,15 @@ public class SampleTests extends ProjectBaseTwo {
 		clickUsingContainsWithAttribute("name", "btn");
 	}
 	
-	public void take_H_tag_text() {
+	@Test
+	public void dynamicWaits() {
 		// after page landing take all text of H1 to h6 and P tag, Store it in text file or log in extent report.
-
+		testName("Waits check");
+		handleBrowser(useBrowserSpecifiedInProperties);
+		openURL("https://chercher.tech/practice/explicit-wait-sample-selenium-webdriver");
+		clickElement(By.id("display-other-button"));
+		waitForElement(getElementUsingId("hidden"));
+		
 	}
 	
 	public void pageSpeedInsightsTest() {
