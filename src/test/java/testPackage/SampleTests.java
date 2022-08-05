@@ -504,8 +504,9 @@ public class SampleTests extends ProjectBaseTwo {
 		handleBrowser(useBrowserSpecifiedInProperties);
 		openURL("https://chercher.tech/practice/explicit-wait-sample-selenium-webdriver");
 		clickElement(By.id("display-other-button"));
+		screenshotWithCustomName("element");
 		waitForElement(getElementUsingId("hidden"));
-		
+		quitBrowser();
 	}
 	
 	public void pageSpeedInsightsTest() {
