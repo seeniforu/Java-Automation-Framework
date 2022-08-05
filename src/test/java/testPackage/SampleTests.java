@@ -515,7 +515,13 @@ public class SampleTests extends ProjectBaseTwo {
 	
 	public void take_H_tag_text() {
 		// after page landing take all text of H1 to h6 and P tag, Store it in text file or log in extent report.
-
+		testName("Waits check");
+		handleBrowser(useBrowserSpecifiedInProperties);
+		openURL("https://chercher.tech/practice/explicit-wait-sample-selenium-webdriver");
+		clickElement(By.id("display-other-button"));
+		screenshotWithCustomName("element");
+		//waitForElement(getElementUsingId("hidden"));
+		quitBrowser();
 	}
 	
 	public void pageSpeedInsightsTest() {

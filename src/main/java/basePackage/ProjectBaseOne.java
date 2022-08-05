@@ -66,22 +66,14 @@ public class ProjectBaseOne extends Report{
 			if (osNameisWindows == true) {
 				File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
 				try {
-					if (g.mkdir()) {
-						System.out.println("Directory is Created for Storing Screenshots Seperately.");
-					} else {
-						System.out.println("Directory is not created or Already Available");
-					}
+					g.mkdir();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}else {
 				File g = new File(System.getProperty("user.dir") + "/Screenshots/");
 				try {
-					if (g.mkdir()) {
-						System.out.println("Directory is Created for Storing Screenshots Seperately.");
-					} else {
-						System.out.println("Directory is not created or Already Available");
-					}
+					g.mkdir();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -105,22 +97,14 @@ public class ProjectBaseOne extends Report{
 			if (osNameisWindows == true) {
 				File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
 				try {
-					if (g.mkdir()) {
-						System.out.println("Directory is Created for Storing Screenshots Seperately.");
-					} else {
-						System.out.println("Directory is not created or Already Available");
-					}
+					g.mkdir();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}else {
 				File g = new File(System.getProperty("user.dir") + "/Screenshots/");
 				try {
-					if (g.mkdir()) {
-						System.out.println("Directory is Created for Storing Screenshots Seperately.");
-					} else {
-						System.out.println("Directory is not created or Already Available");
-					}
+					g.mkdir();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -144,22 +128,14 @@ public class ProjectBaseOne extends Report{
 			if (osNameisWindows == true) {
 				File g = new File(System.getProperty("user.dir") + "\\Screenshots\\");
 				try {
-					if (g.mkdir()) {
-						System.out.println("Directory is Created for Storing Screenshots Seperately.");
-					} else {
-						System.out.println("Directory is not created or Already Available");
-					}
+					g.mkdir();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}else {
 				File g = new File(System.getProperty("user.dir") + "/Screenshots/");
 				try {
-					if (g.mkdir()) {
-						System.out.println("Directory is Created for Storing Screenshots Seperately.");
-					} else {
-						System.out.println("Directory is not created or Already Available");
-					}
+					g.mkdir();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -1182,6 +1158,13 @@ public class ProjectBaseOne extends Report{
 		TakesScreenshot takeScreenShot = (TakesScreenshot) driver;
 		File source = takeScreenShot.getScreenshotAs(OutputType.FILE);
 		if (osNameisWindows == true) {
+			File g = new File(
+					System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\");
+			try {
+				g.mkdir();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			File dest = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName
 					+ "\\" + screenShotName + ".png");
 			try {
@@ -1193,8 +1176,15 @@ public class ProjectBaseOne extends Report{
 				e.printStackTrace();
 			}
 		}else {
+			File g = new File(
+					System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/");
+			try {
+				g.mkdir();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			File dest = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName
-					+ "\\" + screenShotName + ".png");
+					+ "/" + screenShotName + ".png");
 			try {
 				FileHandler.copy(source, dest);
 				path = System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/"
@@ -1215,23 +1205,14 @@ public class ProjectBaseOne extends Report{
 					File g = new File(
 							System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName + "\\");
 					try {
-						if (g.mkdir()) {
-							System.out.println("Directory is Created for Storing " + EditedTestScreenshotfolderName
-									+ " Seperately.");
-						} else {
-							System.out.println("Directory is not created or Already Available");
-						}
+						g.mkdir();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					File f = new File(System.getProperty("user.dir") + "\\Screenshots\\"
 							+ EditedTestScreenshotfolderName + "\\VerificationScreenshots\\");
 					try {
-						if (f.mkdir()) {
-							System.out.println("Directory is Created for Storing VerificationScreenshots Seperately.");
-						} else {
-							System.out.println("Directory is not created or Already Available");
-						}
+						f.mkdir();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1249,23 +1230,14 @@ public class ProjectBaseOne extends Report{
 					File g = new File(
 							System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName + "/");
 					try {
-						if (g.mkdir()) {
-							System.out.println("Directory is Created for Storing " + EditedTestScreenshotfolderName
-									+ " Seperately.");
-						} else {
-							System.out.println("Directory is not created or Already Available");
-						}
+						g.mkdir();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					File f = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName
 							+ "/VerificationScreenshots/");
 					try {
-						if (f.mkdir()) {
-							System.out.println("Directory is Created for Storing VerificationScreenshots Seperately.");
-						} else {
-							System.out.println("Directory is not created or Already Available");
-						}
+						f.mkdir();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -1294,21 +1266,13 @@ public class ProjectBaseOne extends Report{
 			if(osNameisWindows == true) {
 			File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\");
 			try{
-			    if(g.mkdir()) { 
-			        System.out.println("Directory is Created for Storing "+ EditedTestScreenshotfolderName +" Seperately.");
-			    } else {
-			        System.out.println("Directory is not created or Already Available");
-			    }
+				g.mkdir();
 			} catch(Exception e){
 			    e.printStackTrace();
 			}
 			File f = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName +"\\ErrorScreenshots\\");
 			try{
-			    if(f.mkdir()) { 
-			        System.out.println("Directory is Created for Storing ErrorScreenshots Seperately.");
-			    } else {
-			        System.out.println("Directory is not created or Already Available");
-			    }
+				f.mkdir();
 			} catch(Exception e){
 			    e.printStackTrace();
 			} 
@@ -1323,21 +1287,13 @@ public class ProjectBaseOne extends Report{
 			}else {
 				File g = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName+ "/");
 				try{
-				    if(g.mkdir()) { 
-				        System.out.println("Directory is Created for Storing "+ EditedTestScreenshotfolderName +" Seperately.");
-				    } else {
-				        System.out.println("Directory is not created or Already Available");
-				    }
+					g.mkdir();
 				} catch(Exception e){
 				    e.printStackTrace();
 				}
 				File f = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName +"/ErrorScreenshots/");
 				try{
-				    if(f.mkdir()) { 
-				        System.out.println("Directory is Created for Storing ErrorScreenshots Seperately.");
-				    } else {
-				        System.out.println("Directory is not created or Already Available");
-				    }
+					f.mkdir();
 				} catch(Exception e){
 				    e.printStackTrace();
 				} 
@@ -1367,11 +1323,7 @@ public class ProjectBaseOne extends Report{
 		if(osNameisWindows == true) {
 		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
 		try{
-		    if(g.mkdir()) { 
-		        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
-		    } else {
-		        System.out.println("Directory is not created or Already Available");
-		    }
+			g.mkdir();
 		} catch(Exception e){
 		    e.printStackTrace();
 		}
@@ -1387,11 +1339,7 @@ public class ProjectBaseOne extends Report{
 		}else {
 			File g = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName+ "/PartialScreenshots/");
 			try{
-			    if(g.mkdir()) { 
-			        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
-			    } else {
-			        System.out.println("Directory is not created or Already Available");
-			    }
+				g.mkdir();
 			} catch(Exception e){
 			    e.printStackTrace();
 			}
@@ -1413,11 +1361,7 @@ public class ProjectBaseOne extends Report{
 		if(osNameisWindows == true) {
 		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
 		try{
-		    if(g.mkdir()) { 
-		        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
-		    } else {
-		        System.out.println("Directory is not created or Already Available");
-		    }
+			g.mkdir();
 		} catch(Exception e){
 		    e.printStackTrace();
 		}
@@ -1432,11 +1376,7 @@ public class ProjectBaseOne extends Report{
 		}else {
 			File g = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName+ "/PartialScreenshots/");
 			try{
-			    if(g.mkdir()) { 
-			        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
-			    } else {
-			        System.out.println("Directory is not created or Already Available");
-			    }
+				g.mkdir();
 			} catch(Exception e){
 			    e.printStackTrace();
 			}
@@ -1457,11 +1397,7 @@ public class ProjectBaseOne extends Report{
 		if(osNameisWindows == true) {
 		File g = new File(System.getProperty("user.dir") + "\\Screenshots\\" + EditedTestScreenshotfolderName+ "\\PartialScreenshots\\");
 		try{
-		    if(g.mkdir()) { 
-		        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
-		    } else {
-		        System.out.println("Directory is not created or Already Available");
-		    }
+			g.mkdir();
 		} catch(Exception e){
 		    e.printStackTrace();
 		}
@@ -1477,11 +1413,7 @@ public class ProjectBaseOne extends Report{
 		}else {
 			File g = new File(System.getProperty("user.dir") + "/Screenshots/" + EditedTestScreenshotfolderName+ "/PartialScreenshots/");
 			try{
-			    if(g.mkdir()) { 
-			        System.out.println("Directory is Created for Storing PartialScreenshots Seperately.");
-			    } else {
-			        System.out.println("Directory is not created or Already Available");
-			    }
+				g.mkdir();
 			} catch(Exception e){
 			    e.printStackTrace();
 			}

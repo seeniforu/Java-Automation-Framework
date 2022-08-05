@@ -13,11 +13,7 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class Report {
 	
-//	public ExtentReports report;
-//	public ExtentTest logger;
-//	public static ExtentReports extentReport;
-//	public static ExtentHtmlReporter htmlReport;
-//	
+
 	public static Properties prop;
 	String EditedTestScreenshotfolderName;
 	// Loading Properties Files
@@ -27,42 +23,6 @@ public class Report {
 			prop = new Properties();
 			prop.load(reader);
 		}
-//	
-//	public static ExtentReports getExtentReport() {
-//		try {
-//			if (htmlReport == null && extentReport == null) {
-//				if (prop.getProperty("ReportName").isEmpty()) {
-//					prop.setProperty("ReportName", "Default Report");
-//				}
-//				htmlReport = new ExtentHtmlReporter(
-//						System.getProperty("user.dir") + "\\" + prop.getProperty("ReportName") + ".html");
-//				extentReport = new ExtentReports();
-//				extentReport.attachReporter(htmlReport);
-//				htmlReport.config().setDocumentTitle(prop.getProperty("ReportNameDocumentTitle"));
-//				htmlReport.config().setReportName(prop.getProperty("ReportName"));
-//				htmlReport.config().setTestViewChartLocation(ChartLocation.TOP);
-//				htmlReport.config().setTimeStampFormat("MMM dd - yyyy HH:mm:ss");
-//
-//				extentReport.setSystemInfo("Operating System and Version: ", System.getProperty("os.name"));
-//				if (prop.getProperty("browserName").isEmpty()) {
-//				} else {
-//					if (prop.getProperty("Diff_Browser").equalsIgnoreCase("Yes")) {
-//						extentReport.setSystemInfo("Browser : ", "MultiBrowser");
-//					} else if (prop.getProperty("Diff_Browser").equalsIgnoreCase("No")) {
-//						extentReport.setSystemInfo("Browser : ", prop.getProperty("browserName"));
-//					} else {
-//						extentReport.setSystemInfo("Browser : ", prop.getProperty("browserName"));
-//					}
-//				}
-//				extentReport.setSystemInfo("Java Version : ", System.getProperty("java.version"));
-//				extentReport.setSystemInfo("Java Runtime Version: ", System.getProperty("java.runtime.version"));
-//				extentReport.setSystemInfo("Java Class Version: ", System.getProperty("java.class.version"));
-//			}
-//		} catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
-//		return extentReport;
-//	}
 	
 	public ExtentSparkReporter spark;
 	public ExtentReports extent;
@@ -78,11 +38,7 @@ public class Report {
 			if (System.getProperty("os.name").contains("Windows")) {
 				File g = new File(System.getProperty("user.dir") + "\\Results\\");
 				try{
-				    if(g.mkdir()) { 
-				        System.out.println("Directory is Created for Storing Results Seperately.");
-				    } else {
-				        System.out.println("Directory is not created or Already Available");
-				    }
+					g.mkdir();
 				} catch(Exception e){
 				    e.printStackTrace();
 				}
@@ -99,11 +55,7 @@ public class Report {
 			}else {
 				File g = new File(System.getProperty("user.dir") + "/Results/");
 				try{
-				    if(g.mkdir()) { 
-				        System.out.println("Directory is Created for Storing Results Seperately.");
-				    } else {
-				        System.out.println("Directory is not created or Already Available");
-				    }
+					g.mkdir();
 				} catch(Exception e){
 				    e.printStackTrace();
 				}
