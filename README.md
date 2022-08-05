@@ -1,6 +1,6 @@
 # Automation-Framework
 
-[![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/Naereen/Strapdown.js/releases) [![Generic badge](https://img.shields.io/badge/Version-1.5-<COLOR>.svg)](https://shields.io/)
+[![Latest release](https://badgen.net/github/release/Naereen/Strapdown.js)](https://github.com/Naereen/Strapdown.js/releases) [![Generic badge](https://img.shields.io/badge/Version-1.6-<COLOR>.svg)](https://shields.io/)
 
 Creating My own Framework for a Quick Start in Automation with any Working Website. 
 
@@ -128,16 +128,6 @@ This Project is Useful for :
 ## Drawbacks 
 
 - If any Errors Notify me Using Issues. Thank you.
-
-## Issues Need to be Resolved
-
-* Not Tested in any Test environments.
-* Case - 3 takes so much time to Execute if More Anchor tags are available. Threads need to included.
-* Switching Frames and Counting elements Takes so much time.
-* Safari Is not Tested. Don't know will work or not.
-* opera has some issues in headless mode and it is also not tested both UI, Headless, Proxy Execution. It needs different selenium version to updated in POM.
-* phantomJs Not working.
-* Firefox proxy needs to be fixed.
 
 ## Feedback
 
